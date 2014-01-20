@@ -1,15 +1,16 @@
 class HelpVerb < Verb
 
-  def process
-    no_thanks and return if unable_to_process
-    if words == '3 miles'
-      send('3 miles entered')
-    else
-      no_thanks
-    end
+  private
+  def appropriate?
+    words == 'help'
   end
 
-  private
+  def process
+    return no_thanks unless appropriate?
+    respond 'lotsa help'
+    self.class
+  end
+
   def successor
     ListVerb
   end

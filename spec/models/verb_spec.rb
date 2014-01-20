@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Verb  do
   hash = { 
           '3 miles' => ActionVerb,
-#          'help' => HelpVerb,
+          'help' => HelpVerb,
 #          'list' => ListVerb,
 #          'today' => TodayVerb,
 #          'yesterday' => YesterdayVerb,
