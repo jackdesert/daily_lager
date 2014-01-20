@@ -17,7 +17,7 @@ describe Verb  do
 
   hash.each_pair do |words, returned_class|
     it "returns #{returned_class} when receives '#{words}'" do
-      Verb.receive(words).should == returned_class
+      Verb.new(words).receive.should == returned_class
     end
   end
 end
