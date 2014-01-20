@@ -1,6 +1,12 @@
 class UpdateDefaultVerb < Verb
 
-  def receive(words)
+  def process
     '3 miles entered'
+    successor
+  end
+
+  private
+  def successor
+    NonsenseVerb
   end
 end

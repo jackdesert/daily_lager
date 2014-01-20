@@ -1,6 +1,13 @@
 class CreateVerb < Verb
 
-  def receive(words)
+  def process
     '3 miles entered'
+    successor
   end
+
+  private
+  def successor
+    CreateVerbWithDefault
+  end
+
 end

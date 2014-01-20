@@ -1,6 +1,12 @@
 class YesterdayVerb < Verb
 
-  def receive(words)
+  def process
     '3 miles entered'
+    successor
+  end
+
+  private
+  def successor
+    CreateVerb
   end
 end

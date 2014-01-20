@@ -3,11 +3,12 @@ class Verb
   attr_accessor :words
 
   def initialize(words)
-    words = words
+    @words = words
   end
 
-  def receive(words)
-    no_thanks(words)
+  def receive
+    return no_thanks unless appropriate?
+    process
   end
 
   private
@@ -15,8 +16,14 @@ class Verb
     ActionVerb
   end
 
+  def appropriate?
+    false
+  end
 
-  def no_thanks(words)
+  def respond(message)
+  end
+
+  def no_thanks
     if successor
       successor.new(words).receive
     else

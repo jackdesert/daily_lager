@@ -1,6 +1,17 @@
 class ActionVerb < Verb
 
-  def receive(words)
-    '3 miles entered'
+  def process 
+    respond '3 miles entered'
+    self.class
+  end
+
+  private
+  def appropriate?
+    array = words.split ' '
+    array.count == 2 && (array.first.match /\d/)
+  end
+
+  def successor
+    HelpVerb
   end
 end

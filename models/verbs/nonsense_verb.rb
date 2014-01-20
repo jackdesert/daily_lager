@@ -1,6 +1,13 @@
 class NonsenseVerb < Verb
-  def receive(words)
+
+  def process
     ''
+    successor
+  end
+
+  private
+  def successor
+    false
   end
 end
 
