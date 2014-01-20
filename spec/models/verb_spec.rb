@@ -1,6 +1,32 @@
 require 'spec_helper'
 
 describe Verb  do
+  reusable_hash = {
+      "  3       miles    \t" => ['3', 'miles'],
+      "blather" => ['blather'], 
+      "\t twenty minutes\tbefore  dawn\t  " => ['twenty', 'minutes', 'before', 'dawn'],
+      ['1', '2', '3'] => ['1', '2', '3'],
+    }
+
+
+  describe '#string2array', focus: true do
+    let(:verb) { described_class.new('anything') }
+    reusable_hash.each_pair do |string, expected_array|
+      it "turns #{string} into #{expected_array}" do
+        verb.send(:parse_to_array, string).should == expected_array
+      end
+    end
+  end
+
+  describe '#initialize' do
+    reusable_hash.each_pair do |argument, expected_words|
+      it "turns #{argument} into #{expected_words}" do
+        verb = Verb.new(argument)
+        verb.send(:words).should == expected_words
+      end
+    end
+  end
+
   hash = { 
           '3 miles' => ActionVerb,
           'help' => HelpVerb,

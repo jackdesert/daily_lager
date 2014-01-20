@@ -7,7 +7,8 @@ class ActionVerb < Verb
 
   private
   def appropriate?
-    array = words.split ' '
+    array = words.split /\t+/
+      binding.pry
     array.count == 2 && (array.first.match /\d/)
   end
 

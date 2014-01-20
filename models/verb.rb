@@ -2,8 +2,8 @@ class Verb
 
   attr_accessor :words
 
-  def initialize(words)
-    @words = words
+  def initialize(arg)
+    @words = parse_to_array(arg)
   end
 
   def receive
@@ -29,5 +29,10 @@ class Verb
     else
       raise 'no successor found'
     end
+  end
+
+  def parse_to_array(input)
+    return input if input.kind_of? Array
+    input.strip.gsub(/\t+/, ' ').split
   end
 end
