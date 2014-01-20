@@ -1,3 +1,4 @@
 class NonsenseVerb < Verb
+end
 
-  
+ 

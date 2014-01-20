@@ -4,9 +4,21 @@ require 'sinatra'
 require 'pry'
 require 'rspec'
 require 'rr'
-require_relative '../models/search'
-require_relative '../models/search_result'
+require_relative '../models/verb'
+require_relative '../models/verbs/action_verb'
+require_relative '../models/verbs/create_verb'
+require_relative '../models/verbs/create_verb_with_default'
+require_relative '../models/verbs/delete_verb'
+require_relative '../models/verbs/help_verb'
+require_relative '../models/verbs/list_verb'
+require_relative '../models/verbs/nonsense_verb'
+require_relative '../models/verbs/rename_verb'
+require_relative '../models/verbs/today_verb'
+require_relative '../models/verbs/update_default_verb'
+require_relative '../models/verbs/yesterday_verb'
 
+
+require 'mongoid'
 Mongoid.load!("config/mongoid.yml")
 
 RSpec.configure do |config|
