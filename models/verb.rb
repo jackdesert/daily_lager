@@ -3,7 +3,7 @@ class Verb
   attr_accessor :words
 
   def initialize(arg)
-    @words = parse_to_array(arg)
+    @words = convert_to_array(arg)
   end
 
   def receive
@@ -31,7 +31,7 @@ class Verb
     end
   end
 
-  def parse_to_array(input)
+  def convert_to_array(input)
     return input if input.kind_of? Array
     input.strip.gsub(/\t+/, ' ').split
   end

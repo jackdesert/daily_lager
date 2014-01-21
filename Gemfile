@@ -7,5 +7,5 @@ gem 'tux'
 gem 'rerun'
 gem 'rake'
 gem 'rspec'
-gem 'rr'
+gem 'rr', require: false
 gem 'guard-rspec'

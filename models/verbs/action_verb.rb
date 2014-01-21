@@ -7,9 +7,9 @@ class ActionVerb < Verb
 
   private
   def appropriate?
-    array = words.split /\t+/
-      binding.pry
-    array.count == 2 && (array.first.match /\d/)
+    return false unless words.first.match /\A\d+$/
+    return false unless words.length == 2
+    true
   end
 
   def successor

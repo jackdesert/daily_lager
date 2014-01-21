@@ -9,11 +9,11 @@ describe Verb  do
     }
 
 
-  describe '#string2array', focus: true do
+  describe '#convert_to_array' do
     let(:verb) { described_class.new('anything') }
     reusable_hash.each_pair do |string, expected_array|
       it "turns #{string} into #{expected_array}" do
-        verb.send(:parse_to_array, string).should == expected_array
+        verb.send(:convert_to_array, string).should == expected_array
       end
     end
   end
