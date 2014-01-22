@@ -10,7 +10,7 @@ describe CreateVerbWithDefault do
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['create', 'filter', 'default', '10'],
       ['create', 'mp3', 'default', '335'],

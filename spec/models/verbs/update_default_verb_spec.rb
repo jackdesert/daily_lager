@@ -6,11 +6,11 @@ describe UpdateDefaultVerb do
     let(:update_default_verb) { ActionVerb.new(words) }
     it 'returns a message' do
       mock(update_default_verb).respond('3 miles entered')
-      update_default.process
+      update_default_verb.process
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['update', 'mp3', 'default', '40'],
     ]

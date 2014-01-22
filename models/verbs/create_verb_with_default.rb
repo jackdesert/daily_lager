@@ -1,8 +1,8 @@
 class CreateVerbWithDefault < Verb
 
   def process
-    '3 miles entered'
-    successor
+    respond '3 miles entered'
+    self.class
   end
 
   private

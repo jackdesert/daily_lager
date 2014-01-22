@@ -10,7 +10,7 @@ describe ActionVerb do
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['2', 'miles'],
       ['273', 'smurfs']

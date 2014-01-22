@@ -10,7 +10,7 @@ describe DeleteVerb do
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['delete', 'mp3'],
     ]

@@ -6,11 +6,11 @@ describe RenameVerb do
     let(:rename_verb) { ActionVerb.new(words) }
     it 'returns a message' do
       mock(rename_verb).respond('3 miles entered')
-      renamehelp_verb.process
+      rename_verb.process
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['rename', 'mp3', 'm4a'],
     ]

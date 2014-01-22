@@ -6,11 +6,11 @@ describe CreateVerb do
     let(:create_verb) { ActionVerb.new(words) }
     it 'returns a message' do
       mock(create_verb).respond('3 miles entered')
-      create.process
+      create_verb.process
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['create', 'filter'],
       ['create', 'mp3'],

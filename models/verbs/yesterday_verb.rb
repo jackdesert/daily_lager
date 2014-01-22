@@ -2,7 +2,7 @@ class YesterdayVerb < Verb
 
   def process
     '3 miles entered'
-    successor
+    self.class
   end
 
   private

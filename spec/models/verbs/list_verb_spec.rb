@@ -6,11 +6,11 @@ describe ListVerb do
     let(:list_verb) { ActionVerb.new(words) }
     it 'returns a message' do
       mock(list_verb).respond('3 miles entered')
-      listhelp_verb.process
+      list_verb.process
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['list'],
     ]

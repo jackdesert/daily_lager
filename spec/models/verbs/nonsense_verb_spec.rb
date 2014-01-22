@@ -6,11 +6,11 @@ describe NonsenseVerb do
     let(:nonsense_verb) { ActionVerb.new(words) }
     it 'returns a message' do
       mock(nonsense_verb).respond('3 miles entered')
-      nonsense.process
+      nonsense_verb.process
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['nonsense'],
       [],

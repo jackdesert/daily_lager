@@ -2,7 +2,7 @@ class NonsenseVerb < Verb
 
   def process
     ''
-    successor
+    self.class
   end
 
   private

@@ -13,6 +13,10 @@ class Verb
     process
   end
 
+  def process
+    raise 'Verb#process called, when expected to be called on a subclass'
+  end
+
   private
   def successor
     ActionVerb
@@ -23,6 +27,7 @@ class Verb
   end
 
   def respond(message)
+    puts message
   end
 
   def no_thanks

@@ -6,11 +6,11 @@ describe TodayVerb do
     let(:today_verb) { ActionVerb.new(words) }
     it 'returns a message' do
       mock(today_verb).respond('3 miles entered')
-      today.process
+      today_verb.process
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['today'],
     ]

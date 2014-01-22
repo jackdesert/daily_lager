@@ -10,7 +10,7 @@ describe HelpVerb do
     end
   end
 
-  describe '#appropriate?', focus: true do
+  describe '#appropriate?' do
     yesses = [
       ['help'],
     ]
