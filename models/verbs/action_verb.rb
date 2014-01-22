@@ -7,7 +7,7 @@ class ActionVerb < Verb
 
   private
   def appropriate?
-    return false unless words.first.match /\A\d+$/
+    return false unless words.first.match ALL_NUMBERS
     return false unless words.length == 2
     true
   end

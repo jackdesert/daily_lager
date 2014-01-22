@@ -9,4 +9,8 @@ class YesterdayVerb < Verb
   def successor
     CreateVerb
   end
+
+  def appropriate?
+    words == ['yesterday']
+  end
 end

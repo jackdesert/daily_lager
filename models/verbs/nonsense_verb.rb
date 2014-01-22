@@ -9,6 +9,10 @@ class NonsenseVerb < Verb
   def successor
     false
   end
+
+  def appropriate?
+    true
+  end
 end
 
  

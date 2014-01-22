@@ -1,3 +1,6 @@
+# Note NonsenseVerb is not in this list because it should not be tested as an inverse
+KLASSES = [ActionVerb, CreateVerb, CreateVerbWithDefault, DeleteVerb, ListVerb, RenameVerb, TodayVerb,UpdateDefaultVerb, YesterdayVerb]
+
 def verify_appropriateness_of(array_of_arrays, klass, invert=false)
   truthiness = !invert
   context "when klass is #{klass}" do
@@ -9,8 +12,19 @@ def verify_appropriateness_of(array_of_arrays, klass, invert=false)
       end
     end
   end
+  if truthiness
+    verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass)
+  end
 end
 
 def verify_inappropriateness_of(array_of_arrays, klass)
   verify_appropriateness_of(array_of_arrays, klass, true)
+end
+
+def verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass)
+  other_klasses = KLASSES.clone
+  other_klasses.delete(klass)
+  other_klasses.each do |other_klass|
+    verify_inappropriateness_of(array_of_arrays, other_klass)
+  end
 end

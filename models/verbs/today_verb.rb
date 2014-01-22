@@ -10,4 +10,8 @@ class TodayVerb < Verb
     YesterdayVerb
   end
 
+  def appropriate?
+    words == ['today']
+  end
+
 end

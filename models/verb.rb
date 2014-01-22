@@ -1,4 +1,6 @@
 class Verb
+  AT_LEAST_ONE_LETTER = /[a-z]/
+  ALL_NUMBERS = /\A\d+$/
 
   attr_accessor :words
 

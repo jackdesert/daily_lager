@@ -9,4 +9,8 @@ class ListVerb < Verb
   def successor
     TodayVerb
   end
+
+  def appropriate?
+    words == ['list']
+  end
 end

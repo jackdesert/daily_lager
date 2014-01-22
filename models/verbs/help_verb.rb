@@ -2,7 +2,7 @@ class HelpVerb < Verb
 
   private
   def appropriate?
-    words == 'help'
+    words == ['help']
   end
 
   def process
