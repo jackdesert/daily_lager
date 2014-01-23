@@ -1,11 +1,11 @@
 class Thing
 
-  attr_accessor :name, :occurrences
+  attr_accessor :name, :occurrences, :default_value
   def initialize(hash={})
     hash.each_pair do |key, value|
       self.send("#{key}=", value)
     end
-    @occurrences = []
+    @occurrences ||= []
   end
 
   private

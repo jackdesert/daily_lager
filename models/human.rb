@@ -6,7 +6,7 @@ class Human
     hash.each_pair do |key, value|
       self.send("#{key}=", value)
     end
-    @things = []
+    @things ||= []
   end
 
   def valid?
@@ -14,6 +14,12 @@ class Human
       true
     else
       false
+    end
+  end
+
+  def things_in_order
+    things.sort do |x,y|
+      x.name <=> y.name
     end
   end
 

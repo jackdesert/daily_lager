@@ -10,7 +10,7 @@ describe Verb  do
 
 
   describe '#convert_to_array' do
-    let(:verb) { described_class.new('anything', Object.new) }
+    let(:verb) { described_class.new('anything', Human.new) }
     reusable_hash.each_pair do |string, expected_array|
       it "turns #{string} into #{expected_array}" do
         verb.send(:convert_to_array, string).should == expected_array
@@ -21,7 +21,7 @@ describe Verb  do
   describe '#initialize' do
     reusable_hash.each_pair do |argument, expected_words|
       it "turns #{argument} into #{expected_words}" do
-        verb = Verb.new(argument, Object.new)
+        verb = Verb.new(argument, Human.new)
         verb.send(:words).should == expected_words
       end
     end
@@ -43,7 +43,7 @@ describe Verb  do
 
   hash.each_pair do |string, returned_class|
     it "returns #{returned_class} when receives '#{string}'" do
-      Verb.new(string, Object.new).receive.should == returned_class
+      Verb.new(string, Human.new).receive.should == returned_class
     end
   end
 end
