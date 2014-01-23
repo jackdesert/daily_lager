@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RenameVerb do
   describe '#receive' do
     let(:words) { '3 miles' }
-    let(:rename_verb) { ActionVerb.new(words) }
+    let(:rename_verb) { ActionVerb.new(words, Human.new) }
     it 'returns a message' do
       mock(rename_verb).respond('3 miles entered')
       rename_verb.process

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe NonsenseVerb do
   describe '#receive' do
     let(:words) { '3 miles' }
-    let(:nonsense_verb) { ActionVerb.new(words) }
+    let(:nonsense_verb) { ActionVerb.new(words, Human.new) }
     it 'returns a message' do
       mock(nonsense_verb).respond('3 miles entered')
       nonsense_verb.process
@@ -21,12 +21,12 @@ describe NonsenseVerb do
     # This is the one class that doesn't need that check--because it's at the bottom of the responsibility chain
     it 'accepts any string' do
       ['some nonsense string youve never heard of *&#^#%%^%&$*', ''].each do |string|
-        described_class.new(string).send(:appropriate?).should be_true
+        described_class.new(string, Human.new).send(:appropriate?).should be_true
       end
     end
 
     it 'accepts any array' do
-      described_class.new(['some', 'nonsense', 'array', 'that', 'makes', 'no', '&%*#@^%!)']).send(:appropriate?).should be_true
+      described_class.new(['some', 'nonsense', 'array', 'that', 'makes', 'no', '&%*#@^%!)'], Human.new).send(:appropriate?).should be_true
     end
   end 
 end

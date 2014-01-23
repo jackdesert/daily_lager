@@ -1,7 +1,7 @@
 class CreateVerb < Verb
 
   def process
-    '3 miles entered'
+    Thing.create_with_name(activity_name)
     self.class
   end
 
@@ -15,6 +15,10 @@ class CreateVerb < Verb
     return false unless words.length == 2
     return false unless words.second.match AT_LEAST_ONE_LETTER
     true
+  end
+
+  def activity_name
+    words.second
   end
 
 end

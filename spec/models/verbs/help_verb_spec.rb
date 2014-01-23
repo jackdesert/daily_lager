@@ -3,7 +3,7 @@ require 'spec_helper'
 describe HelpVerb do
   describe '#receive' do
     let(:words) { '3 miles' }
-    let(:help_verb) { ActionVerb.new(words) }
+    let(:help_verb) { ActionVerb.new(words, Human.new) }
     it 'returns a message' do
       mock(help_verb).respond('3 miles entered')
       help_verb.process

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TodayVerb do
   describe '#receive' do
     let(:words) { '3 miles' }
-    let(:today_verb) { ActionVerb.new(words) }
+    let(:today_verb) { ActionVerb.new(words, Human.new) }
     it 'returns a message' do
       mock(today_verb).respond('3 miles entered')
       today_verb.process

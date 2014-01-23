@@ -2,10 +2,11 @@ class Verb
   AT_LEAST_ONE_LETTER = /[a-z]/
   ALL_NUMBERS = /\A\d+$/
 
-  attr_accessor :words
+  attr_accessor :words, :human
 
-  def initialize(arg)
-    @words = convert_to_array(arg)
+  def initialize(string_or_array, human)
+    @words = convert_to_array(string_or_array)
+    @human = human
   end
 
   def receive
@@ -32,7 +33,7 @@ class Verb
 
   def no_thanks
     if successor
-      successor.new(words).receive
+      successor.new(words, human).receive
     else
       raise 'no successor found'
     end
