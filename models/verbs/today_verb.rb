@@ -1,7 +1,19 @@
 class TodayVerb < Verb
 
   def process
-    '3 miles entered'
+    hash = {}
+    human.things.each do |thing|
+      thing.occurrences.select{|f| f.date == 1}.each do |occurrence|
+        hash[thing.name] ||= 0
+        hash[thing.name] += occurrence.value
+      end
+    end
+    message = "Today's totals:"
+    hash.each_pair do  |name, value|
+      message += "\n#{value} #{name}"
+    end
+    respond message
+
     self.class
   end
 
