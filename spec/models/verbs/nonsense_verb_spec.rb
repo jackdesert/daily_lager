@@ -29,5 +29,18 @@ describe NonsenseVerb do
       described_class.new(['some', 'nonsense', 'array', 'that', 'makes', 'no', '&%*#@^%!)'], Human.new).send(:appropriate?).should be_true
     end
   end 
+
+
+  describe '#process', focus: true do
+    let(:thing1) { Thing.new(name: 'run', default_value: 6) }
+    let(:thing2) { Thing.new(name: 'eat', default_value: 2) }
+    let(:human) { Human.new(phone_number: '1111111111', things: [thing1, thing2]) }
+    subject { described_class.new('blither blather', human) }
+    it 'returns a message' do
+      mock(subject).respond("Command 'blither blather' not understood. Type 'help' (without quotes) for help.")
+      subject.send(:process)
+    end
+  end
+
 end
 
