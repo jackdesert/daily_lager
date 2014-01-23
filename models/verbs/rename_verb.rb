@@ -1,13 +1,25 @@
 class RenameVerb < Verb
 
   def process
-    '3 miles entered'
+    if thing = human.things.find_by_name(old_name)
+      thing.change_name_to(new_name)
+      respond "Activity '#{old_name}' updated to '#{new_name}'.\nTo use, type '6 #{new_name}' without quotes."
+    end
+
     self.class
   end
 
   private
   def successor
     DeleteVerb
+  end
+
+  def old_name
+    words.second
+  end
+
+  def new_name
+    words.third
   end
 
   def appropriate?

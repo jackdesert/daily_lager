@@ -8,6 +8,10 @@ class Thing
     @occurrences ||= []
   end
 
+  def change_name_to(new_name)
+    self.name = new_name
+  end
+
   private
 
   def persisted?

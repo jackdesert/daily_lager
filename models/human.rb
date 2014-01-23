@@ -7,6 +7,9 @@ class Human
       self.send("#{key}=", value)
     end
     @things ||= []
+    def @things.find_by_name(name)
+      self.select {|f| f.name == name}.first
+    end
   end
 
   def valid?
