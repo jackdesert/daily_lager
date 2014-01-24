@@ -1,27 +1,41 @@
 require 'spec_helper'
 
 describe CreateVerb do
-  describe '#receive' do
-    let(:words) { '3 miles' }
-    let(:create_verb) { ActionVerb.new(words, Human.new) }
-    it 'returns a message' do
-      mock(create_verb).respond('3 miles entered')
-      create_verb.process
-    end
-  end
 
   describe '#process' do
+    let(:existing_name) { 'run' }
+    let(:thing1) { Thing.new(name: existing_name, default_value: 6) }
+    let(:human) { Human.new(phone_number: '1111111111', things: [thing1]) }
+    subject { described_class.new(['create', name], human) }
+
     context 'when the named action does not exist' do
-      let(:name) { 'run' }
-      let(:create_verb) { CreateVerb.new(['create', 'run'], Human.new) }
-      it 'creates the named action' do
-        mock(Thing).create_with_name(name)
-        create_verb.should be_appropriate
-        create_verb.send(:process)
+      let(:name) { 'original' }
+      it 'adds a Thing to the human' do
+        subject.send(:process)
+        human.things.length.should == 2
+        human.things.second.name.should == name
+      end
+      it 'returns a message' do
+        mock(subject).respond("Thing 'original' created")
+        subject.send(:process)
+      end
+    end
+
+    context 'when the named thing already exists' do
+      let(:name) { existing_name }
+      it 'does not add a Thing to the human' do
+        subject.send(:process)
+        human.things.length.should == 1
+        human.things.first.name.should == name
+      end
+      it 'returns a message' do
+        mock(subject).respond("You already have a thing called '#{name}'")
+        subject.send(:process)
       end
     end
   end
 
+ 
 
 
   describe '#appropriate?' do

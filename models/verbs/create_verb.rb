@@ -1,7 +1,12 @@
 class CreateVerb < Verb
 
   def process
-    Thing.create_with_name(activity_name)
+    if human.things.any? { |f| f.name == proposed_thing_name }
+      respond "You already have a thing called '#{proposed_thing_name}'"
+    else
+      human.things << Thing.create_with_name(proposed_thing_name)
+      respond "Thing '#{proposed_thing_name}' created"
+    end
     self.class
   end
 
@@ -17,7 +22,7 @@ class CreateVerb < Verb
     true
   end
 
-  def activity_name
+  def proposed_thing_name
     words.second
   end
 

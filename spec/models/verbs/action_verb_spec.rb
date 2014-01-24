@@ -24,5 +24,19 @@ describe ActionVerb do
     verify_appropriateness_of(yesses, described_class)
     verify_inappropriateness_of(nos, described_class)
   end 
+
+  describe '#process' do
+    context 'when the named action does not exist' do
+      let(:name) { 'run' }
+      let(:create_verb) { CreateVerb.new(['create', 'run'], Human.new) }
+      it 'creates the named action' do
+        mock(Thing).create_with_name(name)
+        create_verb.should be_appropriate
+        create_verb.send(:process)
+      end
+    end
+  end
+
+
 end
 
