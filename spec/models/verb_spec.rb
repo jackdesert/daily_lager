@@ -39,6 +39,7 @@ describe Verb  do
           'delete run' => DeleteVerb,
           'update run default 30' => UpdateDefaultVerb,
           'nonsense' => NonsenseVerb,
+          '' => NonsenseVerb,
         }
 
   hash.each_pair do |string, returned_class|
