@@ -29,7 +29,4 @@ def verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, human)
   end
 end
 
-def sms(text)
-  raise 'text must be a String' unless text.kind_of? String
-  Verb.new(text).receive
-end
+

@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'mongoid'
+gem 'tzinfo'
+gem 'active_support', require: false
 gem 'pry-debugger'
 gem 'tux'
 gem 'rerun'
@@ -10,3 +11,4 @@ gem 'rspec'
 gem 'rr', require: false
 gem 'guard-rspec'
 gem 'time-warp'
+gem 'curses'

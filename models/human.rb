@@ -26,12 +26,29 @@ class Human
     end
   end
 
-  private
+  def backfill
+    date_counter = most_recent_occurrence.date + 1
+    while date_counter <= Occurrence.new.date 
+      things.each do |thing|
+        thing.generate_default_occurrence_for_date(date_counter)
+      end
+      date_counter += 1
+    end
+  end
 
+  def most_recent_occurrence
+    things.map do |thing|
+      thing.occurrences
+    end.flatten.max{ |a,b| a.date <=> b.date}
+  end
+
+  private
   def persisted?
     # Remove this method once durable storage is in place
     true
   end
+
+
 
 
 

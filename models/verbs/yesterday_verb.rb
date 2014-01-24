@@ -12,9 +12,7 @@ class YesterdayVerb < Verb
     hash.each_pair do  |name, value|
       message += "\n#{value} #{name}"
     end
-    respond message
-
-    self.class
+    message
   end
 
   private

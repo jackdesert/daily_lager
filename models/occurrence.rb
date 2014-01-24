@@ -1,3 +1,6 @@
+require 'active_support/core_ext/date_time/zones' # adds support for DateTime#in_time_zone
+require 'active_support/core_ext/date_time/calculations' #adds support for DateTime#utc, used by DateTime#in_time_zone
+
 class Occurrence
 
 

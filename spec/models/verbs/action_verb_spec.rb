@@ -35,12 +35,11 @@ describe ActionVerb do
         occurrences.first.value.should == 3
       end
       it 'returns a message' do
-        mock(subject).respond("3 run(s) logged")
-        subject.send(:process)
+        subject.send(:process).should == '3 run(s) logged'
       end
       context 'and the Thing already has an occurrence today' do
         pending
-        # mock(subject).respond("6 run logged. Today's total: 6")
+        # subject.send(:process).should == ("6 run logged. Today's total: 6")
       end
     end
 
@@ -51,8 +50,8 @@ describe ActionVerb do
         human.things.first.occurrences.should be_empty
       end
       it 'returns a message' do
-        mock(subject).respond("You do not have a Thing named 'original'. To create one, type 'create original' (without quotes).")
-        subject.send(:process)
+        expected = "You do not have a Thing named 'original'. To create one, type 'create original' (without quotes)."
+        subject.send(:process).should == expected
       end
     end
   end

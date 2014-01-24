@@ -35,6 +35,31 @@ describe Thing do
     end
   end
 
+  describe '#generate_default_occurrence_for_date' do
+    let(:january_1) { Date.new(2014, 1, 1) }
+    let(:existing_occurrence_jan_1) { Occurrence.new(date: january_1) }
+    let(:thing) { Thing.new(name: 'run', default_value: 13, occurrences: [existing_occurrence_jan_1]) }
+
+    context 'when an occurrence already exists for that day' do
+      it 'raises an exception and does not create an occurrence' do
+        expect {
+          thing.generate_default_occurrence_for_date(january_1)
+        }.to raise_error "Thing 'run' already has occurrence(s) for 2014-01-01"
+        thing.occurrences.length.should == 1
+      end
+    end
+
+    context 'when no occurrence exists for that day' do
+      let(:february_1) { Date.new(2014, 2, 1) }
+      it 'adds an occurrence with the value matching Thing#default_value' do
+        thing.generate_default_occurrence_for_date(february_1)
+        thing.occurrences.length.should == 2
+        thing.occurrences.last.value.should == 13
+      end
+    end
+
+  end
+
 
 
 end

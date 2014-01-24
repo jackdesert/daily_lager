@@ -23,9 +23,6 @@ require_relative '../models/verbs/yesterday_verb'
 require_relative './support/helper_methods'
 
 
-require 'mongoid'
-Mongoid.load!("config/mongoid.yml")
-
 RSpec.configure do |config|
   config.mock_with :rr
 
