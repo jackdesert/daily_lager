@@ -53,6 +53,8 @@ describe Thing do
       let(:february_1) { Date.new(2014, 2, 1) }
       it 'adds an occurrence with the value matching Thing#default_value' do
         thing.generate_default_occurrence_for_date(february_1)
+        thing.occurrences.length.should == 2
+        thing.occurrences.last.value.should == 13
       end
     end
 

@@ -6,6 +6,7 @@ class Thing
       self.send("#{key}=", value)
     end
     @occurrences ||= []
+    @default_value ||= 0
   end
 
   def change_name_to(new_name)
@@ -14,6 +15,7 @@ class Thing
 
   def generate_default_occurrence_for_date(date)
     raise "Thing '#{name}' already has occurrence(s) for #{date.to_s}" if occurrence_exists_for_date(date)
+    occurrences << Occurrence.new(value: default_value, date: date)
   end
     
 
