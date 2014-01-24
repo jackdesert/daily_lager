@@ -1,14 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (3.2.16)
-      activesupport (= 3.2.16)
-      builder (~> 3.0.0)
-    activesupport (3.2.16)
-      i18n (~> 0.6, >= 0.6.4)
-      multi_json (~> 1.0)
     bond (0.4.3)
-    builder (3.0.4)
     coderay (1.1.0)
     columnize (0.3.6)
     debugger (1.6.5)
@@ -29,21 +22,12 @@ GEM
     guard-rspec (3.1.0)
       guard (>= 1.8)
       rspec (~> 2.13)
-    i18n (0.6.9)
     listen (1.0.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
     lumberjack (1.0.4)
     method_source (0.8.2)
-    mongoid (3.1.6)
-      activemodel (~> 3.2)
-      moped (~> 1.4)
-      origin (~> 1.0)
-      tzinfo (~> 0.3.29)
-    moped (1.5.1)
-    multi_json (1.8.4)
-    origin (1.1.0)
     pry (0.9.12.4)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -94,14 +78,12 @@ GEM
       ripl-multi_line (>= 0.2.4)
       ripl-rack (>= 0.2.0)
       sinatra (>= 1.2.1)
-    tzinfo (0.3.38)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   guard-rspec
-  mongoid
   pry-debugger
   rake
   rerun
