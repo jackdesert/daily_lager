@@ -22,7 +22,7 @@ class Thing
 
   class << self
     def create_with_name(name)
-      new(name: name)
+      new(name: name, default_value: 0)
     end
   end
 end

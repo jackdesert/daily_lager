@@ -23,6 +23,18 @@ describe Thing do
     end
   end
 
+  describe '.create_with_name' do
+    let(:name) { 'read' }
+    subject { described_class.create_with_name(name) }
+    it 'has the correct name' do
+      subject.name.should == name
+    end
+
+    it 'has a default_value of 0' do
+      subject.default_value.should == 0
+    end
+  end
+
 
 
 end

@@ -1,14 +1,6 @@
 require 'spec_helper'
 
 describe ActionVerb do
-  describe '#receive' do
-    let(:words) { '3 miles' }
-    let(:action_verb) { ActionVerb.new(words, Human.new) }
-    it 'returns a message' do
-      mock(action_verb).respond('3 miles entered')
-      action_verb.process
-    end
-  end
 
   describe '#appropriate?' do
     yesses = [
@@ -25,17 +17,46 @@ describe ActionVerb do
     verify_inappropriateness_of(nos, described_class)
   end 
 
+
+
   describe '#process' do
+    let(:existing_name) { 'run' }
+    let(:value) { 3 }
+    let(:thing1) { Thing.new(name: existing_name, default_value: 6) }
+    let(:human) { Human.new(phone_number: '1111111111', things: [thing1]) }
+    subject { described_class.new([value, name], human) }
+
+    context 'when the named thing exists' do
+      let(:name) { existing_name }
+      it 'adds an Occurrence' do
+        subject.send(:process)
+        occurrences = human.things.first.occurrences
+        occurrences.length.should == 1
+        occurrences.first.value.should == 3
+      end
+      it 'returns a message' do
+        mock(subject).respond("3 run(s) logged")
+        subject.send(:process)
+      end
+      context 'and the Thing already has an occurrence today' do
+        pending
+        # mock(subject).respond("6 run logged. Today's total: 6")
+      end
+    end
+
     context 'when the named action does not exist' do
-      let(:name) { 'run' }
-      let(:create_verb) { CreateVerb.new(['create', 'run'], Human.new) }
-      it 'creates the named action' do
-        mock(Thing).create_with_name(name)
-        create_verb.should be_appropriate
-        create_verb.send(:process)
+      let(:name) { 'original' }
+      it 'does not add an Occurrence' do
+        subject.send(:process)
+        human.things.first.occurrences.should be_empty
+      end
+      it 'returns a message' do
+        mock(subject).respond("You do not have a Thing named 'original'. To create one, type 'create original' (without quotes).")
+        subject.send(:process)
       end
     end
   end
+
 
 
 end

@@ -4,6 +4,7 @@ require 'sinatra'
 require 'pry'
 require 'rspec'
 require 'rr'
+require 'time-warp'
 require_relative '../models/verb'
 require_relative '../models/human'
 require_relative '../models/thing'
@@ -31,8 +32,6 @@ RSpec.configure do |config|
   # Allow running one test at a time
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
-
-
 
 end
 

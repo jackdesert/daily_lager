@@ -6,8 +6,7 @@ class HelpVerb < Verb
   end
 
   def process
-    return no_thanks unless appropriate?
-    respond 'lotsa help'
+    respond "Available commands:\nHELP\nLIST\nTODAY\nYESTERDAY\nCREATE <thing> [DEFAULT <number>]\nRENAME <thing_name> <new_name>\nDELETE <thing>\n\nFull docs: http://sm.sunni.ru/docs"
     self.class
   end
 

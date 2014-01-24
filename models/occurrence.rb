@@ -7,11 +7,17 @@ class Occurrence
     hash.each_pair do |key, value|
       self.send("#{key}=", value)
     end
+    @date ||= current_date_in_california
   end
 
   def valid?
     return false unless value.kind_of? Fixnum
     return false unless date.kind_of? Date
     true
+  end
+
+  private
+  def current_date_in_california
+    DateTime.now.in_time_zone('Pacific Time (US & Canada)').to_date
   end
 end

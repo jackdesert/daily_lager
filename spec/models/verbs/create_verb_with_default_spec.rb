@@ -1,15 +1,6 @@
 require 'spec_helper'
 
 describe CreateVerbWithDefault do
-  describe '#receive' do
-    let(:words) { '3 miles' }
-    let(:create_verb_with_default) { CreateVerbWithDefault.new(words, Human.new) }
-    it 'returns a message' do
-      mock(create_verb_with_default).respond('3 miles entered')
-      create_verb_with_default.process
-    end
-  end
-
   describe '#appropriate?' do
     yesses = [
       ['create', 'filter', 'default', '10'],

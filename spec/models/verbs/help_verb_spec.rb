@@ -1,15 +1,6 @@
 require 'spec_helper'
 
 describe HelpVerb do
-  describe '#receive' do
-    let(:words) { '3 miles' }
-    let(:help_verb) { ActionVerb.new(words, Human.new) }
-    it 'returns a message' do
-      mock(help_verb).respond('3 miles entered')
-      help_verb.process
-    end
-  end
-
   describe '#appropriate?' do
     yesses = [
       ['help'],
@@ -17,5 +8,25 @@ describe HelpVerb do
         
     verify_appropriateness_of(yesses, described_class)
   end 
+
+  describe '#process' do
+    let(:thing1) { Thing.new(name: 'run', default_value: 6) }
+    let(:thing2) { Thing.new(name: 'eat', default_value: 2) }
+    let(:human) { Human.new(phone_number: '1111111111', things: [thing1, thing2]) }
+    subject { described_class.new('', human) }
+    it 'returns a message' do
+      mock(subject).respond("Available commands:
+HELP
+LIST
+TODAY
+YESTERDAY
+CREATE <thing> [DEFAULT <number>]
+RENAME <thing_name> <new_name>
+DELETE <thing>
+
+Full docs: http://sm.sunni.ru/docs")
+      subject.send(:process)
+    end
+  end
 end
 

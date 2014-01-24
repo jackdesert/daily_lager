@@ -14,6 +14,7 @@ describe CreateVerb do
         subject.send(:process)
         human.things.length.should == 2
         human.things.second.name.should == name
+        human.things.second.default_value.should == 0
       end
       it 'returns a message' do
         mock(subject).respond("Thing 'original' created")

@@ -1,15 +1,6 @@
 require 'spec_helper'
 
 describe NonsenseVerb do
-  describe '#receive' do
-    let(:words) { '3 miles' }
-    let(:nonsense_verb) { ActionVerb.new(words, Human.new) }
-    it 'returns a message' do
-      mock(nonsense_verb).respond('3 miles entered')
-      nonsense_verb.process
-    end
-  end
-
   describe '#appropriate?' do
     yesses = [
       ['nonsense'],

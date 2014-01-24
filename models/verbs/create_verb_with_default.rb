@@ -1,7 +1,7 @@
 class CreateVerbWithDefault < Verb
 
   def process
-    respond '3 miles entered'
+    respond "#{self.class} not yet supported"
     self.class
   end
 
