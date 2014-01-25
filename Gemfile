@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'tzinfo'
 gem 'active_support', require: false
 gem 'pry-debugger'
 gem 'tux'

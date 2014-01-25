@@ -27,6 +27,13 @@ class Human
   end
 
   def backfill
+    raise 'Method Not Implemented'
+  end
+
+  def most_recent_occurrence
+    things.map do |thing|
+      thing.occurrences
+    end.flatten.max{ |a,b| a.date <=> b.date}
   end
 
   private

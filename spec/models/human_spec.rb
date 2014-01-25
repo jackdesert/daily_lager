@@ -32,6 +32,27 @@ describe Human do
     end
   end
 
+  describe '#most_recent_occurrence' do
+    let(:two_days_ago)   { (Time.now - 2 * 86400).to_date }
+    let(:three_days_ago) { (Time.now - 3 * 86400).to_date }
+    let(:four_days_ago)  { (Time.now - 4 * 86400).to_date }
+    let(:run_occurrences) { [ Occurrence.new(date: four_days_ago), Occurrence.new(date:three_days_ago) ] }
+    let(:run_thing) { Thing.new(name: 'run', default_value: 13, occurrences: run_occurrences) }
+    let(:walk_thing) { Thing.new(name: 'walk', default_value: 13, occurrences: []) }
+    let(:human) { Human.new(phone_number: '1112224444', things: [run_thing, walk_thing])  }
+
+    it 'returns an Occurrence' do
+      human.most_recent_occurrence.should be_an Occurrence
+    end
+
+    it 'returns the most recent' do
+      human.most_recent_occurrence.date.should == three_days_ago
+      walk_thing.occurrences << Occurrence.new(date: two_days_ago)
+      human.most_recent_occurrence.date.should == two_days_ago
+    end
+  end
+
+
   describe '#backfill' do
     let(:thing) { Thing.new(name: 'run', default_value: 13, occurrences: occurrences) }
     let(:human) { Human.new(phone_number: '1112224444', things: [thing])  }

@@ -1,4 +1,5 @@
-require 'active_support/core_ext/date_time/zones'
+require 'active_support/core_ext/date_time/zones' # adds support for DateTime#in_time_zone
+require 'active_support/core_ext/date_time/calculations' #adds support for DateTime#utc, used by DateTime#in_time_zone
 
 class Occurrence
 
@@ -20,7 +21,6 @@ class Occurrence
 
   private
   def current_date_in_california
-    binding.pry
     DateTime.now.in_time_zone('Pacific Time (US & Canada)').to_date
   end
 end
