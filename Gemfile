@@ -10,3 +10,4 @@ gem 'rspec'
 gem 'rr', require: false
 gem 'guard-rspec'
 gem 'time-warp'
+gem 'curses'
