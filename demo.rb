@@ -4,14 +4,6 @@ require 'curses'
 require 'pry'
 
 
-#human = Human.new
-#while true
-#  text = gets.chomp
-#  binding.pry
-#  clear_screen
-#  Verb.new(text, human).receive
-#end
-
 class Demo
   include Curses
   attr_accessor :queue, :awin
@@ -67,12 +59,15 @@ class Demo
     close_screen
   end
 
+  def get_string
+    getstr
+  end
 
-  def display_input(input=nil)
+  def display_input(input)
     refresh
     reset_cursor
     deleteln
-    add(input || getstr)
+    add(input)
     show_both_messages
     refresh
     reset_cursor
@@ -84,6 +79,7 @@ class Demo
 end
 
 begin
+  human = Human.new
   demo = Demo.new
 
   demo.display_input "Welcome to the Interactive SMLogger Demo"
@@ -92,7 +88,9 @@ begin
   sleep 1
   demo.display_input "To close the demo, CTRL-C"
   while true
-    demo.display_input
+    input = demo.get_string
+    output = Verb.new(input, human).receive
+    demo.display_input(output)
   end
 ensure
   demo.exit
