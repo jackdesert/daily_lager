@@ -1,8 +1,7 @@
 class CreateVerbWithDefault < Verb
 
   def process
-    respond "#{self.class} not yet supported"
-    self.class
+    "#{self.class} not yet supported"
   end
 
   private

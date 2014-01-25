@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Verb  do
   reusable_hash = {
+      "" => [''],
       "  3       miles    \t" => ['3', 'miles'],
       "blather" => ['blather'], 
       "\t twenty minutes\tbefore  dawn\t  " => ['twenty', 'minutes', 'before', 'dawn'],
@@ -42,9 +43,10 @@ describe Verb  do
           '' => NonsenseVerb,
         }
 
-  hash.each_pair do |string, returned_class|
-    it "returns #{returned_class} when receives '#{string}'" do
-      Verb.new(string, Human.new).receive.should == returned_class
+  hash.each_pair do |string, verb_subclass|
+    it "returns #{verb_subclass} when receives '#{string}'" do
+      responder = Verb.new(string, Human.new).responder
+      responder.should be_a verb_subclass
     end
   end
 end

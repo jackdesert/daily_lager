@@ -4,16 +4,20 @@ class Verb
   AT_LEAST_ONE_LETTER = /[a-z]/
   ALL_NUMBERS = /\A\d+$/
 
-  attr_accessor :words, :human
+  attr_reader :words, :human
 
   def initialize(string_or_array, human)
     @words = convert_to_array(string_or_array)
     @human = human
   end
 
-  def receive
-    return no_thanks unless appropriate?
-    process
+  def responder
+    return some_other_verb unless appropriate?
+    self
+  end
+
+  def response
+    @response ||= process
   end
 
   def process
@@ -29,13 +33,9 @@ class Verb
     false
   end
 
-  def respond(message)
-    puts message
-  end
-
-  def no_thanks
+  def some_other_verb 
     if successor
-      successor.new(words, human).receive
+      successor.new(words, human).responder
     else
       raise 'no successor found'
     end
@@ -43,6 +43,7 @@ class Verb
 
   def convert_to_array(input)
     return input if input.kind_of? Array
+    return [input] if input.blank?
     input.strip.gsub(/\t+/, ' ').split
   end
 end

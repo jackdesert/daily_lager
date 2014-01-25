@@ -17,8 +17,7 @@ describe CreateVerb do
         human.things.second.default_value.should == 0
       end
       it 'returns a message' do
-        mock(subject).respond("Thing 'original' created")
-        subject.send(:process)
+        subject.send(:process).should == "Thing 'original' created"
       end
     end
 
@@ -30,8 +29,7 @@ describe CreateVerb do
         human.things.first.name.should == name
       end
       it 'returns a message' do
-        mock(subject).respond("You already have a thing called '#{name}'")
-        subject.send(:process)
+        subject.send(:process).should == "You already have a thing called '#{name}'"
       end
     end
   end

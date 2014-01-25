@@ -16,8 +16,7 @@ describe ListVerb do
     let(:human) { Human.new(phone_number: '1111111111', things: [thing1, thing2]) }
     subject { described_class.new('', human) }
     it 'returns a message' do
-      mock(subject).respond("You have the following activities active:\neat\nrun")
-      subject.send(:process)
+      subject.send(:process).should == "You have the following activities active:\neat\nrun"
     end
   end
 end

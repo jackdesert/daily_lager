@@ -15,7 +15,7 @@ describe HelpVerb do
     let(:human) { Human.new(phone_number: '1111111111', things: [thing1, thing2]) }
     subject { described_class.new('', human) }
     it 'returns a message' do
-      mock(subject).respond("Available commands:
+      expected = "Available commands:
 HELP
 LIST
 TODAY
@@ -24,8 +24,8 @@ CREATE <thing> [DEFAULT <number>]
 RENAME <thing_name> <new_name>
 DELETE <thing>
 
-Full docs: http://sm.sunni.ru/docs")
-      subject.send(:process)
+Full docs: http://sm.sunni.ru/docs"
+      subject.send(:process).should == expected
     end
   end
 end

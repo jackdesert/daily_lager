@@ -23,9 +23,16 @@ describe RenameVerb do
     let(:thing1) { Thing.new(name: 'run', default_value: 6) }
     let(:human) { Human.new(phone_number: '1111111111', things: [thing1]) }
     subject { described_class.new('rename run miles', human) }
-    it 'returns a message' do
-      mock(subject).respond("Activity 'run' updated to 'miles'.\nTo use, type '6 miles' without quotes.")
-      subject.send(:process)
+    context 'when Thing exists' do
+      it 'returns a message' do
+        subject.send(:process).should == "Activity 'run' updated to 'miles'.\nTo use, type '6 miles' without quotes."
+      end
+    end
+
+    context 'when Thing does not exist' do
+      it 'returns a different message' do
+        pending
+      end
     end
   end
 

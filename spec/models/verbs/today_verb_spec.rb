@@ -20,8 +20,7 @@ describe TodayVerb do
     let(:human) { Human.new(phone_number: '1111111111', things: [thing1, thing2]) }
     subject { described_class.new('rename run miles', human) }
     it 'returns a message' do
-      mock(subject).respond("Today's totals:\n1 run\n5 walk")
-      subject.send(:process)
+      subject.send(:process).should == "Today's totals:\n1 run\n5 walk"
     end
   end
 

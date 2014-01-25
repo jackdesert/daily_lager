@@ -2,12 +2,11 @@ class CreateVerb < Verb
 
   def process
     if human.things.any? { |f| f.name == proposed_thing_name }
-      respond "You already have a thing called '#{proposed_thing_name}'"
+      "You already have a thing called '#{proposed_thing_name}'"
     else
       human.things << Thing.create_with_name(proposed_thing_name)
-      respond "Thing '#{proposed_thing_name}' created"
+      "Thing '#{proposed_thing_name}' created"
     end
-    self.class
   end
 
   private

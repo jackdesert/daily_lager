@@ -28,8 +28,8 @@ describe NonsenseVerb do
     let(:human) { Human.new(phone_number: '1111111111', things: [thing1, thing2]) }
     subject { described_class.new('blither blather', human) }
     it 'returns a message' do
-      mock(subject).respond("Command 'blither blather' not understood. Type 'help' (without quotes) for help.")
-      subject.send(:process)
+      expected = "Command 'blither blather' not understood. Type 'help' (without quotes) for help."
+      subject.send(:process).should == expected
     end
   end
 

@@ -5,8 +5,7 @@ class ListVerb < Verb
     human.things_in_order.each do |thing|
       message += "\n#{thing.name}"
     end
-    respond(message)
-    self.class
+    message
   end
 
   private
