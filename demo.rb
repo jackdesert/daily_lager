@@ -5,13 +5,13 @@ require 'pry'
 
 
 class Demo
-  include Curses
   attr_accessor :queue, :awin
 
+  MESSAGE_WIDTH = 45
+
   def initialize
-    init_screen
+    Curses.init_screen
     reset_cursor
-    addstr("Hit any key")
     @queue = []
   end
 
@@ -39,58 +39,65 @@ class Demo
     return if message.nil?
     message_height = message.count "\n"
 
-    height = 5
-    width = 30 #message.length + 6
-    top = (lines - 5) / 2 -offset - 5
+    height = 5 + message_height
+    top = (Curses.lines - 5) / 2 - offset + 15 - message_height
 
     if top >= 0
-      left = (cols - width) / 2
-      awin ||= Window.new(height, width,
+      left = (Curses.cols - MESSAGE_WIDTH) / 2
+      window = Curses::Window.new(height, MESSAGE_WIDTH,
                    top, left)
-      awin.box(?|, ?-)
-      awin.setpos(2, 3)
-      awin.addstr(message)
-      awin.refresh
+      window.box(?|, ?-)
+      window.setpos(2, 3)
+      window.addstr(message)
+      window.refresh
     end
     message_height
   end
 
   def exit
-    close_screen
+    Curses.close_screen
   end
 
   def get_string
-    getstr
+    Curses.getstr
   end
 
   def display_input(input)
-    refresh
+    Curses.refresh
     reset_cursor
-    deleteln
+    Curses.deleteln
     add(input)
     show_both_messages
-    refresh
+    Curses.refresh
     reset_cursor
   end
 
   def reset_cursor
-    setpos((lines - 5), (cols - 10) / 2)
+    y = Curses.lines - 5
+    x = (Curses.cols - MESSAGE_WIDTH) / 2 + 3
+    Curses.setpos(y, x)
   end
+end
+
+def sec
+  sleep 0.3
 end
 
 begin
   human = Human.new
   demo = Demo.new
 
-  demo.display_input "Welcome to the Interactive SMLogger Demo"
-  sleep 1
-  demo.display_input "To see a list of available methods, enter 'help' (without the quotes) and press ENTER."
-  sleep 1
-  demo.display_input "To close the demo, CTRL-C"
+  intro = "Welcome to the Daily Lager Demo"
+  intro += "\n\nTo see a list of available methods,\nenter 'help' (without the quotes) and press\nENTER."
+  intro += "\n\nTo close the demo, CTRL-C"
+  demo.display_input intro
+
   while true
     input = demo.get_string
-    output = Verb.new(input, human).receive
-    demo.display_input(output)
+    demo.display_input(input)
+    sec
+    responder = Verb.new(input, human).responder
+    demo.display_input(responder.response)
   end
 ensure
   demo.exit
