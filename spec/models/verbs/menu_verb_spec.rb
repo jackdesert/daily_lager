@@ -24,7 +24,7 @@ CREATE <thing> [DEFAULT <number>]
 RENAME <thing_name> <new_name>
 DELETE <thing>
 
-Full docs: http://sm.sunni.ru/docs"
+Full docs: http://to_be_determined"
       subject.send(:process).should == expected
     end
   end

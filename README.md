@@ -1,24 +1,36 @@
-SMLogger
-========
+Daily Lager
+===========
 
 "It's good for you", she said. 
 
-"How good for me? Measureably good?"
+"How good for me? *Measureably* good?"
 
-To find out, you need to track inputs and outputs, aka 'things'. 
-Once you have enough data, you can determine whether those green 
-vegetables you've started eating are really decreasing the 
-frequency of your hiccups when you train for your marathon.
-How about the relationship between hours of sleep and your 
-general mood at four in the afternoon? 
+Daily Lager allows you to quickly log the day's events, as they
+happen, either via SMS, from a terminal, or via email. 
+Once you acquire enough data, you can answer that last 
+question for yourself.
 
-SmLogger was born out of a need to easily record such data.
-It consists of a DSL:
-    HELP 
+
+
+The DSL
+-------
+  Available commands:
+        MENU
+        LIST
+        TODAY
+        YESTERDAY
+        CREATE <thing> [DEFAULT <integer>]
+        RENAME <thing_name> <new_name>
+        DELETE <thing>
+
+
+    MENU 
       # Displays the help screen
 
     LIST 
       # Shows a list of things you are tracking
+
+    CREATE <thing> [DEFAULT <integer>]
 
     DELETE <thing> 
       # Deletes a thing you're tracking
@@ -37,6 +49,7 @@ It consists of a DSL:
 
     <integer> <thing_name> 
       # Logs a single piece of data for today's date
+
 
 Examples
 --------
@@ -87,16 +100,81 @@ A Note About UPPERCASE
 Uppercase letters are used to better highlight which words are keywords. 
 However, you can enter them as either upper or lower case (or a mixture of both).
 
-Try out the DSL without wiring up an SMS provider
--------------------------------------------------
+Interactive Demo
+---------------------------------------
 
-There is a method called 'sms' that you can use to interact with the defined in spec/support/helper methods.rbTo test out the features without setting up an SMS provider, simply
+Try out the Demo. It's an ncurses simulation of Daily Lager being run over SMS. 
 
-    $ pry
-    > require './spec/spec_helper'
-    > sms 'help'
-    > sms 'create walk'
-    > sms '3 walk'
+First install Ruby 2.x, then run:
+
+    bundle exec ruby demo.rb
+
+It looks like this:
+
+        ┌-------------------------------------------┐
+        |                                           |
+        |  Welcome to the Daily Lager Demo
+
+        Available commands:
+        MENU
+        LIST
+        TODAY
+        YESTERDAY
+        CREATE <thing> [DEFAULT <integer>]
+        RENAME <thing_name> <new_name>
+        DELETE <thing>
+
+        Full docs: http://to_be_determined
+
+        To close the demo, CTRL-C                   |
+        |                                           |
+        └-------------------------------------------┘
+
+You can use the DSL to create categories and log them.
+
+        ┌-------------------------------------------┐
+        |                                           |
+        |  create carrots                           |
+        |                                           |
+        └-------------------------------------------┘
+        ┌-------------------------------------------┐
+        |                                           |
+        |  Category 'carrots' created.              |
+        |                                           |
+        └-------------------------------------------┘
+
+
+What Data is Logged
+-------------------
+
+Each category gets a default entry for each day. If you 
+don't set a default value, then the default value is 0.
+Whenever you log something using the DSL, it creates
+an additional entry for that category, with the value
+you provided. When you ask for your daily totals, it
+adds them up for you. 
+
+
+Negative Numbers
+----------------
+
+All things that you log are additive. For example, if your 
+default value for a category is 10 but today you want to record
+'8' instead, just log '-2'. That will set the day's totals to 8.
+
+
+Data Mining
+-----------
+
+Once you have enough data, you can determine whether those green 
+vegetables you've started eating are really decreasing the 
+frequency of your hiccups when you train for your marathon.
+
+Some simple queries are available through the DSL, such as
+TODAY and YESTERDAY. But Daily Lager is primariy intended to
+the the method of logging the data. You will need to use your
+SQL hackery yourself to intelligently interpret the data.
+
 
 Roadmap
 --------------
@@ -104,17 +182,25 @@ Roadmap
 Completed:
 
   * Chain of Responsibility pattern to determine which subclass of Verb is appropriate for a given input
-  * Specs verifying the above, including verifying that the input is INappropriate for all other subclasses 
+  * Human model corresponds to a user
+  * Thing model corresponds to a category
+  * Occurrence model corresponds to a single piece of data logged
+  * Textual output for each subclass of Verb is unit tested
+  * Demo (demo.rb) lets you interact with the DSL without a server
+  * Before logging new data, it backlogs any days with no data 
+    with the default values
 
 Backlog:
 
-  * Set the response output for each verb subclass
-  * Design and implement the durable storage mechanism 
-  * Tie in to Twilio 
+  * Design and implement the durable storage mechanism (probably a 
+    relational database)
+  * Connect to Twilio via Sinatra for a single user
 
 Icebox:
   
-  * Allow multiple users to access the same Sinatra instance
+  * Allow multiple users to access the same Sinatra instance, 
+    identified by phone number 
   * Graphical representation of data
+  * Add verbs for WEEK, LAST WEEK, MONTH, LAST MONTH, YEAR, and <year>
 
 
