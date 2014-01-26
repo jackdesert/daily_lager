@@ -1,5 +1,8 @@
 class Thing
 
+  DISPLAY_NAME = 'category'
+  DISPLAY_NAME_PLURAL = 'categories'
+
   attr_accessor :name, :occurrences, :default_value
   def initialize(hash={})
     hash.each_pair do |key, value|
@@ -16,6 +19,10 @@ class Thing
   def generate_default_occurrence_for_date(date)
     raise "Thing '#{name}' already has occurrence(s) for #{date.to_s}" if occurrence_exists_for_date(date)
     occurrences << Occurrence.new(value: default_value, date: date)
+  end
+
+  def total_value_today
+    occurrences.select{|f| f.date == Time.now.to_date}.map(&:value).inject(:+) || 0
   end
     
 

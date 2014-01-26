@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Occurrence do
+  context 'initialization' do
+    subject { described_class.new }
+    it "has today's date" do
+      subject.date.should == Time.now.to_date
+    end
+  end
   context 'validations' do
     valid_values = [-30, 15, 49998]
     valid_values.each do |value|

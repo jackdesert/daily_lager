@@ -35,11 +35,15 @@ describe ActionVerb do
         occurrences.first.value.should == 3
       end
       it 'returns a message' do
-        subject.send(:process).should == '3 run(s) logged'
+        subject.send(:process).should == '3 run(s) logged.'
       end
       context 'and the Thing already has an occurrence today' do
-        pending
-        # subject.send(:process).should == ("6 run logged. Today's total: 6")
+        before do
+          thing1.occurrences << Occurrence.new(value: 13)
+        end
+        it 'returns the total with the message' do
+          subject.send(:process).should == ("3 run(s) logged. Today's total: 16")
+        end
       end
     end
 
@@ -50,7 +54,9 @@ describe ActionVerb do
         human.things.first.occurrences.should be_empty
       end
       it 'returns a message' do
-        expected = "You do not have a Thing named 'original'. To create one, type 'create original' (without quotes)."
+
+      "You do not have a #{Thing::DISPLAY_NAME} named '#{name}'. To create one, type CREATE #{name}."
+        expected = "You do not have a #{Thing::DISPLAY_NAME} named 'original'. To create one, type 'CREATE original' (without quotes)."
         subject.send(:process).should == expected
       end
     end

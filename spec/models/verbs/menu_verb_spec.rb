@@ -20,9 +20,9 @@ MENU
 LIST
 TODAY
 YESTERDAY
-CREATE <thing> [DEFAULT <number>]
-RENAME <thing_name> <new_name>
-DELETE <thing>
+CREATE <#{Thing::DISPLAY_NAME}> [DEFAULT <number>]
+RENAME <#{Thing::DISPLAY_NAME}> <new_name>
+DELETE <#{Thing::DISPLAY_NAME}>
 
 Full docs: http://to_be_determined"
       subject.send(:process).should == expected

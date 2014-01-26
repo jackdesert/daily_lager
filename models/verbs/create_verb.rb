@@ -2,10 +2,10 @@ class CreateVerb < Verb
 
   def process
     if human.things.any? { |f| f.name == proposed_thing_name }
-      "You already have a category named '#{proposed_thing_name}'"
+      "You already have a #{Thing::DISPLAY_NAME} named '#{proposed_thing_name}'"
     else
       human.things << Thing.create_with_name(proposed_thing_name)
-      "Category '#{proposed_thing_name}' created."
+      "#{Thing::DISPLAY_NAME.capitalize} '#{proposed_thing_name}' created."
     end
   end
 

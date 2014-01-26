@@ -22,16 +22,18 @@ describe RenameVerb do
   describe '#process' do
     let(:thing1) { Thing.new(name: 'run', default_value: 6) }
     let(:human) { Human.new(phone_number: '1111111111', things: [thing1]) }
-    subject { described_class.new('rename run miles', human) }
+    subject { described_class.new(text, human) }
     context 'when Thing exists' do
+      let(:text) { 'rename run miles' }
       it 'returns a message' do
         subject.send(:process).should == "Category 'run' updated to 'miles'.\nTo use, type '6 miles' without quotes."
       end
     end
 
     context 'when Thing does not exist' do
+      let(:text) { 'rename bizarre miles' }
       it 'returns a different message' do
-        pending
+        subject.send(:process).should == "You do not have a #{Thing::DISPLAY_NAME} named 'bizarre'. To create one, type 'CREATE bizarre' (without quotes)"
       end
     end
   end

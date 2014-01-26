@@ -6,7 +6,7 @@ class MenuVerb < Verb
   end
 
   def process
-    "Available commands:\nMENU\nLIST\nTODAY\nYESTERDAY\nCREATE <thing> [DEFAULT <number>]\nRENAME <thing_name> <new_name>\nDELETE <thing>\n\nFull docs: http://to_be_determined"
+    "Available commands:\nMENU\nLIST\nTODAY\nYESTERDAY\nCREATE <#{Thing::DISPLAY_NAME}> [DEFAULT <number>]\nRENAME <#{Thing::DISPLAY_NAME}> <new_name>\nDELETE <#{Thing::DISPLAY_NAME}>\n\nFull docs: http://to_be_determined"
   end
 
   def successor

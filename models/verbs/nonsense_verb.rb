@@ -1,7 +1,7 @@
 class NonsenseVerb < Verb
 
   def process
-    "Command '#{words.join(' ')}' not understood. Type 'help' (without quotes) for help."
+    "Command '#{words.join(' ')}' not understood. Type 'menu' (without quotes) for a list of available commands."
   end
 
   private

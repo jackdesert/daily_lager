@@ -1,4 +1,3 @@
-
 Daily Lager
 ===========
 
@@ -20,35 +19,35 @@ The DSL
         LIST
         TODAY
         YESTERDAY
-        CREATE <category> [DEFAULT <integer>]
-        RENAME <category_name> <new_name>
-        DELETE <category>
+        CREATE <thing> [DEFAULT <integer>]
+        RENAME <thing_name> <new_name>
+        DELETE <thing>
 
 
     MENU 
       # Displays a list of available commands
 
     LIST 
-      # Shows a list of categoriess you are tracking
+      # Shows a list of things you are tracking
 
-    CREATE <category> [DEFAULT <integer>]
+    CREATE <thing> [DEFAULT <integer>]
 
-    DELETE <category> 
-      # Deletes a category you're tracking
+    DELETE <thing> 
+      # Deletes a thing you're tracking
 
     TODAY 
-      # Shows all the categoriess you've logged today
+      # Shows all the things you've logged today
 
     YESTERDAY 
-      # Shows all the categoriess you logged yesterday
+      # Shows all the things you logged yesterday
 
-    UPDATE DEFAULT <category> <new_name>
-      # Update the default value of somecategory you're tracking
+    UPDATE DEFAULT <thing> <new_name>
+      # Update the default value of something you're tracking
 
-    RENAME <category> <new_name>
-      # Change the name (and hence the DSL) of somecategory you're tracking
+    RENAME <thing> <new_name>
+      # Change the name (and hence the DSL) of something you're tracking
 
-    <integer> <category_name> 
+    <integer> <thing_name> 
       # Logs a single piece of data for today's date
 
 
@@ -57,21 +56,21 @@ Examples
 Let's say you want to log how many miles you walk, how many days
 you take your B vitamins, and how much you sleep.
 
-Create a category called 'walk':
+Create a thing called 'walk':
   CREATE walk 
     => 'walk' created
 
-Create a category called 'sleep':
+Create a thing called 'sleep':
   CREATE sleep
     => 'sleep' created
 
-Create a category called 'vitamins' with a default value of 1:
+Create a thing called 'vitamins' with a default value of 1:
   CREATE vitamin DEFAULT 1
     => 'vitamin' created with a default value of 1
 
-Ask what categories are loaded:
+Ask what things are loaded:
   LIST
-    => category you're tracking:
+    => Things you're tracking:
        sleep
        vitamin (default 1)
        walk 
@@ -121,9 +120,9 @@ It looks like this:
         LIST
         TODAY
         YESTERDAY
-        CREATE <category> [DEFAULT <integer>]
-        RENAME <category_name> <new_name>
-        DELETE <category>
+        CREATE <thing> [DEFAULT <integer>]
+        RENAME <thing_name> <new_name>
+        DELETE <thing>
 
         Full docs: http://to_be_determined
 
@@ -150,7 +149,7 @@ What Data is Logged
 
 Each category gets a default entry for each day. If you 
 don't set a default value, then the default value is 0.
-Whenever you log some category using the DSL, it creates
+Whenever you log something using the DSL, it creates
 an additional entry for that category, with the value
 you provided. When you ask for your daily totals, it
 adds them up for you. 
@@ -159,7 +158,7 @@ adds them up for you.
 Negative Numbers
 ----------------
 
-All categories that you log are additive. For example, if your 
+All things that you log are additive. For example, if your 
 default value for a category is 10 but today you want to record
 '8' instead, just log '-2'. That will set the day's totals to 8.
 

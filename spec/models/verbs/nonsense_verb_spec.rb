@@ -28,7 +28,7 @@ describe NonsenseVerb do
     let(:human) { Human.new(phone_number: '1111111111', things: [thing1, thing2]) }
     subject { described_class.new('blither blather', human) }
     it 'returns a message' do
-      expected = "Command 'blither blather' not understood. Type 'help' (without quotes) for help."
+      expected = "Command 'blither blather' not understood. Type 'menu' (without quotes) for a list of available commands."
       subject.send(:process).should == expected
     end
   end
