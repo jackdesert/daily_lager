@@ -30,7 +30,7 @@ describe Verb  do
 
   hash = { 
           '3 miles' => ActionVerb,
-          'help' => HelpVerb,
+          'menu' => MenuVerb,
           'list' => ListVerb,
           'today' => TodayVerb,
           'yesterday' => YesterdayVerb,

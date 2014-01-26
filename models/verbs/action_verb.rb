@@ -17,7 +17,7 @@ class ActionVerb < Verb
   end
 
   def successor
-    HelpVerb
+    MenuVerb
   end
 
   def thing_name

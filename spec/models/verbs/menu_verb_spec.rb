@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe HelpVerb do
+describe MenuVerb do
   describe '#appropriate?' do
     yesses = [
-      ['help'],
+      ['menu'],
     ]
         
     verify_appropriateness_of(yesses, described_class)
@@ -16,7 +16,7 @@ describe HelpVerb do
     subject { described_class.new('', human) }
     it 'returns a message' do
       expected = "Available commands:
-HELP
+MENU
 LIST
 TODAY
 YESTERDAY

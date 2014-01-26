@@ -88,7 +88,8 @@ begin
   demo = Demo.new
 
   intro = "Welcome to the Daily Lager Demo"
-  intro += "\n\nTo see a list of available methods,\nenter 'help' (without the quotes) and press\nENTER."
+  menu_response = Verb.new('menu', human).responder.response
+  intro += menu_response
   intro += "\n\nTo close the demo, CTRL-C"
   demo.display_input intro
 
