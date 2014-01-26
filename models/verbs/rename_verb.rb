@@ -3,9 +3,9 @@ class RenameVerb < Verb
   def process
     if thing = human.things.find_by_name(old_name)
       thing.change_name_to(new_name)
-      "Activity '#{old_name}' updated to '#{new_name}'.\nTo use, type '6 #{new_name}' without quotes."
+      "Category '#{old_name}' updated to '#{new_name}'.\nTo use, type '6 #{new_name}' without quotes."
     else
-      "Activity '#{old_name}' not found."
+      "Category '#{old_name}' not found."
     end
   end
 

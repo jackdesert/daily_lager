@@ -25,7 +25,7 @@ describe RenameVerb do
     subject { described_class.new('rename run miles', human) }
     context 'when Thing exists' do
       it 'returns a message' do
-        subject.send(:process).should == "Activity 'run' updated to 'miles'.\nTo use, type '6 miles' without quotes."
+        subject.send(:process).should == "Category 'run' updated to 'miles'.\nTo use, type '6 miles' without quotes."
       end
     end
 

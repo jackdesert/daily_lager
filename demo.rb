@@ -87,7 +87,7 @@ begin
   human = Human.new
   demo = Demo.new
 
-  intro = "Welcome to the Daily Lager Demo"
+  intro = "Welcome to the Daily Lager Demo\n\n"
   menu_response = Verb.new('menu', human).responder.response
   intro += menu_response
   intro += "\n\nTo close the demo, CTRL-C"

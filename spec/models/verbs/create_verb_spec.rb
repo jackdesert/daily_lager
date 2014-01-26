@@ -17,7 +17,7 @@ describe CreateVerb do
         human.things.second.default_value.should == 0
       end
       it 'returns a message' do
-        subject.send(:process).should == "Thing 'original' created"
+        subject.send(:process).should == "Category 'original' created."
       end
     end
 
@@ -29,7 +29,7 @@ describe CreateVerb do
         human.things.first.name.should == name
       end
       it 'returns a message' do
-        subject.send(:process).should == "You already have a thing called '#{name}'"
+        subject.send(:process).should == "You already have a category named '#{name}'"
       end
     end
   end

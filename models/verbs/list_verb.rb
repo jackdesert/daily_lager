@@ -1,9 +1,13 @@
 class ListVerb < Verb
 
   def process
-    message = 'You have the following activities active:'
-    human.things_in_order.each do |thing|
-      message += "\n#{thing.name}"
+    if human.things.present?
+      message = 'You have created the following categories:'
+      human.things_in_order.each do |thing|
+        message += "\n#{thing.name}"
+      end
+    else
+      message = "No categories active. To add one, type CREATE <category>"
     end
     message
   end
