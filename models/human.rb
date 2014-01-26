@@ -27,7 +27,13 @@ class Human
   end
 
   def backfill
-    raise 'Method Not Implemented'
+    date_counter = most_recent_occurrence.date + 1
+    while date_counter <= Occurrence.new.date 
+      things.each do |thing|
+        thing.generate_default_occurrence_for_date(date_counter)
+      end
+      date_counter += 1
+    end
   end
 
   def most_recent_occurrence
