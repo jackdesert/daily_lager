@@ -54,27 +54,36 @@ describe Human do
 
 
   describe '#backfill' do
-    let(:thing) { Thing.new(name: 'run', default_value: 13, occurrences: occurrences) }
-    let(:human) { Human.new(phone_number: '1112224444', things: [thing])  }
+    let(:today_occurrence) { Occurrence.new }
+    let(:yesterday_occurrence) { Occurrence.new(date: Time.now.to_date - 1) }
+    let(:two_days_ago_occurrence) { Occurrence.new(date: Time.now.to_date - 2) }
+    let(:three_days_ago_occurrence) { Occurrence.new(date: Time.now.to_date - 3) }
+    let(:run_thing) { Thing.new(name: 'run', default_value: 13, occurrences: run_occurrences) }
+    let(:walk_thing) { Thing.new(name: 'run', default_value: 7, occurrences: walk_occurrences) }
+    let(:human) { Human.new(phone_number: '1112224444', things: [run_thing, walk_thing])  }
 
     context 'when there is already an entry for today' do
-      let(:occurrences) { [Occurrence.new] }
+      let(:run_occurrences) { [today_occurrence] }
+      let(:walk_occurrences) { [yesterday_occurrence] }
       it 'does nothing' do
-        human.backfill
-        thing.occurrences.should == occurrences
+        expect {
+          human.backfill
+        }.to change{ run_occurrences.count }.by(0)
       end
     end
 
-    context 'when the last occurrence was yesterday' do
-      let(:yesterday) { (Time.now - 86400).to_date }
-      let(:occurrences) { [Occurrence.new(date: yesterday)] }
-      it 'adds an Occurrence for today with value 13' do
+    context 'when the last occurrence was two days ago' do
+      let(:run_occurrences) { [two_days_ago_occurrence] }
+      let(:walk_occurrences) { [three_days_ago_occurrence, two_days_ago_occurrence] }
+      let(:today) { Time.now.to_date }
+      let(:yesterday) { today - 1 }
+      it 'calls generate_default_occurrence_for_date on all Things for yesterday and today' do
+        [walk_thing, run_thing].each do |thing|
+          mock(thing).generate_default_occurrence_for_date(today)
+          mock(thing).generate_default_occurrence_for_date(yesterday)
+        end
         human.backfill
-        thing.occurrences.length.should == 2
-        thing.occurrences.last.value.should == 13
       end
     end
-
-
   end
 end
