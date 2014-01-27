@@ -7,7 +7,13 @@ require 'rspec'
 require 'rr'
 require 'time-warp'
 
-require_relative '../models/database'
+# DB must be defined before models are required
+DB = Sequel.sqlite
+# DB migrations must happen before models are loaded
+# in order for the accessors to be automagically added
+# (one for each database column)
+Dir["#{File.dirname(__FILE__)}/../db/migrations/*.rb"].each { |f| require(f) }
+
 require_relative '../models/util'
 require_relative '../models/verb'
 require_relative '../models/human'
@@ -25,9 +31,6 @@ require_relative '../models/verbs/today_verb'
 require_relative '../models/verbs/update_default_verb'
 require_relative '../models/verbs/yesterday_verb'
 require_relative './support/helper_methods'
-
-DB = Database.sqlite
-Dir["#{File.dirname(__FILE__)}/../db/migrations/*.rb"].each { |f| require(f) }
 
 RSpec.configure do |config|
   config.mock_with :rr

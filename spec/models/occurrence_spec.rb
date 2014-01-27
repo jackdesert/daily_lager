@@ -4,19 +4,19 @@ describe Occurrence do
   context 'initialization' do
     subject { described_class.new(value: 3) }
     it "has today's date" do
+      subject.valid?
       subject.date.should == Date.today
     end
     it 'has the passed in value' do
       subject.value.should == 3
     end
   end
-  context 'validations' do
+  context 'validations', focus: true do
     valid_values = [-30, 15, 49998]
     valid_values.each do |value|
       context "when value is #{value}" do
-        it 'is valid' do
-          described_class.new(value: value, date: Date.new).valid?.should == true
-        end
+        subject { described_class.new(value: value) }
+        it { should be_valid }
       end
     end
 

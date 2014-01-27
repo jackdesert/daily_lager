@@ -1,5 +1,3 @@
-DB = Database.sqlite
-
 class Human < Sequel::Model
 
 #  attr_accessor :phone_number, :things

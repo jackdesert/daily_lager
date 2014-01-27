@@ -1,4 +1,3 @@
-DB = Database.sqlite
 
 class Thing < Sequel::Model
 
