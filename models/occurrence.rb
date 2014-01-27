@@ -24,7 +24,7 @@ class Occurrence < Sequel::Model
   end
 
   def before_validation
-    self.date ||= Date.today
+    self.date ||= current_date_in_california
   end
 
   def validate
