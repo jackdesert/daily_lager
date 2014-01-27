@@ -17,6 +17,18 @@ describe Thing do
     it { should be_persisted }
   end
 
+  context 'associations' do
+    let(:today_occurrence) { Occurrence.new(value: 5) }
+    subject { described_class.create }
+    before do
+      subject.add_occurrence(today_occurrence)
+    end
+
+    it 'saves associated records when saved' do
+      subject.occurrences.first.should == today_occurrence
+    end
+  end
+
   describe '#occurrences' do
     it 'is an array' do
       described_class.new.occurrences.should be_an Array
@@ -37,8 +49,12 @@ describe Thing do
 
   describe '#generate_default_occurrence_for_date' do
     let(:january_1) { Date.new(2014, 1, 1) }
-    let(:existing_occurrence_jan_1) { Occurrence.new(date: january_1) }
-    let(:thing) { Thing.new(name: 'run', default_value: 13, occurrences: [existing_occurrence_jan_1]) }
+    let(:existing_occurrence_jan_1) { Occurrence.new(date: january_1, value: 1300) }
+    let(:thing) { Thing.create(name: 'run', default_value: 13) }
+
+    before do
+      thing.add_occurrence(existing_occurrence_jan_1)
+    end
 
     context 'when an occurrence already exists for that day' do
       it 'raises an exception and does not create an occurrence' do
@@ -52,6 +68,7 @@ describe Thing do
     context 'when no occurrence exists for that day' do
       let(:february_1) { Date.new(2014, 2, 1) }
       it 'adds an occurrence with the value matching Thing#default_value' do
+        thing.occurrences.length.should == 1
         thing.generate_default_occurrence_for_date(february_1)
         thing.occurrences.length.should == 2
         thing.occurrences.last.value.should == 13
@@ -73,8 +90,13 @@ describe Thing do
       let(:yesterday_occurrence) { Occurrence.new(date: Time.now.to_date - 1, value: 13) }
       let(:first_occurrence) { Occurrence.new(value: 4) }
       let(:second_occurrence) { Occurrence.new(value: 1) }
-      let(:thing) { Thing.new(occurrences: [yesterday_occurrence, first_occurrence, second_occurrence]) }
+      let(:thing) { Thing.create }
       subject { thing.total_value_today }
+      before do
+        thing.add_occurrence(yesterday_occurrence)
+        thing.add_occurrence(first_occurrence)
+        thing.add_occurrence(second_occurrence)
+      end
       it "returns today's total" do
         should == 5
       end

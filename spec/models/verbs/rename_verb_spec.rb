@@ -4,7 +4,9 @@ describe RenameVerb do
 
   describe '#appropriate?' do
     thing1 = Thing.new(name: 'mp3', default_value: 6)
-    human = Human.new(things: [thing1]) 
+    human = Human.create
+    human.add_thing(thing1)
+
     yesses = [
       ['rename', 'mp3', 'm4a'],
       ['rename', 'nonexistent', 'something_else'], # Appropriate even though it will fail due to 'run' not existing
@@ -21,8 +23,13 @@ describe RenameVerb do
 
   describe '#process' do
     let(:thing1) { Thing.new(name: 'run', default_value: 6) }
-    let(:human) { Human.new(phone_number: '1111111111', things: [thing1]) }
+    let(:human) { Human.create(phone_number: '1111111111') }
     subject { described_class.new(text, human) }
+    
+    before do
+      human.add_thing(thing1)
+    end
+
     context 'when Thing exists' do
       let(:text) { 'rename run miles' }
       it 'returns a message' do

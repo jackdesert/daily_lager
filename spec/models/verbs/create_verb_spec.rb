@@ -5,8 +5,12 @@ describe CreateVerb do
   describe '#process' do
     let(:existing_name) { 'run' }
     let(:thing1) { Thing.new(name: existing_name, default_value: 6) }
-    let(:human) { Human.new(phone_number: '1111111111', things: [thing1]) }
+    let(:human) { Human.create(phone_number: '1111111111') }
     subject { described_class.new(['create', name], human) }
+
+    before do
+      human.add_thing(thing1)
+    end
 
     context 'when the named action does not exist' do
       let(:name) { 'original' }

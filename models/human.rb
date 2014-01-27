@@ -1,16 +1,19 @@
-class Human 
+# Note that Sequel gets the plural of human wrong, so must specify the table name here
+class Human < Sequel::Model(:humans)
 
-  attr_accessor :phone_number, :things
+#  attr_accessor :phone_number, :things
 
-  def initialize(hash={})
-    hash.each_pair do |key, value|
-      self.send("#{key}=", value)
-    end
-    @things ||= []
-    def @things.find_by_name(name)
-      self.select {|f| f.name == name}.first
-    end
-  end
+  one_to_many :things
+
+#  def initialize(hash={})
+#    hash.each_pair do |key, value|
+#      self.send("#{key}=", value)
+#    end
+#    @things ||= []
+#    def @things.find_by_name(name)
+#      self.select {|f| f.name == name}.first
+#    end
+#  end
 
   def valid?
     if phone_number.match /\A\d{10}\Z/
@@ -28,7 +31,7 @@ class Human
 
   def backfill
     date_counter = most_recent_occurrence.date + 1
-    while date_counter <= Occurrence.new.date 
+    while date_counter <= Date.today
       things.each do |thing|
         thing.generate_default_occurrence_for_date(date_counter)
       end
@@ -37,9 +40,11 @@ class Human
   end
 
   def most_recent_occurrence
-    things.map do |thing|
+    all_occurrences = things.map do |thing|
       thing.occurrences
-    end.flatten.max{ |a,b| a.date <=> b.date}
+    end.flatten
+    return Date.today if all_occurrences.empty?
+    all_occurrences.max{ |a,b| a.date <=> b.date}
   end
 
   private
