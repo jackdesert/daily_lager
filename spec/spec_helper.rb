@@ -1,15 +1,18 @@
 ENV['RACK_ENV'] = 'test'
 
 require 'sinatra'
+require 'sequel'
 require 'pry'
 require 'rspec'
 require 'rr'
 require 'time-warp'
+
+require_relative '../models/database'
+require_relative '../models/util'
 require_relative '../models/verb'
 require_relative '../models/human'
 require_relative '../models/thing'
 require_relative '../models/occurrence'
-require_relative '../models/util'
 require_relative '../models/verbs/action_verb'
 require_relative '../models/verbs/create_verb'
 require_relative '../models/verbs/create_verb_with_default'
@@ -23,6 +26,8 @@ require_relative '../models/verbs/update_default_verb'
 require_relative '../models/verbs/yesterday_verb'
 require_relative './support/helper_methods'
 
+DB = Database.sqlite
+Dir["#{File.dirname(__FILE__)}/../db/migrations/*.rb"].each { |f| require(f) }
 
 RSpec.configure do |config|
   config.mock_with :rr

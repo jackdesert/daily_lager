@@ -1,16 +1,29 @@
-class Thing
+DB = Database.sqlite
+
+class Thing < Sequel::Model
 
   DISPLAY_NAME = 'category'
   DISPLAY_NAME_PLURAL = 'categories'
 
-  attr_accessor :name, :occurrences, :default_value
-  def initialize(hash={})
-    hash.each_pair do |key, value|
-      self.send("#{key}=", value)
-    end
-    @occurrences ||= []
-    @default_value ||= 0
-  end
+  one_to_many :occurrence
+  many_to_one :human
+
+#  attr_accessor :name, :occurrences, :default_value, :thing_id
+#  def initialize(hash={})
+#    super
+#    @occurrences ||= []
+#    @default_value ||= 0
+#  end
+
+#  def save
+#    if output = super
+#      @occurrences.each do |occurrence|
+##        occurrence.values[:thing_id] = id
+##        add_occurrence(occurrence)
+#      end
+#    end
+#    output
+#  end
 
   def change_name_to(new_name)
     self.name = new_name

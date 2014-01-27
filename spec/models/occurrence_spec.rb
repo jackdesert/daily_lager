@@ -2,9 +2,12 @@ require 'spec_helper'
 
 describe Occurrence do
   context 'initialization' do
-    subject { described_class.new }
+    subject { described_class.new(value: 3) }
     it "has today's date" do
-      subject.date.should == Time.now.to_date
+      subject.date.should == Date.today
+    end
+    it 'has the passed in value' do
+      subject.value.should == 3
     end
   end
   context 'validations' do

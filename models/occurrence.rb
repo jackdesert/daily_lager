@@ -1,17 +1,16 @@
 require 'active_support/core_ext/date_time/zones' # adds support for DateTime#in_time_zone
 require 'active_support/core_ext/date_time/calculations' #adds support for DateTime#utc, used by DateTime#in_time_zone
+DB = Database.sqlite
 
-class Occurrence
+class Occurrence < Sequel::Model
 
+  many_to_one :thing
 
-  attr_accessor :value, :date
-
-  def initialize(hash={})
-    hash.each_pair do |key, value|
-      self.send("#{key}=", value)
-    end
-    @date ||= current_date_in_california
-  end
+#  attr_accessor :value, :date
+#  def initialize(hash={})
+#    super
+#    @date ||= current_date_in_california
+#  end
 
   def valid?
     return false unless value.kind_of? Fixnum

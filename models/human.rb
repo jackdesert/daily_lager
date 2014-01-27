@@ -1,16 +1,20 @@
-class Human 
+DB = Database.sqlite
 
-  attr_accessor :phone_number, :things
+class Human < Sequel::Model
 
-  def initialize(hash={})
-    hash.each_pair do |key, value|
-      self.send("#{key}=", value)
-    end
-    @things ||= []
-    def @things.find_by_name(name)
-      self.select {|f| f.name == name}.first
-    end
-  end
+#  attr_accessor :phone_number, :things
+
+  one_to_many :thing
+
+#  def initialize(hash={})
+#    hash.each_pair do |key, value|
+#      self.send("#{key}=", value)
+#    end
+#    @things ||= []
+#    def @things.find_by_name(name)
+#      self.select {|f| f.name == name}.first
+#    end
+#  end
 
   def valid?
     if phone_number.match /\A\d{10}\Z/

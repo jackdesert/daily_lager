@@ -17,6 +17,20 @@ describe Thing do
     it { should be_persisted }
   end
 
+  context 'associations', focus: true do
+    let(:today_occurrence) { Occurrence.new }
+    subject { described_class.create }
+    before do
+      binding.pry
+      subject.add_occurrence(today_occurrence)
+    end
+
+    it 'saves associated records when saved' do
+      binding.pry
+      subject.occurrences.first.should be_saved
+    end
+  end
+
   describe '#occurrences' do
     it 'is an array' do
       described_class.new.occurrences.should be_an Array
