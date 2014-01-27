@@ -4,7 +4,7 @@ class Thing < Sequel::Model
   DISPLAY_NAME = 'category'
   DISPLAY_NAME_PLURAL = 'categories'
 
-  one_to_many :occurrence
+  one_to_many :occurrences
   many_to_one :human
 
 #  attr_accessor :name, :occurrences, :default_value, :thing_id
