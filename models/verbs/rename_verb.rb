@@ -1,7 +1,7 @@
 class RenameVerb < Verb
 
   def process
-    if thing = human.things.find_by_name(old_name)
+    if thing = Thing.where(human_id: human.id, name: old_name).first
       thing.change_name_to(new_name)
       "#{Thing::DISPLAY_NAME.capitalize} '#{old_name}' updated to '#{new_name}'.\nTo use, type '6 #{new_name}' without quotes."
     else
