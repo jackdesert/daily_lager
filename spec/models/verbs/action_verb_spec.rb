@@ -23,8 +23,12 @@ describe ActionVerb do
     let(:existing_name) { 'run' }
     let(:value) { 3 }
     let(:thing1) { Thing.new(name: existing_name, default_value: 6) }
-    let(:human) { Human.new(phone_number: '1111111111', things: [thing1]) }
+    let(:human) { Human.create(phone_number: '1111111111') }
     subject { described_class.new([value, name], human) }
+
+    before do
+      human.add_thing(thing1)
+    end
 
     context 'when the named thing exists' do
       let(:name) { existing_name }
@@ -39,7 +43,7 @@ describe ActionVerb do
       end
       context 'and the Thing already has an occurrence today' do
         before do
-          thing1.occurrences << Occurrence.new(value: 13)
+          thing1.add_occurrence(value: 13)
         end
         it 'returns the total with the message' do
           subject.send(:process).should == ("3 run(s) logged. Today's total: 16")

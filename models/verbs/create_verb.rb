@@ -1,7 +1,7 @@
 class CreateVerb < Verb
 
   def process
-    if human.things.any? { |f| f.name == proposed_thing_name }
+    if Thing.where(human_id: human.id, name: proposed_thing_name).first
       "You already have a #{Thing::DISPLAY_NAME} named '#{proposed_thing_name}'"
     else
       human.things << Thing.create_with_name(proposed_thing_name)
