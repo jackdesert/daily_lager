@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Thing do
   describe '#initialize' do
+
     let(:name) { 'iron' }
     let(:default_value) { 6 }
+
     subject { described_class.new(name: name, default_value: default_value) }
     it 'returns a Thing' do
       subject.should be_an described_class
@@ -11,10 +13,21 @@ describe Thing do
     it 'saves the name in the new action' do
       subject.name.should == name
     end
-    it 'saves the default value in the new action' do
-      subject.default_value.should == default_value 
-    end
+
     it { should be_persisted }
+
+    context 'when a default value is given' do
+      it 'saves the default value in the new action' do
+        subject.default_value.should == default_value 
+      end
+    end
+
+    context 'when a default value is not given' do
+      subject { described_class.new(name: name) }
+      it 'has a default value of 0 after saving' do
+        subject.save.default_value.should == 0
+      end
+    end
   end
 
   context 'associations' do
@@ -32,18 +45,6 @@ describe Thing do
   describe '#occurrences' do
     it 'is an array' do
       described_class.new.occurrences.should be_an Array
-    end
-  end
-
-  describe '.create_with_name' do
-    let(:name) { 'read' }
-    subject { described_class.create_with_name(name) }
-    it 'has the correct name' do
-      subject.name.should == name
-    end
-
-    it 'has a default_value of 0' do
-      subject.default_value.should == 0
     end
   end
 
@@ -87,7 +88,7 @@ describe Thing do
     end
 
     context 'when there are occurrences' do
-      let(:yesterday_occurrence) { Occurrence.new(date: Time.now.to_date - 1, value: 13) }
+      let(:yesterday_occurrence) { Occurrence.new(date: Date.today - 1, value: 13) }
       let(:first_occurrence) { Occurrence.new(value: 4) }
       let(:second_occurrence) { Occurrence.new(value: 1) }
       let(:thing) { Thing.create }
@@ -102,6 +103,33 @@ describe Thing do
       end
     end
   end
+
+  describe '.totals_for_human_on_date' do
+    let(:correct_date) { Date.today - 35 }
+    let(:other_date) { Date.today - 17 }
+    let(:yoyo_thing) { Thing.create(name: 'yoyo') }
+    let(:music_thing) { Thing.create(name: 'music') }
+    let(:other_human_music_thing) { Thing.create(name: 'music') }
+    let(:human) { Human.create(phone_number: '2222222222') }
+    let(:other_human) { Human.create(phone_number: '3333333333') }
+    subject { described_class.totals_for_human_on_date(human, correct_date) }
+    before do
+      [yoyo_thing, music_thing, other_human_music_thing].each do |t|
+        [1,3,7].each do |value|
+          t.add_occurrence(value: value, date: correct_date)
+          t.add_occurrence(value: value, date: other_date)
+        end
+      end
+      music_thing.add_occurrence(value: 13, date: correct_date)
+      human.add_thing(yoyo_thing)
+      human.add_thing(music_thing)
+      other_human.add_thing(other_human_music_thing)
+    end
+
+    it { should be_a(Hash) }
+    it { should == {'yoyo' => 11, 'music' => 24} }
+  end
+
 end
   
 

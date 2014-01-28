@@ -3,7 +3,7 @@ require 'spec_helper'
 describe MenuVerb do
   describe '#appropriate?' do
     yesses = [
-      ['menu'],
+      ['menu'], ['help'],
     ]
         
     verify_appropriateness_of(yesses, described_class)

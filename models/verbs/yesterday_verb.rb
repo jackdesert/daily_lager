@@ -1,17 +1,11 @@
 class YesterdayVerb < Verb
 
   def process
-    hash = {}
-    human.things.each do |thing|
-      thing.occurrences.select{|f| f.date == (Time.now.to_date - 1)}.each do |occurrence|
-        hash[thing.name] ||= 0
-        hash[thing.name] += occurrence.value
-      end
-    end
-
-    if Util.hash_has_nonzero_value(hash)
+    yesterday = Date.today - 1
+    totals = Thing.totals_for_human_on_date(human, yesterday)
+    if Util.hash_has_nonzero_value(totals)
       message = "Yesterday's totals:"
-      hash.each_pair do  |name, value|
+      totals.each_pair do  |name, value|
         message += "\n#{value} #{name}"
       end
     else

@@ -49,10 +49,16 @@ class Thing < Sequel::Model
     true
   end
 
-
   class << self
-    def create_with_name(name)
-      new(name: name, default_value: 0)
+
+    def totals_for_human_on_date(human, date)
+      output = {}
+      relation = where(human_id: human.id).join(:occurrences, thing_id: :id).where(date: date).select_append{sum(value).as(total_for_date)}.group(:thing_id)
+      relation.each do |tuple|
+        output[tuple.name] = tuple.values[:total_for_date]
+      end
+      output
     end
   end
+
 end

@@ -2,7 +2,7 @@ class MenuVerb < Verb
 
   private
   def appropriate?
-    words == ['menu']
+    ['menu', 'help'].include? words.first
   end
 
   def process

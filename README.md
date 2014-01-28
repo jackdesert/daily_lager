@@ -177,6 +177,15 @@ the the method of logging the data. You will need to use your
 SQL hackery yourself to intelligently interpret the data.
 
 
+Updating this README File
+------------------------
+
+This README file is generated from doc/README.md.erb. To generate
+the file, run
+
+    erb doc/README.md.erb > README.md
+
+
 Roadmap
 --------------
 
@@ -190,17 +199,18 @@ Completed:
   * Demo (demo.rb) lets you interact with the DSL without a server
   * Before logging new data, it backlogs any days with no data 
     with the default values
+  * Allow multiple users to access the same Sinatra instance, 
+    identified by phone number 
+  * Added a durable storage mechanism using the sequel gem
 
 Backlog:
 
-  * Design and implement the durable storage mechanism (probably a 
-    relational database)
   * Connect to Twilio via Sinatra for a single user
+  * Beef up model validations
+  * Add database validations to ensure referential integrity
 
 Icebox:
   
-  * Allow multiple users to access the same Sinatra instance, 
-    identified by phone number 
   * Graphical representation of data
   * Add verbs for WEEK, LAST WEEK, MONTH, LAST MONTH, YEAR, and <year>
 

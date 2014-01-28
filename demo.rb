@@ -1,3 +1,7 @@
+require 'sequel'
+
+DB = Sequel.sqlite
+Dir["#{File.dirname(__FILE__)}/db/migrations/*.rb"].each { |f| require(f) }
 Dir["#{File.dirname(__FILE__)}/models/**/*.rb"].each { |f| require(f) }
 
 require 'curses'
@@ -5,7 +9,7 @@ require 'pry'
 
 
 class Demo
-  attr_accessor :queue, :awin
+  attr_accessor :queue
 
   MESSAGE_WIDTH = 45
 
@@ -84,7 +88,7 @@ def sec
 end
 
 begin
-  human = Human.new
+  human = Human.create(phone_number: '1111111111')
   demo = Demo.new
 
   intro = "Welcome to the Daily Lager Demo\n\n"
@@ -93,6 +97,8 @@ begin
   intro += "\n\nTo close the demo, CTRL-C"
   demo.display_input intro
 
+  #demo.exit
+  #binding.pry
   while true
     input = demo.get_string
     demo.display_input(input)
