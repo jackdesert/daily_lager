@@ -202,6 +202,12 @@ the file, run
     erb doc/README.md.erb > README.md
 
 
+Running the Tests
+-----------------
+
+    bundle exec rspec
+
+
 Roadmap
 --------------
 
