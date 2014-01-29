@@ -16,6 +16,10 @@ class Agent
     res = Net::HTTP.post_form(uri, 'q' => ['ruby', 'perl'], 'max' => '50')
     res.body
   end
+
+  def uri=(input)
+    @uri = URI(input)
+  end
 end
 
 a = Agent.new

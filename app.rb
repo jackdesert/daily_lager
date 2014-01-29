@@ -4,8 +4,10 @@ require 'sequel'
 
 set :port, 8853
 
-DB_FILE = './db/development.db'
-DB = Sequel.connect("sqlite://#{DB_FILE}")
+unless ENV['RACK_ENV'] == 'test' 
+  DB_FILE = './db/development.db'
+  DB = Sequel.connect("sqlite://#{DB_FILE}")
+end
 
 
 
