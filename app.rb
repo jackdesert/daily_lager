@@ -1,16 +1,33 @@
 require 'sinatra'
 require 'pry'
 require 'sequel'
+
+set :port, 8853
+
 DB_FILE = './db/development.db'
 DB = Sequel.connect("sqlite://#{DB_FILE}")
 
 
 
-# require models
-Dir["#{File.dirname(__FILE__)}/models/**/*.rb"].each { |f| require(f) }
-
+require_relative './models/util'
+require_relative './models/human'
+require_relative './models/thing'
+require_relative './models/occurrence'
+require_relative './models/verb'
+require_relative './models/verbs/action_verb'
+require_relative './models/verbs/create_verb'
+require_relative './models/verbs/create_verb_with_default'
+require_relative './models/verbs/delete_verb'
+require_relative './models/verbs/menu_verb'
+require_relative './models/verbs/list_verb'
+require_relative './models/verbs/nonsense_verb'
+require_relative './models/verbs/rename_verb'
+require_relative './models/verbs/today_verb'
+require_relative './models/verbs/update_default_verb'
+require_relative './models/verbs/yesterday_verb'
 
 post '/messages' do
+  binding.pry
   'hi there'
 end
 #get '/' do
