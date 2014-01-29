@@ -11,22 +11,22 @@ end
 
 
 
-require_relative './models/util'
-require_relative './models/human'
-require_relative './models/thing'
-require_relative './models/occurrence'
-require_relative './models/verb'
-require_relative './models/verbs/action_verb'
-require_relative './models/verbs/create_verb'
-require_relative './models/verbs/create_verb_with_default'
-require_relative './models/verbs/delete_verb'
-require_relative './models/verbs/menu_verb'
-require_relative './models/verbs/list_verb'
-require_relative './models/verbs/nonsense_verb'
-require_relative './models/verbs/rename_verb'
-require_relative './models/verbs/today_verb'
-require_relative './models/verbs/update_default_verb'
-require_relative './models/verbs/yesterday_verb'
+require './models/util'
+require './models/human'
+require './models/thing'
+require './models/occurrence'
+require './models/verb'
+require './models/verbs/action_verb'
+require './models/verbs/create_verb'
+require './models/verbs/create_verb_with_default'
+require './models/verbs/delete_verb'
+require './models/verbs/menu_verb'
+require './models/verbs/list_verb'
+require './models/verbs/nonsense_verb'
+require './models/verbs/rename_verb'
+require './models/verbs/today_verb'
+require './models/verbs/update_default_verb'
+require './models/verbs/yesterday_verb'
 
 post '/messages' do
   binding.pry
