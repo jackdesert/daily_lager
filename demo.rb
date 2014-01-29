@@ -1,7 +1,14 @@
 require 'sequel'
+DB_FILE = './db/demo.db'
+DB = Sequel.connect("sqlite://#{DB_FILE}")
 
-DB = Sequel.sqlite
-Dir["#{File.dirname(__FILE__)}/db/migrations/*.rb"].each { |f| require(f) }
+
+
+# Run migrations unless the database has already been initialized
+unless File.exist?(DB_FILE)
+  Dir["#{File.dirname(__FILE__)}/db/migrations/*.rb"].each { |f| require(f) }
+end
+
 Dir["#{File.dirname(__FILE__)}/models/**/*.rb"].each { |f| require(f) }
 
 require 'curses'

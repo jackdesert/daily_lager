@@ -1,12 +1,18 @@
 require 'sinatra'
-# The web dev part is TBD
-#require 'mongoid'
-#
-#Mongoid.load!("config/mongoid.yml")
-#require './models/search_result'
-#require './models/search'
-#require 'pry'
-#
+require 'pry'
+require 'sequel'
+DB_FILE = './db/development.db'
+DB = Sequel.connect("sqlite://#{DB_FILE}")
+
+
+
+# require models
+Dir["#{File.dirname(__FILE__)}/models/**/*.rb"].each { |f| require(f) }
+
+
+post '/messages' do
+  'hi there'
+end
 #get '/' do
 #  prepend = "<h1>Existing Searches</h1>
 #  <ul>"

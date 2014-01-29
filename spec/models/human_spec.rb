@@ -112,4 +112,17 @@ describe Human do
       end
     end
   end
+
+  describe '.demo_human' do
+    context 'when the demo human has not been created' do
+      subject { described_class.demo_human }
+      it { should be_a(Human) }
+    end
+
+    context 'when the demo human has already been created' do
+      subject { described_class.demo_human }
+      before do
+      it { should be_a(Human) }
+    end
+
 end

@@ -6,9 +6,10 @@ Daily Lager
 
 "How good for me? *Measureably* good?"
 
-Daily Lager allows you to quickly log the day's events, as they
-happen, either via SMS, from a terminal, or via email. 
-Once you acquire enough data, you can answer that last 
+Daily Lager allows the tracking of your own custom, statistical data about 
+yourself via a simple DSL over SMS or command line. Once you acquire enough 
+data about your consumption or non-consumption of those garden greens, and 
+data on how great (or not great) you feel each day, you can answer that last 
 question for yourself.
 
 
@@ -205,6 +206,7 @@ Completed:
 
 Backlog:
 
+  * Complete DELETE and UPDATE DEFAULT functionality
   * Connect to Twilio via Sinatra for a single user
   * Beef up model validations
   * Add database validations to ensure referential integrity
