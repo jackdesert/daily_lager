@@ -115,43 +115,43 @@ More Examples
 Let's say you want to log how many miles you walk, how many days
 you take your B vitamins, and how much you sleep.
 
-Create a category called 'walk':
-  CREATE walk 
-    => 'walk' created
+    Create a category called 'walk':
+      CREATE walk 
+        => 'walk' created
 
-Create a category called 'sleep':
-  CREATE sleep
-    => 'sleep' created
+    Create a category called 'sleep':
+      CREATE sleep
+        => 'sleep' created
 
-Create a category called 'vitamins' with a default value of 1:
-  CREATE vitamin DEFAULT 1
-    => 'vitamin' created with a default value of 1
+    Create a category called 'vitamins' with a default value of 1:
+      CREATE vitamin DEFAULT 1
+        => 'vitamin' created with a default value of 1
 
-Ask what categories are loaded:
-  LIST
-    => category you're tracking:
-       sleep
-       vitamin (default 1)
-       walk 
+    Ask what categories are loaded:
+      LIST
+        => category you're tracking:
+           sleep
+           vitamin (default 1)
+           walk 
 
-Log that you walked two (miles) today:
-  2 walk
-    => Logged 2 walk(s) 
+    Log that you walked two (miles) today:
+      2 walk
+        => Logged 2 walk(s) 
 
-Log that you slept 6 hours today:
-  6 sleep
-    => Logged 6 sleep(s)
+    Log that you slept 6 hours today:
+      6 sleep
+        => Logged 6 sleep(s)
 
-Log that you walked six more miles (still the same day)
-  6 walk
-    => Logged 6 walk(s), total today: 8
+    Log that you walked six more miles (still the same day)
+      6 walk
+        => Logged 6 walk(s), total today: 8
 
-Ask what's been logged today:
-  TODAY
-    =>  Today's totals:
-        6 sleep
-        1 vitamin
-        8 walk
+    Ask what's been logged today:
+      TODAY
+        =>  Today's totals:
+            6 sleep
+            1 vitamin
+            8 walk
 
 
 A Note About UPPERCASE
