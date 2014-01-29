@@ -110,8 +110,8 @@ describe Thing do
     let(:yoyo_thing) { Thing.create(name: 'yoyo') }
     let(:music_thing) { Thing.create(name: 'music') }
     let(:other_human_music_thing) { Thing.create(name: 'music') }
-    let(:human) { Human.create(phone_number: '2222222222') }
-    let(:other_human) { Human.create(phone_number: '3333333333') }
+    let(:human) { create(:human) }
+    let(:other_human) { create(:human) }
     subject { described_class.totals_for_human_on_date(human, correct_date) }
     before do
       [yoyo_thing, music_thing, other_human_music_thing].each do |t|

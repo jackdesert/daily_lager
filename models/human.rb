@@ -1,5 +1,9 @@
 # Note that Sequel gets the plural of human wrong, so must specify the table name here
 class Human < Sequel::Model(:humans)
+  DEMO_PHONE_NUMBER = '+11111111111'
+
+  plugin :validation_helpers
+
 
 #  attr_accessor :phone_number, :things
 
@@ -15,12 +19,18 @@ class Human < Sequel::Model(:humans)
 #    end
 #  end
 
-  def valid?
-    if phone_number.match /\A\d{10}\Z/
-      true
-    else
-      false
-    end
+#  def valid?
+#    if phone_number.match /\A\d{10}\Z/
+#      true
+#    else
+#      false
+#    end
+#  end
+
+  def validate
+    super
+    validates_unique :phone_number
+    validates_format /\A\+1\d{10}\Z/, :phone_number, :message=>'format required: +1dddddddddd where d is a digit'
   end
 
   def things_in_order
@@ -58,8 +68,9 @@ class Human < Sequel::Model(:humans)
 
 
   class << self
-    def find_or_create_with_phone_number(phone_number)
-      Human.new(phone_number: phone_number)
+    def demo_instance
+      find_or_create(phone_number: DEMO_PHONE_NUMBER)
     end
   end
+
 end

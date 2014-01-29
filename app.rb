@@ -1,12 +1,54 @@
 require 'sinatra'
-# The web dev part is TBD
-#require 'mongoid'
-#
-#Mongoid.load!("config/mongoid.yml")
-#require './models/search_result'
-#require './models/search'
-#require 'pry'
-#
+require 'pry'
+require 'sequel'
+
+set :port, 8853
+
+unless ENV['RACK_ENV'] == 'test' 
+  DB_FILE = './db/development.db'
+  DB = Sequel.connect("sqlite://#{DB_FILE}")
+end
+
+
+
+require './models/util'
+require './models/human'
+require './models/thing'
+require './models/occurrence'
+require './models/verb'
+require './models/verbs/action_verb'
+require './models/verbs/create_verb'
+require './models/verbs/create_verb_with_default'
+require './models/verbs/delete_verb'
+require './models/verbs/menu_verb'
+require './models/verbs/list_verb'
+require './models/verbs/nonsense_verb'
+require './models/verbs/rename_verb'
+require './models/verbs/today_verb'
+require './models/verbs/update_default_verb'
+require './models/verbs/yesterday_verb'
+
+post '/messages' do
+  content_type 'text/plain'
+  sms_body = params['Body']
+  sms_phone_number = params['From']
+  human = Human.find_or_create(phone_number: sms_phone_number)
+  return error_message unless human
+  return error_message if sms_body.nil?
+  responder = Verb.new(sms_body, Human.new).responder
+  limit_160_chars(responder.response)
+end
+
+private 
+def limit_160_chars(input)
+  return input if (input.length < 161)
+  input[0..153] + '[snip]'
+end
+
+def error_message
+  "Oops. We've encountered an error :("
+end
+
 #get '/' do
 #  prepend = "<h1>Existing Searches</h1>
 #  <ul>"

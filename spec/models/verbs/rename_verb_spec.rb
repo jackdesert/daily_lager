@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe RenameVerb do
+  let(:human) { create(:human) }
 
   describe '#appropriate?' do
+    human = create(:human)
     thing1 = Thing.new(name: 'mp3', default_value: 6)
-    human = Human.create
     human.add_thing(thing1)
 
     yesses = [
@@ -23,7 +24,6 @@ describe RenameVerb do
 
   describe '#process' do
     let(:thing1) { Thing.new(name: 'run', default_value: 6) }
-    let(:human) { Human.create(phone_number: '1111111111') }
     subject { described_class.new(text, human) }
     
     before do

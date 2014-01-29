@@ -12,7 +12,7 @@ describe MenuVerb do
   describe '#process' do
     let(:thing1) { Thing.new(name: 'run', default_value: 6) }
     let(:thing2) { Thing.new(name: 'eat', default_value: 2) }
-    let(:human) { Human.create(phone_number: '1111111111') }
+    let(:human) { create(:human) }
     subject { described_class.new('', human) }
 
     before do
