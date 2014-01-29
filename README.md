@@ -53,8 +53,65 @@ The DSL
       # Logs a single piece of data for today's date
 
 
-Examples
---------
+Interactive Demo
+---------------------------------------
+
+Try out the Demo. It's an ncurses simulation of Daily Lager being run over SMS. 
+
+First install Ruby 2.x, then run:
+
+    bundle exec ruby demo.rb
+
+It looks like this:
+
+        ┌-------------------------------------------┐
+        |                                           |
+        |  Welcome to the Daily Lager Demo
+
+        Available commands:
+        MENU
+        LIST
+        TODAY
+        YESTERDAY
+        CREATE <category> [DEFAULT <integer>]
+        RENAME <category_name> <new_name>
+        DELETE <category>
+
+        Full docs: http://to_be_determined
+
+        To close the demo, CTRL-C                   |
+        |                                           |
+        └-------------------------------------------┘
+
+You can use the DSL to create a category named *carrots*
+
+        ┌-------------------------------------------┐
+        |                                           |
+        |  create carrots                           |
+        |                                           |
+        └-------------------------------------------┘
+        ┌-------------------------------------------┐
+        |                                           |
+        |  Category 'carrots' created.              |
+        |                                           |
+        └-------------------------------------------┘
+
+And then you can log your carrot consumption
+
+        ┌-------------------------------------------┐
+        |                                           |
+        |  3 carrots                                |
+        |                                           |
+        └-------------------------------------------┘
+        ┌-------------------------------------------┐
+        |                                           |
+        |  3 carrots(s) logged.                     |
+        |                                           |
+        └-------------------------------------------┘
+
+
+More Examples
+-------------
 Let's say you want to log how many miles you walk, how many days
 you take your B vitamins, and how much you sleep.
 
@@ -96,54 +153,12 @@ Ask what's been logged today:
         1 vitamin
         8 walk
 
+
 A Note About UPPERCASE
 ----------------------
 
 Uppercase letters are used to better highlight which words are keywords. 
 However, you can enter them as either upper or lower case (or a mixture of both).
-
-Interactive Demo
----------------------------------------
-
-Try out the Demo. It's an ncurses simulation of Daily Lager being run over SMS. 
-
-First install Ruby 2.x, then run:
-
-    bundle exec ruby demo.rb
-
-It looks like this:
-
-        ┌-------------------------------------------┐
-        |                                           |
-        |  Welcome to the Daily Lager Demo
-
-        Available commands:
-        MENU
-        LIST
-        TODAY
-        YESTERDAY
-        CREATE <category> [DEFAULT <integer>]
-        RENAME <category_name> <new_name>
-        DELETE <category>
-
-        Full docs: http://to_be_determined
-
-        To close the demo, CTRL-C                   |
-        |                                           |
-        └-------------------------------------------┘
-
-You can use the DSL to create categories and log them.
-
-        ┌-------------------------------------------┐
-        |                                           |
-        |  create carrots                           |
-        |                                           |
-        └-------------------------------------------┘
-        ┌-------------------------------------------┐
-        |                                           |
-        |  Category 'carrots' created.              |
-        |                                           |
-        └-------------------------------------------┘
 
 
 What Data is Logged
