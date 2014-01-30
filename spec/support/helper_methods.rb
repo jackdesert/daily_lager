@@ -29,4 +29,15 @@ def verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, human)
   end
 end
 
+def has_error_on?(attribute)
+  validate
+  errors.has_key? attribute
+end
 
+def create(model_name)
+  case model_name
+  when :human
+    # rand.to_s generates something like '0.12847366495349'
+    Human.create(phone_number: rand.to_s[2..11])
+  end
+end

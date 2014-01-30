@@ -95,7 +95,7 @@ def sec
 end
 
 begin
-  human = Human.create(phone_number: '1111111111')
+  human = Human.demo_instance
   demo = Demo.new
 
   intro = "Welcome to the Daily Lager Demo\n\n"

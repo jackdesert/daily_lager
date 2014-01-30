@@ -11,7 +11,7 @@ describe YesterdayVerb do
     let(:walked_yesterday) { Occurrence.new(date: yesterday, value: 7) }
     let(:thing1) { Thing.create(name: 'run', default_value: 6) }
     let(:thing2) { Thing.create(name: 'walk', default_value: 2) }
-    let(:human) { Human.create(phone_number: '1111111111') }
+    let(:human) { create(:human) }
     subject { described_class.new('rename run miles', human) }
     context 'when occurrences exist for yesterday' do
 

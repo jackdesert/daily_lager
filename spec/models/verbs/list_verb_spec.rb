@@ -13,8 +13,8 @@ describe ListVerb do
   describe '#process' do
     let(:thing1) { Thing.new(name: 'run', default_value: 6) }
     let(:thing2) { Thing.new(name: 'eat', default_value: 2) }
-    let(:human_with_things) { Human.create(phone_number: '1111111111') }
-    let(:human_without_things) { Human.new(phone_number: '1111111111') }
+    let(:human_with_things) { create(:human) }
+    let(:human_without_things) { create(:human) }
     subject { described_class.new('', human) }
 
     before do

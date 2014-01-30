@@ -2,6 +2,10 @@ ENV['RACK_ENV'] = 'test'
 
 require 'sinatra'
 require 'sequel'
+
+# Set Sequel::Model to return nil if save fails, as opposed to raising an exception
+#Sequel::Model.raise_on_save_failure = false 
+
 require 'pry'
 require 'rspec'
 require 'rr'
@@ -41,17 +45,3 @@ RSpec.configure do |config|
 
 end
 
-def expect_error_on(thing, attribute, reverse=nil)
-  thing.valid?
-  it = thing.errors.messages[attribute]
-  if reverse
-    it.should be_nil
-  else
-    it.should_not be_nil
-  end
-
-end
-
-def expect_no_errors_on(thing, attribute)
-  expect_error_on(thing, attribute, true)
-end

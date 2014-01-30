@@ -23,7 +23,7 @@ describe ActionVerb do
     let(:existing_name) { 'run' }
     let(:value) { 3 }
     let(:thing1) { Thing.new(name: existing_name, default_value: 6) }
-    let(:human) { Human.create(phone_number: '1111111111') }
+    let(:human) { create(:human) }
     subject { described_class.new([value, name], human) }
 
     before do

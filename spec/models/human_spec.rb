@@ -2,14 +2,36 @@ require 'spec_helper'
 
 describe Human do
   context 'validations' do
-    context 'valid phone number' do
-      valid_numbers = ['1112223333', '9998887777'] 
-      invalid_numbers = ['1', '12', '123.456.4444', '&1112223333']
-      valid_numbers.each do |number|
-        described_class.new(phone_number: number).valid?.should == true
+    context 'phone number' do
+      context 'format' do
+        context 'invalid phone numbers' do
+          valid_numbers = ['1112223333', '9998887777'] 
+          valid_numbers.each do |number|
+            subject { described_class.new(phone_number: number) }
+            context "when the phone number is #{number}" do
+              it { should_not have_error_on(:phone_number) }
+            end
+          end
+        end
+
+        context 'valid phone numbers' do
+          invalid_numbers = ['1', '12', '123.456.4444', '&1112223333']
+          invalid_numbers.each do |number|
+            subject { described_class.new(phone_number: number) }
+            context "when the phone number is #{number}" do
+              it { should have_error_on(:phone_number) }
+            end
+          end
+        end
       end
-      invalid_numbers.each do |number|
-        described_class.new(phone_number: number).valid?.should == false
+      context 'uniqueness' do
+        let(:number) { '1112223333' }
+        let!(:first_human) { Human.create(phone_number: number) }
+        let(:second_human) { Human.new(phone_number: number) }
+        it 'marks the second human as invalid' do
+          first_human.should be_valid
+          second_human.should have_error_on(:phone_number)
+        end
       end
     end
   end
@@ -33,7 +55,7 @@ describe Human do
   end
 
   describe '#most_recent_occurrence' do
-    let(:human) { Human.new(phone_number: '1112224444')  }
+    let(:human) { create(:human)  }
     context 'when there are no occurrences' do
       subject { human.most_recent_occurrence }
       it { should == Date.today }
@@ -73,7 +95,7 @@ describe Human do
     let(:three_days_ago_occurrence) { Occurrence.create(value: 15, date: Date.today - 3) }
     let(:run_thing) { Thing.create(name: 'run', default_value: 13) }
     let(:walk_thing) { Thing.create(name: 'run', default_value: 7) }
-    let(:human) { Human.create(phone_number: '1112224444')  }
+    let(:human) { create(:human)  }
 
     before do
       human.add_thing(run_thing)
@@ -113,16 +135,20 @@ describe Human do
     end
   end
 
-  describe '.demo_human' do
+  describe '.demo_instance' do
     context 'when the demo human has not been created' do
-      subject { described_class.demo_human }
+      subject { described_class.demo_instance }
       it { should be_a(Human) }
     end
 
     context 'when the demo human has already been created' do
-      subject { described_class.demo_human }
-      before do
-      it { should be_a(Human) }
+      let(:demo_human) { Human.demo_instance }
+      let(:demo_human_2) { Human.demo_instance }
+
+      it 'returns the same instance each time' do
+        demo_human.phone_number.should == demo_human_2.phone_number
+      end
     end
+  end
 
 end

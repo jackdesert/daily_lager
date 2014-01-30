@@ -29,9 +29,16 @@ require './models/verbs/update_default_verb'
 require './models/verbs/yesterday_verb'
 
 post '/messages' do
-  binding.pry
-  'hi there'
+  responder = Verb.new(params['Body'], Human.new).responder
+  limit_160_chars(responder.response)
 end
+
+private 
+def limit_160_chars(input)
+  return input if (input.length < 161)
+  input[0..153] + '[snip]'
+end
+
 #get '/' do
 #  prepend = "<h1>Existing Searches</h1>
 #  <ul>"

@@ -32,8 +32,31 @@ def browser
 end
 
 describe '/messages' do
+  subject { browser.post '/messages', sample_params }
   it 'returns 200' do
-    browser.post '/messages', sample_params
+    subject.status.should == 200
   end
+
+  it 'makes a call to Verb#responder' do
+    mock.proxy.any_instance_of(NonsenseVerb).response.returns('something')
+    subject
+  end
+
+  context 'when the message is 160 characters' do
+    it 'returns the whole message' do
+      dummy_output = 'y' * 160
+      mock.proxy.any_instance_of(NonsenseVerb).response.returns(dummy_output)
+      subject.body.should == dummy_output
+    end
+  end
+
+  context 'when the message is more than 160 characters' do
+    it "returns 154 characters and the word 'snip'" do
+      dummy_output = 'h' * 161
+      mock.proxy.any_instance_of(NonsenseVerb).response.returns(dummy_output)
+      subject.body.should == 'h' * 154 + '[snip]'
+    end
+  end
+
 end
 
