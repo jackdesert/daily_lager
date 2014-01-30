@@ -29,6 +29,7 @@ require './models/verbs/update_default_verb'
 require './models/verbs/yesterday_verb'
 
 post '/messages' do
+  content_type 'text/plain'
   sms_body = params['Body']
   sms_phone_number = params['From']
   human = Human.find_or_create(phone_number: sms_phone_number)
