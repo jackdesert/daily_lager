@@ -29,7 +29,9 @@ require './models/verbs/update_default_verb'
 require './models/verbs/yesterday_verb'
 
 post '/messages' do
-  responder = Verb.new(params['Body'], Human.new).responder
+  sms_body = params['Body']
+  return 'error' if sms_body.nil?
+  responder = Verb.new(sms_body, Human.new).responder
   limit_160_chars(responder.response)
 end
 

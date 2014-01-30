@@ -27,36 +27,55 @@ def sample_params
   } 
 end
 
+def rogue_params
+  {
+    'blither' => 'blather'
+  }
+end
+
 def browser 
   Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
 end
 
 describe '/messages' do
-  subject { browser.post '/messages', sample_params }
-  it 'returns 200' do
-    subject.status.should == 200
-  end
+  context 'using sample params' do
+    subject { browser.post '/messages', sample_params }
+    it 'returns 200' do
+      subject.status.should == 200
+    end
 
-  it 'makes a call to Verb#responder' do
-    mock.proxy.any_instance_of(NonsenseVerb).response.returns('something')
-    subject
-  end
+    it 'makes a call to Verb#responder' do
+      mock.proxy.any_instance_of(NonsenseVerb).response.returns('something')
+      subject
+    end
 
-  context 'when the message is 160 characters' do
-    it 'returns the whole message' do
-      dummy_output = 'y' * 160
-      mock.proxy.any_instance_of(NonsenseVerb).response.returns(dummy_output)
-      subject.body.should == dummy_output
+    context 'when the message is 160 characters' do
+      it 'returns the whole message' do
+        dummy_output = 'y' * 160
+        mock.proxy.any_instance_of(NonsenseVerb).response.returns(dummy_output)
+        subject.body.should == dummy_output
+      end
+    end
+
+    context 'when the message is more than 160 characters' do
+      it "returns 154 characters and the word 'snip'" do
+        dummy_output = 'h' * 161
+        mock.proxy.any_instance_of(NonsenseVerb).response.returns(dummy_output)
+        subject.body.should == 'h' * 154 + '[snip]'
+      end
     end
   end
 
-  context 'when the message is more than 160 characters' do
-    it "returns 154 characters and the word 'snip'" do
-      dummy_output = 'h' * 161
-      mock.proxy.any_instance_of(NonsenseVerb).response.returns(dummy_output)
-      subject.body.should == 'h' * 154 + '[snip]'
-    end
-  end
+  context 'using rogue params' do
+    subject { browser.post '/messages', rogue_params }
 
+    it 'returns 200' do
+      subject.status.should == 200
+    end
+
+    it 'returns an error' do
+      subject.body.should == 'error'
+    end 
+  end
 end
 
