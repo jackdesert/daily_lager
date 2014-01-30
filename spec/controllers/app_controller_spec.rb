@@ -29,6 +29,9 @@ end
 
 def rogue_params
   {
+    # Note that we are not guarding against the case where Twilio 
+    # does not provide a 'From' field
+    "From"=>"+12223334444",
     'blither' => 'blather'
   }
 end
@@ -62,6 +65,23 @@ describe '/messages' do
         dummy_output = 'h' * 161
         mock.proxy.any_instance_of(NonsenseVerb).response.returns(dummy_output)
         subject.body.should == 'h' * 154 + '[snip]'
+      end
+    end
+
+    context 'when the user does not exist' do
+      before do
+        DB[:humans].delete
+      end
+
+      it 'creates the user' do
+        expect{
+          subject
+        }.to change{ Human.count }.by(1)
+      end
+    end
+
+    context 'when the user exists' do
+      it 'looks up the user and uses it' do
       end
     end
   end

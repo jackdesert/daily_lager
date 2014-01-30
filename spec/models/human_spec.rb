@@ -4,8 +4,8 @@ describe Human do
   context 'validations' do
     context 'phone number' do
       context 'format' do
-        context 'invalid phone numbers' do
-          valid_numbers = ['1112223333', '9998887777'] 
+        context 'valid phone numbers' do
+          valid_numbers = ['+11112223333', '+19998887777'] 
           valid_numbers.each do |number|
             subject { described_class.new(phone_number: number) }
             context "when the phone number is #{number}" do
@@ -14,8 +14,8 @@ describe Human do
           end
         end
 
-        context 'valid phone numbers' do
-          invalid_numbers = ['1', '12', '123.456.4444', '&1112223333']
+        context 'invalid phone numbers' do
+          invalid_numbers = ['1', '12', '+123.456.4444', '&1112223333', '11112223333']
           invalid_numbers.each do |number|
             subject { described_class.new(phone_number: number) }
             context "when the phone number is #{number}" do
@@ -25,7 +25,7 @@ describe Human do
         end
       end
       context 'uniqueness' do
-        let(:number) { '1112223333' }
+        let(:number) { '+12222222222' }
         let!(:first_human) { Human.create(phone_number: number) }
         let(:second_human) { Human.new(phone_number: number) }
         it 'marks the second human as invalid' do
@@ -34,18 +34,6 @@ describe Human do
         end
       end
     end
-  end
-
-  describe '#find_or_create_with_phone_number' do
-    let(:phone_number) { '1231231234' }
-    subject { described_class.find_or_create_with_phone_number(phone_number) }
-    it 'returns an Action' do
-      subject.should be_an described_class
-    end
-    it 'saves the name in the new action' do
-      subject.phone_number.should == phone_number 
-    end
-    it { should be_persisted }
   end
 
   describe '#things' do

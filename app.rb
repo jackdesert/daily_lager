@@ -30,7 +30,10 @@ require './models/verbs/yesterday_verb'
 
 post '/messages' do
   sms_body = params['Body']
-  return "Oops. We've encountered an error :(" if sms_body.nil?
+  sms_phone_number = params['From']
+  human = Human.find_or_create(phone_number: sms_phone_number)
+  return error_message unless human
+  return error_message if sms_body.nil?
   responder = Verb.new(sms_body, Human.new).responder
   limit_160_chars(responder.response)
 end
@@ -39,6 +42,10 @@ private
 def limit_160_chars(input)
   return input if (input.length < 161)
   input[0..153] + '[snip]'
+end
+
+def error_message
+  "Oops. We've encountered an error :("
 end
 
 #get '/' do
