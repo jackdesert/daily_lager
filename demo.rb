@@ -51,7 +51,8 @@ class Demo
     message_height = message.count "\n"
 
     height = 5 + message_height
-    top = (Curses.lines - 5) / 2 - offset + 15 - message_height
+    borders = 10 
+    top = Curses.lines  - offset - message_height - borders
 
     if top >= 0
       left = (Curses.cols - MESSAGE_WIDTH) / 2
