@@ -74,7 +74,7 @@ describe '/messages' do
     end
 
     it 'returns an error' do
-      subject.body.should == 'error'
+      subject.body.should == "Oops. We've encountered an error :("
     end 
   end
 end
