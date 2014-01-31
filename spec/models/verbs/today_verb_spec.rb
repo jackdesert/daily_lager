@@ -27,6 +27,7 @@ describe TodayVerb do
     before do
       human.add_thing(thing1)
       human.add_thing(thing2)
+      stub(human).backfill
     end
 
     context 'when things have been logged today' do
@@ -56,6 +57,14 @@ describe TodayVerb do
       end
     end
 
+    context 'without the stub' do
+      before do
+        mock(human).backfill
+      end
+      it 'calls backfill' do
+        subject.send(:process)
+      end
+    end
   end
 
 end

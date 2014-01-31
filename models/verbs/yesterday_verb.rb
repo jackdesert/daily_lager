@@ -1,6 +1,7 @@
 class YesterdayVerb < Verb
 
   def process
+    human.backfill
     yesterday = Date.today - 1
     totals = Thing.totals_for_human_on_date(human, yesterday)
     if Util.hash_has_nonzero_value(totals)

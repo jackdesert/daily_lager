@@ -40,7 +40,13 @@ class Human < Sequel::Model(:humans)
   end
 
   def backfill
-    date_counter = most_recent_occurrence.date + 1
+    recent = most_recent_occurrence
+    if recent.nil?
+      date_counter = Date.today
+    else
+      date_counter = recent.date + 1
+    end
+
     while date_counter <= Date.today
       things.each do |thing|
         thing.generate_default_occurrence_for_date(date_counter)
@@ -53,7 +59,7 @@ class Human < Sequel::Model(:humans)
     all_occurrences = things.map do |thing|
       thing.occurrences
     end.flatten
-    return Date.today if all_occurrences.empty?
+    return if all_occurrences.empty?
     all_occurrences.max{ |a,b| a.date <=> b.date}
   end
 

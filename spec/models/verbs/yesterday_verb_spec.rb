@@ -18,6 +18,7 @@ describe YesterdayVerb do
         before do
           human.add_thing(thing1)
           human.add_thing(thing2)
+          stub(human).backfill
           thing1.add_occurrence(ran_today)
           thing1.add_occurrence(ran_yesterday)
           thing2.add_occurrence(walked_today)
@@ -32,6 +33,7 @@ describe YesterdayVerb do
 
     context 'when no occurrences exist for yesterday' do
       before do
+        stub(human).backfill
         thing1.add_occurrence(ran_today)
         thing2.add_occurrence(walked_today)
       end
@@ -40,6 +42,16 @@ describe YesterdayVerb do
         subject.send(:process).should == "You did not log anything yesterday."
       end
     end
+
+    context 'without the stub' do
+      before do
+        mock(human).backfill
+      end
+      it 'calls backfill' do
+        subject.send(:process)
+      end
+    end
+
   end
 
   describe '#appropriate?' do

@@ -1,6 +1,7 @@
 class ActionVerb < Verb
 
   def process 
+    human.backfill
     if thing = Thing.where(human_id: human.id, name: thing_name).first
       thing.add_occurrence(value: occurrence_value)
       message = "#{occurrence_value} #{thing_name}(s) logged."

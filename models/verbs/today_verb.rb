@@ -1,6 +1,7 @@
 class TodayVerb < Verb
 
   def process
+    human.backfill
     totals = Thing.totals_for_human_on_date(human, Date.today)
     if Util.hash_has_nonzero_value(totals)
       message = "Today's totals:"

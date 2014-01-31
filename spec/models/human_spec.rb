@@ -46,7 +46,7 @@ describe Human do
     let(:human) { create(:human)  }
     context 'when there are no occurrences' do
       subject { human.most_recent_occurrence }
-      it { should == Date.today }
+      it { should be_nil }
     end
 
     context 'when there are occurrences' do
