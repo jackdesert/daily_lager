@@ -44,6 +44,6 @@ class Verb
   def convert_to_array(input)
     return input if input.kind_of? Array
     return [input] if input.blank?
-    input.strip.gsub(/\t+/, ' ').split
+    input.downcase.strip.gsub(/\t+/, ' ').split
   end
 end

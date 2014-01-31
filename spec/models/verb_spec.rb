@@ -4,8 +4,8 @@ describe Verb  do
   reusable_hash = {
       "" => [''],
       "  3       miles    \t" => ['3', 'miles'],
-      "blather" => ['blather'], 
-      "\t twenty minutes\tbefore  dawn\t  " => ['twenty', 'minutes', 'before', 'dawn'],
+      "blAther" => ['blather'], 
+      "\t twenty MINUTES\tbefore  dawn\t  " => ['twenty', 'minutes', 'before', 'dawn'],
       ['1', '2', '3'] => ['1', '2', '3'],
     }
 
