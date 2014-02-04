@@ -4,8 +4,8 @@ class CreateVerbWithDefault < Verb
     if Thing.where(human_id: human.id, name: proposed_thing_name).first
       "You already have a #{Thing::DISPLAY_NAME} named '#{proposed_thing_name}'"
     else
-      human.add_thing(name: proposed_thing_name, 
-                      default_value: proposed_thing_default_value)
+      new_thing = human.add_thing(name: proposed_thing_name, default_value: proposed_thing_default_value)
+      new_thing.create_todays_default_occurrence
       "#{Thing::DISPLAY_NAME.capitalize} '#{proposed_thing_name}' created with a default value of #{proposed_thing_default_value}."
     end
   end

@@ -31,6 +31,7 @@ describe NonsenseVerb do
     before do
       human.add_thing(thing1)
       human.add_thing(thing2)
+      stub(human).backfill
     end
 
     it 'returns a message' do

@@ -28,6 +28,7 @@ describe RenameVerb do
     
     before do
       human.add_thing(thing1)
+      stub(human).backfill
     end
 
     context 'when Thing exists' do

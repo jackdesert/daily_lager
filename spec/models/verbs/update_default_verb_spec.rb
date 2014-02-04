@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe UpdateDefaultVerb do
   describe '#appropriate?' do
+    # before do
+    #   stub(human).backfill
+    # end
+    
     yesses = [
       ['update', 'mp3', 'default', '40'],
     ]

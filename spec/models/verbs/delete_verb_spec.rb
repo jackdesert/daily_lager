@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe DeleteVerb do
+
+#  before do
+#    stub(human).backfill
+#  end
+
   describe '#appropriate?' do
     yesses = [
       ['delete', 'mp3'],

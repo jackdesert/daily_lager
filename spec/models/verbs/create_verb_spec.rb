@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe CreateVerb do
 
+
   describe '#process' do
     let(:existing_name) { 'run' }
     let(:thing1) { Thing.new(name: existing_name, default_value: 6) }
@@ -10,9 +11,12 @@ describe CreateVerb do
 
     before do
       human.add_thing(thing1)
+      stub(human).backfill
     end
 
     context 'when the named action does not exist' do
+
+
       let(:name) { 'original' }
       it 'adds a Thing to the human' do
         subject.send(:process)
@@ -22,6 +26,11 @@ describe CreateVerb do
       end
       it 'returns a message' do
         subject.send(:process).should == "#{Thing::DISPLAY_NAME.capitalize} 'original' created."
+      end
+
+      it 'creates an occurrence for today with the default value' do
+        mock.any_instance_of(Thing).create_todays_default_occurrence
+        subject.send(:process)
       end
     end
 

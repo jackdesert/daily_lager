@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe CreateVerbWithDefault do
+
+
   describe '#appropriate?' do
     yesses = [
       ['create', 'filter', 'default', '10'],
@@ -24,6 +26,7 @@ describe CreateVerbWithDefault do
 
     before do
       human.add_thing(thing1)
+      stub(human).backfill
     end
 
     context 'when the named action does not exist' do
@@ -38,6 +41,12 @@ describe CreateVerbWithDefault do
       it 'returns a message' do
         subject.send(:process).should == "#{Thing::DISPLAY_NAME.capitalize} 'original' created with a default value of 3."
       end
+
+      it 'creates an occurrence for today with the default value' do
+        mock.any_instance_of(Thing).create_todays_default_occurrence
+        subject.send(:process)
+      end
+
     end
 
     context 'when the named thing already exists' do

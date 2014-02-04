@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe ActionVerb do
 
+
   describe '#appropriate?' do
     yesses = [
       ['2', 'miles'],
@@ -27,8 +28,8 @@ describe ActionVerb do
     subject { described_class.new([value, name], human) }
 
     before do
-      human.add_thing(thing1)
       stub(human).backfill
+      human.add_thing(thing1)
     end
 
     context 'when the named thing exists' do
@@ -48,15 +49,6 @@ describe ActionVerb do
         end
         it 'returns the total with the message' do
           subject.send(:process).should == ("3 run(s) logged. Today's total: 16")
-        end
-      end
-
-      context 'without the stub' do
-        before do
-          mock(human).backfill
-        end
-        it 'calls backfill' do
-          subject.send(:process)
         end
       end
     end

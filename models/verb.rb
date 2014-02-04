@@ -17,7 +17,9 @@ class Verb
   end
 
   def response
-    @response ||= process
+    return @response if @response
+    backfill
+    @response = process
   end
 
   def process
@@ -31,6 +33,10 @@ class Verb
 
   def appropriate?
     false
+  end
+
+  def backfill
+    human.backfill
   end
 
   def some_other_verb 

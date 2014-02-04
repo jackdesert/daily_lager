@@ -130,6 +130,22 @@ describe Thing do
     it { should == {'yoyo' => 11, 'music' => 24} }
   end
 
+  describe '#create_todays_default_occurrence' do
+    let(:thing) { Thing.create(name: 'berry', default_value: 1300) }
+    it 'creates an occurrence' do
+      expect{
+        thing.create_todays_default_occurrence
+      }.to change{ thing.occurrences.count }.by(1)
+    end
+
+    it 'gives that occurrence the correct default value' do
+      thing.create_todays_default_occurrence
+      thing.occurrences.first.value.should == thing.default_value 
+    end
+
+
+  end
+
 end
   
 

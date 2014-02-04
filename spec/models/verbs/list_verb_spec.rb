@@ -20,6 +20,8 @@ describe ListVerb do
     before do
       human_with_things.add_thing(thing1)
       human_with_things.add_thing(thing2)
+      stub(human_with_things).backfill
+      stub(human_without_things).backfill
     end
 
     context 'when things are present' do

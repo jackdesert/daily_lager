@@ -28,6 +28,16 @@ describe Verb  do
     end
   end
 
+  describe '#process' do
+    let(:human) { create(:human) }
+    subject { Verb.new('', human) }
+    it 'makes a call to backfill' do
+      mock(human).backfill
+      mock(subject).process
+      subject.response
+    end
+  end
+
   hash = { 
           '3 miles' => ActionVerb,
           'menu' => MenuVerb,

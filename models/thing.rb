@@ -37,6 +37,9 @@ class Thing < Sequel::Model
     occurrences.select{|f| f.date == Time.now.to_date}.map(&:value).inject(:+) || 0
   end
     
+  def create_todays_default_occurrence
+    add_occurrence(Occurrence.new(value: default_value))
+  end
 
   private
 

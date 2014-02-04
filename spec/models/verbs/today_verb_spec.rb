@@ -57,14 +57,6 @@ describe TodayVerb do
       end
     end
 
-    context 'without the stub' do
-      before do
-        mock(human).backfill
-      end
-      it 'calls backfill' do
-        subject.send(:process)
-      end
-    end
   end
 
 end
