@@ -30,7 +30,7 @@ class Thing < Sequel::Model
 
   def generate_default_occurrence_for_date(date)
     raise "Thing '#{name}' already has occurrence(s) for #{date.to_s}" if occurrence_exists_for_date(date)
-    occurrences << Occurrence.new(value: default_value, date: date)
+    add_occurrence(value:default_value, date: date)
   end
 
   def total_value_today
@@ -38,7 +38,7 @@ class Thing < Sequel::Model
   end
     
   def create_todays_default_occurrence
-    add_occurrence(Occurrence.new(value: default_value))
+    add_occurrence(value: default_value)
   end
 
   private

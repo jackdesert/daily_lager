@@ -4,8 +4,9 @@ require 'sequel'
 
 set :port, 8853
 
-unless ENV['RACK_ENV'] == 'test' 
-  DB_FILE = './db/development.db'
+env = ENV['RACK_ENV'] || 'development'
+unless env == 'test'
+  DB_FILE = "./db/#{env}.db"
   DB = Sequel.connect("sqlite://#{DB_FILE}")
 end
 
@@ -35,7 +36,7 @@ post '/messages' do
   human = Human.find_or_create(phone_number: sms_phone_number)
   return error_message unless human
   return error_message if sms_body.nil?
-  responder = Verb.new(sms_body, Human.new).responder
+  responder = Verb.new(sms_body, human).responder
   limit_160_chars(responder.response)
 end
 

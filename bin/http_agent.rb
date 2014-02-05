@@ -4,10 +4,10 @@ require 'pry'
 class Agent 
 
   #DEFAULT_URI = 'http://localhost:4567/messages'
-  LOCAL_URI = 'http://localhost:4567/messages'
+  LOCAL_URI = 'http://localhost:8853/messages'
   REMOTE_URI = 'http://sms.jackdesert.com/messages'
   attr_reader :uri
-  attr_accessor :body
+  attr_accessor :body, :phone
 
   def initialize(body='help')
     @body = body 
@@ -15,7 +15,7 @@ class Agent
   end
 
   def post(override_text=nil)
-    res = Net::HTTP.post_form(uri, From: dummy_phone, Body: override_text || body)
+    res = Net::HTTP.post_form(uri, From: phone || dummy_phone, Body: override_text || body)
     res.body
   end
 

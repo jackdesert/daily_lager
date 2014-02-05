@@ -29,6 +29,10 @@ describe ListVerb do
         verb = described_class.new('', human_with_things)
         verb.send(:process).should == "You have created the following categories:\neat\nrun"
       end
+
+      it 'informs you the default values for all Things' do
+        pending
+      end
     end
     context 'when things is empty' do
       it 'returns a message' do
