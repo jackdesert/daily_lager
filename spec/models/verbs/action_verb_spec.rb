@@ -53,10 +53,10 @@ describe ActionVerb do
       end
       context 'and the Thing already has an occurrence today' do
         before do
-          thing1.add_occurrence(value: 13)
+          thing1.add_occurrence(value: -13)
         end
         it 'returns the total with the message' do
-          subject.send(:process).should == ("3 run(s) logged. Today's total: 16")
+          subject.send(:process).should == ("3 run(s) logged. Today's total: -10")
         end
       end
     end

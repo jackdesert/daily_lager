@@ -5,7 +5,7 @@ class ActionVerb < Verb
       thing.add_occurrence(value: occurrence_value)
       message = "#{occurrence_value} #{thing_name}(s) logged."
       total = thing.total_value_today
-      message += " Today's total: #{total}" if total > occurrence_value
+      message += " Today's total: #{total}" if total != occurrence_value
     else
       message = "You do not have a #{Thing::DISPLAY_NAME} named '#{thing_name}'. To create one, type 'CREATE #{thing_name}' (without quotes)."
     end

@@ -34,7 +34,7 @@ class Thing < Sequel::Model
   end
 
   def total_value_today
-    occurrences.select{|f| f.date == Time.now.to_date}.map(&:value).inject(:+) || 0
+    occurrences.select{|f| f.date == Util.current_date_in_california}.map(&:value).inject(:+) || 0
   end
     
   def create_todays_default_occurrence
