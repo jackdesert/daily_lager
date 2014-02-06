@@ -29,9 +29,7 @@ TODAY
 YESTERDAY
 CREATE <#{Thing::DISPLAY_NAME}> [DEFAULT <number>]
 RENAME <#{Thing::DISPLAY_NAME}> <new_name>
-DELETE <#{Thing::DISPLAY_NAME}>
-
-Full docs: http://to_be_determined"
+DELETE <#{Thing::DISPLAY_NAME}>"
       subject.send(:process).should == expected
     end
   end
