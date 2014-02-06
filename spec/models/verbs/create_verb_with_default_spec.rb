@@ -7,6 +7,7 @@ describe CreateVerbWithDefault do
     yesses = [
       ['create', 'filter', 'default', '10'],
       ['create', 'mp3', 'default', '335'],
+      ['create', 'bee', 'default', '-30'],
     ]
 
     nos = [

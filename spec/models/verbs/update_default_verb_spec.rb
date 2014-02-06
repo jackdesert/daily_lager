@@ -8,6 +8,7 @@ describe UpdateDefaultVerb do
     
     yesses = [
       ['update', 'mp3', 'default', '40'],
+      ['update', 'boo', 'default', '-10'],
     ]
 
     nos = [

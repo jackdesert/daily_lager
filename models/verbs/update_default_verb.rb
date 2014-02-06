@@ -14,7 +14,7 @@ class UpdateDefaultVerb < Verb
     return false unless words.first == 'update'
     return false unless words.second.match AT_LEAST_ONE_LETTER
     return false unless words.third == 'default'
-    return false unless words.fourth.match ALL_NUMBERS
+    return false unless words.fourth.match INTEGER 
     true
   end
 end

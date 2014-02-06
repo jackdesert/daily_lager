@@ -13,7 +13,8 @@ describe ActionVerb do
   describe '#appropriate?' do
     yesses = [
       ['2', 'miles'],
-      ['273', 'smurfs']
+      ['273', 'smurfs'],
+      ['-500', 'towns']
     ]
     nos = [
       ['two'],

@@ -2,7 +2,7 @@ require 'active_support/core_ext/array/access'
 
 class Verb
   AT_LEAST_ONE_LETTER = /[a-z]/
-  ALL_NUMBERS = /\A\d+$/
+  INTEGER = /\A-?\d+$/
 
   attr_reader :words, :human
 
