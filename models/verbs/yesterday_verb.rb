@@ -6,7 +6,7 @@ class YesterdayVerb < Verb
     if Util.hash_has_nonzero_value(totals)
       message = "Yesterday's totals:"
       totals.each_pair do  |name, value|
-        message += "\n#{value} #{name}"
+        message += "\n#{name.capitalize}: #{value}"
       end
     else
       message = 'You did not log anything yesterday.'

@@ -56,7 +56,7 @@ class Thing < Sequel::Model
 
     def totals_for_human_on_date(human, date)
       output = {}
-      relation = where(human_id: human.id).join(:occurrences, thing_id: :id).where(date: date).select_append{sum(value).as(total_for_date)}.group(:thing_id)
+      relation = where(human_id: human.id).join(:occurrences, thing_id: :id).where(date: date).select_append{sum(value).as(total_for_date)}.group(:thing_id).order(:name)
       relation.each do |tuple|
         output[tuple.name] = tuple.values[:total_for_date]
       end

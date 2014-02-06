@@ -128,6 +128,9 @@ describe Thing do
 
     it { should be_a(Hash) }
     it { should == {'yoyo' => 11, 'music' => 24} }
+    it 'has the keys in alphabetical order' do
+      subject.keys.should == ['music', 'yoyo']
+    end
   end
 
   describe '#create_todays_default_occurrence' do

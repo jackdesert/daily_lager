@@ -22,8 +22,8 @@ describe YesterdayVerb do
     context 'when occurrences exist for yesterday' do
 
         before do
-          human.add_thing(thing1)
           human.add_thing(thing2)
+          human.add_thing(thing1)
           stub(human).backfill
           thing1.add_occurrence(ran_today)
           thing1.add_occurrence(ran_yesterday)
@@ -33,7 +33,7 @@ describe YesterdayVerb do
 
 
       it 'returns a message' do
-        subject.send(:process).should == "Yesterday's totals:\n3 run\n7 walk"
+        subject.send(:process).should == "Yesterday's totals:\nRun: 3\nWalk: 7"
       end
     end
 

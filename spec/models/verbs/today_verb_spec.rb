@@ -31,8 +31,8 @@ describe TodayVerb do
     subject { described_class.new('anything', human) }
 
     before do
-      human.add_thing(thing1)
       human.add_thing(thing2)
+      human.add_thing(thing1)
       stub(human).backfill
     end
 
@@ -46,8 +46,8 @@ describe TodayVerb do
         thing2.add_occurrence(walked_yesterday)
       end
 
-      it 'returns a message' do
-        subject.send(:process).should == "Today's totals:\n18 run\n5 walk"
+      it 'returns totals in alphabetical order' do
+        subject.send(:process).should == "Today's totals:\nRun: 18\nWalk: 5"
       end
 
     end

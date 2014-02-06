@@ -2,9 +2,9 @@ class ListVerb < Verb
 
   def process
     if human.things.present?
-      message = 'You have created the following categories:'
+      message = "Your Categories (default value in parens):"
       human.things_in_order.each do |thing|
-        message += "\n#{thing.name}"
+        message += "\n#{thing.name.capitalize} (#{thing.default_value})"
       end
     else
       message = "No categories active. To add one, type CREATE <category>"
