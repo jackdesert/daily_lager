@@ -59,4 +59,5 @@ describe Verb  do
       responder.should be_a verb_subclass
     end
   end
+
 end

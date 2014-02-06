@@ -3,6 +3,7 @@ require 'active_support/core_ext/date_time/calculations' #adds support for DateT
 
 class Occurrence < Sequel::Model
 
+
   many_to_one :thing
 
 
@@ -19,12 +20,9 @@ class Occurrence < Sequel::Model
 #  end
 
   private
-  def current_date_in_california
-    DateTime.now.in_time_zone('Pacific Time (US & Canada)').to_date
-  end
 
   def before_validation
-    self.date ||= current_date_in_california
+    self.date ||= Util.current_date_in_california
   end
 
   def validate

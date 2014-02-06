@@ -1,7 +1,7 @@
 class YesterdayVerb < Verb
 
   def process
-    yesterday = Date.today - 1
+    yesterday = Util.current_date_in_california - 1
     totals = Thing.totals_for_human_on_date(human, yesterday)
     if Util.hash_has_nonzero_value(totals)
       message = "Yesterday's totals:"

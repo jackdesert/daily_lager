@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe TodayVerb do
+  before do
+    # Make sure Date.today is not used to initialize anything, since it 
+    # really should be using Util.current_date_in_california
+    mock(Date).today.never
+  end
+
   describe '#appropriate?' do
     yesses = [
       ['today'],

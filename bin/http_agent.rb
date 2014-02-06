@@ -28,7 +28,7 @@ class Agent
   end
 
   def remote
-    @uri = URI(RACKSPACE_URI)
+    @uri = URI(REMOTE_URI)
   end
 
   def dummy_phone
