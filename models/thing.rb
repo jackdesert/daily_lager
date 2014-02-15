@@ -33,8 +33,8 @@ class Thing < Sequel::Model
     add_occurrence(value:default_value, date: date)
   end
 
-  def total_value_today
-    occurrences.select{|f| f.date == Util.current_date_in_california}.map(&:value).inject(:+) || 0
+  def total_value_for_date(date)
+    occurrences_dataset.where(date: date).select_append{sum(value).as(total_for_date)}.first.values[:total_for_date] || 0
   end
     
   def create_todays_default_occurrence

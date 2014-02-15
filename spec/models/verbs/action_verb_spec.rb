@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ActionVerb do
 
   before do
-    # Make sure Date.today is not used to initialize anything, since it 
+    # Make sure Util.current_date_in_california is not used to initialize anything, since it 
     # really should be using Util.current_date_in_california
     mock(Date).today.never
   end
@@ -14,7 +14,8 @@ describe ActionVerb do
     yesses = [
       ['2', 'miles'],
       ['273', 'smurfs'],
-      ['-500', 'towns']
+      ['-500', 'towns'],
+      ['y', '-500', 'towns'],
     ]
     nos = [
       ['two'],
@@ -41,22 +42,48 @@ describe ActionVerb do
     end
 
     context 'when the named thing exists' do
-      let(:name) { existing_name }
-      it 'adds an Occurrence' do
-        subject.send(:process)
-        occurrences = human.things.first.occurrences
-        occurrences.length.should == 1
-        occurrences.first.value.should == 3
-      end
-      it 'returns a message' do
-        subject.send(:process).should == '3 run(s) logged.'
-      end
-      context 'and the Thing already has an occurrence today' do
-        before do
-          thing1.add_occurrence(value: -13)
+      context 'today' do
+
+        let(:name) { existing_name }
+        it 'adds an Occurrence' do
+          subject.send(:process)
+          occurrences = human.things.first.occurrences
+          occurrences.length.should == 1
+          occurrences.first.value.should == 3
+          occurrences.first.date.should == Util.current_date_in_california
         end
-        it 'returns the total with the message' do
-          subject.send(:process).should == ("3 run(s) logged. Today's total: -10")
+        it 'returns a message' do
+          subject.send(:process).should == '3 run(s) logged.'
+        end
+        context 'and the Thing already has an occurrence today' do
+          before do
+            thing1.add_occurrence(value: -13)
+          end
+          it 'returns the total with the message' do
+            subject.send(:process).should == ("3 run(s) logged. Today's total: -10")
+          end
+        end
+      end
+      context 'yesterday' do
+        let(:name) { existing_name }
+        subject { described_class.new(['y', value, name], human) }
+        it 'adds an Occurrence' do
+          subject.send(:process)
+          occurrences = human.things.first.occurrences
+          occurrences.length.should == 1
+          occurrences.first.value.should == 3
+          occurrences.first.date.should == Util.current_date_in_california - 1
+        end
+        it 'returns a message' do
+          subject.send(:process).should == '3 run(s) logged for yesterday.'
+        end
+        context 'and the Thing already has an occurrence yesterday' do
+          before do
+            thing1.add_occurrence(value: -13, date: Util.current_date_in_california - 1)
+          end
+          it 'returns the total with the message' do
+            subject.send(:process).should == ("3 run(s) logged for yesterday. Yesterday's total: -10")
+          end
         end
       end
     end
@@ -76,7 +103,19 @@ describe ActionVerb do
     end
   end
 
+  describe '#effective_date' do
+    let(:human) { create(:human) }
+    subject { described_class.new(words, human) }
+    context "when first word is 'y'" do
+      let(:words) { ['y', '3', 'blah'] }
+      its(:effective_date) { should == Util.current_date_in_california - 1}
+    end
 
+    context "when first word is an integer" do
+      let(:words) { ['3', 'blah'] }
+      its(:effective_date) { should == Util.current_date_in_california }
+    end
+  end
 
 end
 

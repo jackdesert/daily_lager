@@ -40,6 +40,7 @@ describe Verb  do
 
   hash = { 
           '3 miles' => ActionVerb,
+          'y 3 miles' => ActionVerb,
           'menu' => MenuVerb,
           'list' => ListVerb,
           'today' => TodayVerb,

@@ -79,9 +79,9 @@ describe Thing do
   end
 
 
-  describe '#total_value_today' do
+  describe '#total_value_for_date' do
     context 'when there are no occurrences' do
-      subject { Thing.new.total_value_today }
+      subject { Thing.create.total_value_for_date(Date.today) }
       it 'returns zero' do
         should == 0
       end
@@ -92,7 +92,7 @@ describe Thing do
       let(:first_occurrence) { Occurrence.new(value: 4) }
       let(:second_occurrence) { Occurrence.new(value: 1) }
       let(:thing) { Thing.create }
-      subject { thing.total_value_today }
+      subject { thing.total_value_for_date(Date.today) }
       before do
         thing.add_occurrence(yesterday_occurrence)
         thing.add_occurrence(first_occurrence)
