@@ -24,6 +24,7 @@ The DSL
         CREATE <category> [DEFAULT <integer>]
         RENAME <category_name> <new_name>
         DELETE <category>
+        [Y] <integer> <category>
 
 
     MENU 
@@ -51,6 +52,10 @@ The DSL
 
     <integer> <category_name> 
       # Logs a single piece of data for today's date
+      
+    Y <integer> <category_name> 
+      # Logs a single piece of data for yesterday's date
+
 
 
 Interactive Demo

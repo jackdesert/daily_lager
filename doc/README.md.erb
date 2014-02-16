@@ -29,6 +29,7 @@ The DSL
         CREATE <<%= Thing::DISPLAY_NAME %>> [DEFAULT <integer>]
         RENAME <<%= Thing::DISPLAY_NAME %>_name> <new_name>
         DELETE <<%= Thing::DISPLAY_NAME %>>
+        [Y] <integer> <<%= Thing::DISPLAY_NAME %>>
 
 
     MENU 
@@ -56,6 +57,10 @@ The DSL
 
     <integer> <<%= Thing::DISPLAY_NAME %>_name> 
       # Logs a single piece of data for today's date
+      
+    Y <integer> <<%= Thing::DISPLAY_NAME %>_name> 
+      # Logs a single piece of data for yesterday's date
+
 
 
 Interactive Demo

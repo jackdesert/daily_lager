@@ -29,7 +29,8 @@ TODAY
 YESTERDAY
 CREATE <#{Thing::DISPLAY_NAME}> [DEFAULT <number>]
 RENAME <#{Thing::DISPLAY_NAME}> <new_name>
-DELETE <#{Thing::DISPLAY_NAME}>"
+DELETE <#{Thing::DISPLAY_NAME}>
+[Y] <number> <#{Thing::DISPLAY_NAME}>"
       subject.send(:process).should == expected
     end
   end
