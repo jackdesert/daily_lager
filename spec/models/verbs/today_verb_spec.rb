@@ -25,15 +25,15 @@ describe TodayVerb do
     let(:ran_yesterday) { Occurrence.new(date: yesterday, value: 3) }
     let(:walked_today) { Occurrence.new(date: today, value: 5) }
     let(:walked_yesterday) { Occurrence.new(date: yesterday, value: 7) }
-    let(:thing1) { Thing.new(name: 'run', default_value: 6) }
-    let(:thing2) { Thing.new(name: 'walk', default_value: 2) }
+    let(:default_value) { 3 }
+    let(:thing1) { Thing.new(name: 'run', default_value: default_value) }
+    let(:thing2) { Thing.new(name: 'walk', default_value: default_value) }
     let(:human) { create(:human) }
     subject { described_class.new('anything', human) }
 
     before do
       human.add_thing(thing2)
       human.add_thing(thing1)
-      stub(human).backfill
     end
 
     context 'when things have been logged today' do
@@ -51,19 +51,32 @@ describe TodayVerb do
       end
 
     end
+
+
     context 'when nothing has been logged today' do
 
       before do
         thing1.add_occurrence(ran_yesterday)
         thing2.add_occurrence(walked_yesterday)
+        human.backfill
       end
 
-      it 'returns a message' do
-        subject.send(:process).should == "You have not logged anything today."
+      context 'and all Things have default values of 0' do
+
+        let(:default_value) { 0 }
+
+        it 'returns a message' do
+          subject.send(:response).should == "You have not logged anything today."
+        end
+      end
+
+      context 'and at least one Thing has a nonzero default value' do
+
+        it 'returns a message' do
+          subject.send(:process).should == "Today's totals:\nRun: 3\nWalk: 3"
+        end
       end
     end
-
   end
-
 end
 

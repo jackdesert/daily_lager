@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe Human do
+  before do
+    mock(Date).today.never
+  end
+
+  let(:today)           { Util.current_date_in_california }
+  let(:yesterday)       { today - 1 }
+  let(:two_days_ago)    { today - 2 }
+  let(:three_days_ago)  { today - 3 }
+  let(:four_days_ago)   { today - 4 }
+
   context 'validations' do
     context 'phone number' do
       context 'format' do
@@ -42,45 +52,43 @@ describe Human do
     end
   end
 
-  describe '#most_recent_occurrence' do
+  describe '#date_of_most_recent_occurrence' do
     let(:human) { create(:human)  }
     context 'when there are no occurrences' do
-      subject { human.most_recent_occurrence }
+      subject { human.date_of_most_recent_occurrence }
       it { should be_nil }
     end
 
     context 'when there are occurrences' do
 
-      let(:two_days_ago)   { Date.today - 2 }
-      let(:three_days_ago) { Date.today - 3 }
-      let(:four_days_ago)  { Date.today - 4 }
-      let(:run_occurrences) { [ Occurrence.new(date: four_days_ago), Occurrence.new(date:three_days_ago) ] }
-      let(:run_thing) { Thing.new(name: 'run', default_value: 13) }
-      let(:walk_thing) { Thing.new(name: 'walk', default_value: 13) }
+      let(:run_occurrences) { [ Occurrence.create(date: four_days_ago), Occurrence.new(date:three_days_ago) ] }
+      let(:run_thing) { Thing.create(name: 'run', default_value: 13) }
+      let(:walk_thing) { Thing.create(name: 'walk', default_value: 13) }
 
       before do
-        run_thing.occurrences << run_occurrences
-        human.things << run_thing
-        human.things << walk_thing
+        run_thing.add_occurrence(date:three_days_ago, value: 0)
+        run_thing.add_occurrence(date:four_days_ago, value: 0)
+        human.add_thing(run_thing)
+        human.add_thing(walk_thing)
       end
 
-      it 'returns an Occurrence' do
-        human.most_recent_occurrence.should be_an Occurrence
+      it 'returns a Date' do
+        human.date_of_most_recent_occurrence.should be_an Date
       end
 
       it 'returns the most recent' do
-        human.most_recent_occurrence.date.should == three_days_ago
-        walk_thing.occurrences << Occurrence.new(date: two_days_ago)
-        human.most_recent_occurrence.date.should == two_days_ago
+        human.date_of_most_recent_occurrence.should == three_days_ago
+        walk_thing.add_occurrence(date:two_days_ago, value: 0)
+        human.date_of_most_recent_occurrence.should == two_days_ago
       end
     end
   end
 
   describe '#backfill' do
     let(:today_occurrence) { Occurrence.create(value: 10) }
-    let(:yesterday_occurrence) { Occurrence.create(value: 11, date: Date.today - 1) }
-    let(:two_days_ago_occurrence) { Occurrence.create(value: 12, date: Date.today - 2) }
-    let(:three_days_ago_occurrence) { Occurrence.create(value: 15, date: Date.today - 3) }
+    let(:yesterday_occurrence) { Occurrence.create(value: 11, date: yesterday) }
+    let(:two_days_ago_occurrence) { Occurrence.create(value: 12, date: two_days_ago) }
+    let(:three_days_ago_occurrence) { Occurrence.create(value: 15, date: three_days_ago) }
     let(:run_thing) { Thing.create(name: 'run', default_value: 13) }
     let(:walk_thing) { Thing.create(name: 'run', default_value: 7) }
     let(:human) { create(:human)  }
@@ -110,8 +118,6 @@ describe Human do
         walk_thing.add_occurrence(two_days_ago_occurrence)
       end
 
-      let(:today) { Date.today }
-      let(:yesterday) { today - 1 }
       it 'calls generate_default_occurrence_for_date on all Things for yesterday and today' do
         human.things.count.should == 2
         human.things.each do |thing|
