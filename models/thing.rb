@@ -24,10 +24,6 @@ class Thing < Sequel::Model
 #    output
 #  end
 
-  def change_name_to(new_name)
-    self.name = new_name
-  end
-
   def generate_default_occurrence_for_date(date)
     raise "Thing '#{name}' already has occurrence(s) for #{date.to_s}" if occurrence_exists_for_date(date)
     add_occurrence(value:default_value, date: date)

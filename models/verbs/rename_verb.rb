@@ -2,10 +2,10 @@ class RenameVerb < Verb
 
   def process
     if thing = Thing.where(human_id: human.id, name: old_name).first
-      thing.change_name_to(new_name)
+      thing.update(name: new_name)
       "#{Thing::DISPLAY_NAME.capitalize} '#{old_name}' updated to '#{new_name}'.\nTo use, type '6 #{new_name}' without quotes."
     else
-      "You do not have a #{Thing::DISPLAY_NAME} named 'bizarre'. To create one, type 'CREATE bizarre' (without quotes)"
+      "You do not have a #{Thing::DISPLAY_NAME} named '#{old_name}'. To create one, type 'CREATE #{old_name}' (without quotes)"
     end
   end
 

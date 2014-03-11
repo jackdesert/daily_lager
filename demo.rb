@@ -111,7 +111,7 @@ begin
     input = demo.get_string
     demo.display_input(input)
     sec
-    responder = Verb.new(input, human).responder
+    responder = Verb.new(input, human.reload).responder
     demo.display_input(responder.response)
   end
 ensure

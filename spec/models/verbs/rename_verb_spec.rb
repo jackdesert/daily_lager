@@ -36,6 +36,10 @@ describe RenameVerb do
       it 'returns a message' do
         subject.send(:process).should == "Category 'run' updated to 'miles'.\nTo use, type '6 miles' without quotes."
       end
+      it 'renames' do
+        subject.send(:process)
+        thing1.reload.name.should == 'miles'
+      end
     end
 
     context 'when Thing does not exist' do
