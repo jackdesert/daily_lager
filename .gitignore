@@ -4,3 +4,4 @@
 tmp
 todo
 db/*.db
+log
