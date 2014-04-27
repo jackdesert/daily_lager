@@ -5,7 +5,7 @@ gem 'sinatra'
 gem 'sequel'
 gem 'sqlite3'
 gem 'tzinfo'
-gem 'active_support', require: false
+gem 'activesupport', require: false
 #gem 'pry-debugger'
 gem 'pry-byebug'
 gem 'tux'

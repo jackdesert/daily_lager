@@ -1,8 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    active_support (3.0.0)
-      activesupport (= 3.0.0)
     activesupport (3.0.0)
     atomic (1.1.14)
     bond (0.4.3)
@@ -92,7 +90,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_support
+  activesupport
   curses
   guard-rspec
   pry-byebug
