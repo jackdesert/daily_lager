@@ -4,6 +4,10 @@ require 'sequel'
 
 set :port, 8853
 
+# Bind to 0.0.0.0 even in development mode for access from VM
+set :bind, '0.0.0.0'
+
+
 env = ENV['RACK_ENV'] || 'development'
 unless env == 'test'
   DB_FILE = "./db/#{env}.db"
@@ -12,6 +16,7 @@ end
 
 
 
+require 'json'
 require './models/util'
 require './models/human'
 require './models/thing'
@@ -28,6 +33,15 @@ require './models/verbs/rename_verb'
 require './models/verbs/today_verb'
 require './models/verbs/update_default_verb'
 require './models/verbs/yesterday_verb'
+require './presenters/history_presenter'
+
+get '/history' do
+  html = File.read(File.join('views', 'history', 'index.html'))
+  human = Human.find_or_create(phone_number: '+12083666059')
+  presenter = HistoryPresenter.new(human: human)
+  data = presenter.display_as_hash.to_json
+  html.sub('DATA_FROM_CONTROLLER', data)
+end
 
 post '/messages' do
   content_type 'text/plain'
@@ -40,7 +54,7 @@ post '/messages' do
   limit_160_chars(responder.response)
 end
 
-private 
+private
 def limit_160_chars(input)
   return input if (input.length < 161)
   input[0..153] + '[snip]'

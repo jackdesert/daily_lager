@@ -5,3 +5,4 @@ tmp
 todo
 db/*.db
 log
+.ruby-version
