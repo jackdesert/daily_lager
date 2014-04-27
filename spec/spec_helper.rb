@@ -4,7 +4,7 @@ require 'sinatra'
 require 'sequel'
 
 # Set Sequel::Model to return nil if save fails, as opposed to raising an exception
-#Sequel::Model.raise_on_save_failure = false 
+#Sequel::Model.raise_on_save_failure = false
 
 require 'pry'
 require 'rspec'
@@ -34,6 +34,7 @@ require_relative '../models/verbs/rename_verb'
 require_relative '../models/verbs/today_verb'
 require_relative '../models/verbs/update_default_verb'
 require_relative '../models/verbs/yesterday_verb'
+require_relative '../presenters/history_presenter'
 require_relative './support/helper_methods'
 
 RSpec.configure do |config|

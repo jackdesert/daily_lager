@@ -15,7 +15,7 @@ describe Human do
     context 'phone number' do
       context 'format' do
         context 'valid phone numbers' do
-          valid_numbers = ['+11112223333', '+19998887777'] 
+          valid_numbers = ['+11112223333', '+19998887777']
           valid_numbers.each do |number|
             subject { described_class.new(phone_number: number) }
             context "when the phone number is #{number}" do

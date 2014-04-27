@@ -1,0 +1,59 @@
+.data-point{ width: 4mm; display: inline-block; background-color: black; border-left: 1px solid white;
+}
+
+.series-wrapper{
+  float: right;
+  position: relative;
+  padding-right: 21mm;
+}
+
+.series-label{
+  font-size: 7mm;
+  position: absolute;
+  top: 9mm;
+  right: 0mm;
+}
+
+
+.clear{
+  clear: both;
+}
+
+.data-point{
+  position: relative;
+}
+
+#cycle{
+  font-size: 20mm;
+  position: fixed;
+  bottom: 10mm;
+  right: 10mm;
+  text-decoration: underline;
+  color: blue;
+}
+#cycle:hover{
+  cursor: pointer;
+  color: #33f;
+}
+h1{
+  font-size: 20mm;
+  text-align: center;
+  padding-top: 13mm;
+  padding-bottom: 11mm;
+
+}
+
+.timeline-left, .timeline-right{
+  font-size: 8mm;
+  padding-top: 7mm;
+  padding-bottom: 24mm;
+}
+.timeline-left{
+  float: left;
+}
+.timeline-right{
+  float: right;
+}
+
+
+

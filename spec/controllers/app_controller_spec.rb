@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 require 'rack/test'
-require_relative '../../app'
+require_relative '../../daily_lager'
 
-def sample_params  
+def sample_params
   {
     "AccountSid"=>"ACadd1d93921579bcdadb4d3d1e9aa9af3",
     "MessageSid"=>"SM00799c7b44c66c116d07622cb96887a6",
@@ -24,19 +24,19 @@ def sample_params
     "NumMedia"=>"0",
     "From"=>"+12083666059",
     "FromZip"=>"83633"
-  } 
+  }
 end
 
 def rogue_params
   {
-    # Note that we are not guarding against the case where Twilio 
+    # Note that we are not guarding against the case where Twilio
     # does not provide a 'From' field
     "From"=>"+12223334444",
     'blither' => 'blather'
   }
 end
 
-def browser 
+def browser
   Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
 end
 
@@ -95,7 +95,7 @@ describe '/messages' do
 
     it 'returns an error' do
       subject.body.should == "Oops. We've encountered an error :("
-    end 
+    end
   end
 end
 
