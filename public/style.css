@@ -1,17 +1,20 @@
 .data-point{ width: 4mm; display: inline-block; background-color: black; border-left: 1px solid white;
 }
-
+body{
+  background-color: #999;
+}
 .series-wrapper{
   float: right;
   position: relative;
-  padding-right: 21mm;
+  right: 21mm;
+  background-color: #bbb;
 }
 
 .series-label{
   font-size: 7mm;
   position: absolute;
   top: 9mm;
-  right: 0mm;
+  right: -21mm;
 }
 
 
