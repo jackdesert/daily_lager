@@ -4,7 +4,7 @@ describe Verb  do
   reusable_hash = {
       "" => [''],
       "  3       miles    \t" => ['3', 'miles'],
-      "blAther" => ['blather'], 
+      "blAther" => ['blather'],
       "\t twenty MINUTES\tbefore  dawn\t  " => ['twenty', 'minutes', 'before', 'dawn'],
       ['1', '2', '3'] => ['1', '2', '3'],
     }
@@ -38,13 +38,14 @@ describe Verb  do
     end
   end
 
-  hash = { 
+  hash = {
           '3 miles' => ActionVerb,
           'y 3 miles' => ActionVerb,
           'menu' => MenuVerb,
           'list' => ListVerb,
           'today' => TodayVerb,
           'yesterday' => YesterdayVerb,
+          'note worthy' => NoteVerb,
           'create miles' => CreateVerb,
           'create miles default 30' => CreateVerbWithDefault,
           'rename miles run' => RenameVerb,

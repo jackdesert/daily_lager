@@ -5,9 +5,9 @@ describe MenuVerb do
     yesses = [
       ['menu'], ['help'],
     ]
-        
+
     verify_appropriateness_of(yesses, described_class)
-  end 
+  end
 
   describe '#process' do
     let(:thing1) { Thing.new(name: 'run', default_value: 6) }
@@ -27,6 +27,7 @@ MENU
 LIST
 TODAY
 YESTERDAY
+NOTE <body>
 CREATE <#{Thing::DISPLAY_NAME}> [DEFAULT <number>]
 RENAME <#{Thing::DISPLAY_NAME}> <new_name>
 DELETE <#{Thing::DISPLAY_NAME}>

@@ -16,7 +16,7 @@ class YesterdayVerb < Verb
 
   private
   def successor
-    CreateVerb
+    NoteVerb
   end
 
   def appropriate?

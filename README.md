@@ -2,14 +2,14 @@
 Daily Lager
 ===========
 
-"It's good for you", she said. 
+"It's good for you", she said.
 
 "How good for me? *Measureably* good?"
 
-Daily Lager allows the tracking of your own custom, statistical data about 
-yourself via a simple DSL over SMS or command line. Once you acquire enough 
-data about your consumption or non-consumption of those garden greens, and 
-data on how great (or not great) you feel each day, you can answer that last 
+Daily Lager allows the tracking of your own custom, statistical data about
+yourself via a simple DSL over SMS or command line. Once you acquire enough
+data about your consumption or non-consumption of those garden greens, and
+data on how great (or not great) you feel each day, you can answer that last
 question for yourself.
 
 
@@ -21,28 +21,33 @@ The DSL
         LIST
         TODAY
         YESTERDAY
+        NOTE <body>
         CREATE <category> [DEFAULT <integer>]
         RENAME <category_name> <new_name>
         DELETE <category>
         [Y] <integer> <category>
 
 
-    MENU 
+    MENU
       # Displays a list of available commands
 
-    LIST 
+    LIST
       # Shows a list of categoriess you are tracking
 
     CREATE <category> [DEFAULT <integer>]
 
-    DELETE <category> 
+    DELETE <category>
       # Deletes a category you're tracking
 
-    TODAY 
+    TODAY
       # Shows all the categoriess you've logged today
 
-    YESTERDAY 
+    YESTERDAY
       # Shows all the categoriess you logged yesterday
+
+    NOTE <body>
+      # Creates a note in the system for today's date. This is useful for noting
+      # occurrences that are not necessarily numerical series
 
     UPDATE DEFAULT <category> <new_name>
       # Update the default value of somecategory you're tracking
@@ -50,10 +55,10 @@ The DSL
     RENAME <category> <new_name>
       # Change the name (and hence the DSL) of somecategory you're tracking
 
-    <integer> <category_name> 
+    <integer> <category_name>
       # Logs a single piece of data for today's date
-      
-    Y <integer> <category_name> 
+
+    Y <integer> <category_name>
       # Logs a single piece of data for yesterday's date
 
 
@@ -61,7 +66,7 @@ The DSL
 Interactive Demo
 ---------------------------------------
 
-Try out the Demo. It's an ncurses simulation of Daily Lager being run over SMS. 
+Try out the Demo. It's an ncurses simulation of Daily Lager being run over SMS.
 
 First install Ruby 2.x, then run:
 
@@ -78,11 +83,10 @@ It looks like this:
         LIST
         TODAY
         YESTERDAY
+        NOTE <body>
         CREATE <category> [DEFAULT <integer>]
         RENAME <category_name> <new_name>
         DELETE <category>
-
-        Full docs: http://to_be_determined
 
         To close the demo, CTRL-C                   |
         |                                           |
@@ -121,7 +125,7 @@ Let's say you want to log how many miles you walk, how many days
 you take your B vitamins, and how much you sleep.
 
     Create a category called 'walk':
-      CREATE walk 
+      CREATE walk
         => 'walk' created
 
     Create a category called 'sleep':
@@ -137,11 +141,11 @@ you take your B vitamins, and how much you sleep.
         => category you're tracking:
            sleep
            vitamin (default 1)
-           walk 
+           walk
 
     Log that you walked two (miles) today:
       2 walk
-        => Logged 2 walk(s) 
+        => Logged 2 walk(s)
 
     Log that you slept 6 hours today:
       6 sleep
@@ -158,29 +162,33 @@ you take your B vitamins, and how much you sleep.
             1 vitamin
             8 walk
 
+    Note that school started today
+      NOTE School started
+        => Noted: 'school started'
+
 
 A Note About UPPERCASE
 ----------------------
 
-Uppercase letters are used to better highlight which words are keywords. 
+Uppercase letters are used to better highlight which words are keywords.
 However, you can enter them as either upper or lower case (or a mixture of both).
 
 
 What Data is Logged
 -------------------
 
-Each category gets a default entry for each day. If you 
+Each category gets a default entry for each day. If you
 don't set a default value, then the default value is 0.
 Whenever you log some category using the DSL, it creates
 an additional entry for that category, with the value
 you provided. When you ask for your daily totals, it
-adds them up for you. 
+adds them up for you.
 
 
 Negative Numbers
 ----------------
 
-All categories that you log are additive. For example, if your 
+All categories that you log are additive. For example, if your
 default value for a category is 10 but today you want to record
 '8' instead, just log '-2'. That will set the day's totals to 8.
 
@@ -188,8 +196,8 @@ default value for a category is 10 but today you want to record
 Data Mining
 -----------
 
-Once you have enough data, you can determine whether those green 
-vegetables you've started eating are really decreasing the 
+Once you have enough data, you can determine whether those green
+vegetables you've started eating are really decreasing the
 frequency of your hiccups when you train for your marathon.
 
 Some simple queries are available through the DSL, such as
@@ -213,6 +221,18 @@ Running the Tests
     bundle exec rspec
 
 
+Migrations
+----------
+
+To start the demo environment again, just remove db/demo.db and run the demo again.
+
+To run a specific migration against a particular environment:
+
+    RACK_ENV=<environment> pry
+    [1] pry(main)> require './daily_lager'
+    [1] pry(main)> require './db/migrations/<name_of_migration>'
+
+
 Roadmap
 --------------
 
@@ -224,15 +244,17 @@ Completed:
   * Occurrence model corresponds to a single piece of data logged
   * Textual output for each subclass of Verb is unit tested
   * Demo (demo.rb) lets you interact with the DSL without a server
-  * Before logging new data, it backlogs any days with no data 
+  * Before logging new data, it backlogs any days with no data
     with the default values
-  * Allow multiple users to access the same Sinatra instance, 
-    identified by phone number 
+  * Allow multiple users to access the same Sinatra instance,
+    identified by phone number
   * Added a durable storage mechanism using the sequel gem
   * Connect to Twilio via Sinatra for a single user
   * Supports multiple users via Human.find_or_create()
   * Allows backfilling data for yesterday
   * UPDATE DEFAULT functionality added
+  * View history in browser
+  * Add notes to a date
 
 Backlog:
 
@@ -241,8 +263,9 @@ Backlog:
   * Add database validations to ensure referential integrity
 
 Icebox:
-  
-  * Graphical representation of data
+
+  * Display dates in browser
+  * Display notes in browser
   * Add verbs for WEEK, LAST WEEK, MONTH, LAST MONTH, YEAR, and <year>
 
 

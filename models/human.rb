@@ -8,6 +8,7 @@ class Human < Sequel::Model(:humans)
 #  attr_accessor :phone_number, :things
 
   one_to_many :things
+  one_to_many :notes
 
 #  def initialize(hash={})
 #    hash.each_pair do |key, value|
