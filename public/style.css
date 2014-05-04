@@ -1,7 +1,10 @@
-.data-point{ width: 4mm; display: inline-block; background-color: black; border-left: 1px solid white;
+.data-point{ width: 4mm;
+  display: inline-block;
+  background-color: black;
+  border-left: 1px solid white;
 }
 body{
-  background-color: #999;
+  background-color: #b0b0b0;
 }
 .series-wrapper{
   float: right;
@@ -26,37 +29,63 @@ body{
   position: relative;
 }
 
-#cycle{
+#cycle-next, #cycle-previous{
   font-size: 20mm;
   position: fixed;
   bottom: 10mm;
+  color: white;
+  padding: 10mm 30mm;
+  background-color: #00d;
+  border-radius: 100mm;
+}
+#cycle-previous{
+  right: auto;
+  left: 10mm;
+}
+#cycle-next{
   right: 10mm;
-  text-decoration: underline;
-  color: blue;
+  left: auto;
 }
-#cycle:hover{
+#cycle-next:hover, #cycle-previous:hover{
   cursor: pointer;
-  color: #33f;
-}
-h1{
-  font-size: 20mm;
-  text-align: center;
-  padding-top: 13mm;
-  padding-bottom: 11mm;
-
+  background-color: blue;
 }
 
-.timeline-left, .timeline-right{
-  font-size: 8mm;
-  padding-top: 7mm;
-  padding-bottom: 24mm;
+#graph-container{
+  position: absolute;
+  right: 10mm;
 }
-.timeline-left{
-  float: left;
-}
-.timeline-right{
-  float: right;
+#date-container{
+  z-index: -1;
+  position: absolute;
+  right: 31mm;
+  top: -35mm;
 }
 
+.date{
+  position: relative;
+  width: 4mm;
+  height: 65mm;
+  display: inline-block;
+  background-color: #bbb;
+  border-left: 1px solid transparent;
+}
 
+.date.odd{
+  background-color: #c0c0c0;
+}
 
+.date .month-start{
+  z-index: 1;
+  width: 1mm;
+  height: 1mm;
+  position: absolute;
+  top: 62mm;
+  right: 1mm;
+  font-size: 16px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+}
+#z-container{
+  padding-top: 30mm;
+}

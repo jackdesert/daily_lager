@@ -25,11 +25,34 @@ describe HistoryPresenter do
 
     it 'returns the values as a hash' do
       expected = {
-        'eggplant' => [4,1],
-        'sushi' => [100]
+        series: {
+          eggplant: [4,1],
+          sushi: [100]
+        },
+        dateOfLastOccurrenceInMilliseconds: nil
       }
       presenter.display_as_hash.should == expected
     end
+  end
+
+  describe '#date_of_last_occurrence_in_milliseconds' do
+    subject { presenter.send(:date_of_last_occurrence_in_milliseconds) }
+    context 'when no occurrences' do
+      it 'is nil' do
+        subject.should be_nil
+      end
+    end
+
+    context 'when occurrences exist' do
+      context 'when recent occurrence is at the epoch of time' do
+        let(:beginning) { Date.new(1970, 1, 1) }
+        it "returns 20 hours worth of milliseconds (half a day plus 8 hours for Pacific Time Zone)" do
+          mock(human).date_of_most_recent_occurrence.returns(beginning)
+          subject.should == 3600 * 20 * 1000
+        end
+      end
+    end
+
   end
 
 

@@ -6,14 +6,17 @@
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div class='timeline-left'>&#8606;ancient history</div>
-        <div class='timeline-right'>&#8609;today</div>
-        <div class='clear'></div>
-        <div id='graphs' ></div>
-        <div id='cycle'>Next</div>
+        <div id='z-container'>
+            <div id='date-container'></div>
+            <div id='graph-container' ></div>
+            <button id='cycle-next'>&#8594;</button>
+            <button id='cycle-previous'>&#8592;</button>
+        </div>
+
         <div id='footer'>
             <script src="jquery-2.1.0.js" type="text/javascript"></script>
             <script src="barGraph.js" type="text/javascript"></script>
+            <script src="dates.js" type="text/javascript"></script>
             <script type="text/javascript">
                 var dataFromController = DATA_FROM_CONTROLLER
             </script>
