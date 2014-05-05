@@ -1,15 +1,14 @@
 $(document).ready(function(){
     var lastDateMS = dataFromController['dateOfLastOccurrenceInMilliseconds'] //|| 1399222959653
     var series = ''
-    var oddOrEven
+    var oddOrEven = 'odd'
     var numberOfDivs = dataFromController['series']['dep'].length
     var firstDate = true
     var setOddOrEven = function(date){
         var choices = ['even', 'odd']
         var currentIndex = choices.indexOf(oddOrEven)
-        var absCurrentIndex = Math.abs(currentIndex)
         if(date.getDay() == 6){
-            oddOrEven = choices[(absCurrentIndex + 1) % 2]
+            oddOrEven = choices[(currentIndex + 1) % 2]
         }
     }
 
@@ -41,7 +40,7 @@ $(document).ready(function(){
         var dateArgument
         var divs = ''
         var dateMS
-        for (var dateOffset = 0; dateOffset <= numberOfDivs; dateOffset ++){
+        for (var dateOffset = 0; dateOffset < numberOfDivs; dateOffset ++){
             dateMS = startDateMS - (millisecondsPerDay * dateOffset)
             date = new Date(dateMS)
             divs = dateDiv(date) + divs
@@ -50,7 +49,7 @@ $(document).ready(function(){
     }
 
 
-    $('#dates').append(allDivs(lastDateMS))
+    $('#date-container').append(allDivs(lastDateMS))
 
 
 })

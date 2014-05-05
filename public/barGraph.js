@@ -80,12 +80,12 @@ $(document).ready(function(){
     var indexOfMain = keys.indexOf(mainKey)
     keys.splice(indexOfMain, 1)
 
-    displaySeries(mainKey, dataFromController['series'][mainKey], $('#graphs'))
+    displaySeries(mainKey, dataFromController['series'][mainKey], $('#graph-container'))
 
     keys.map(function(currentValue, index, array){
         thingName = currentValue
         thingSeries = dataFromController['series'][thingName]
-        displaySeries(thingName, thingSeries, $('#graphs'), true, 'blue')
+        displaySeries(thingName, thingSeries, $('#graph-container'), true, 'blue')
     })
 
     connectLink(keys)

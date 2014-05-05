@@ -61,12 +61,15 @@ h1{
   float: right;
 }
 
-#date-container{
-  position: relative;
-  left: 48mm;
-}
-#dates{
+#graph-container{
   position: absolute;
+  right: 10mm;
+}
+#date-container{
+  z-index: -1;
+  position: absolute;
+  right: 31mm;
+  top: -35mm;
 }
 
 #container{
@@ -76,15 +79,20 @@ h1{
 .date{
   position: relative;
   width: 4mm;
-  height: 100mm;
+  height: 200mm;
   display: inline-block;
-  background-color: yellow;
+  background-color: #bbb;
+  border-left: 1px solid transparent;
+}
+
+.date.odd{
+  background-color: #c0c0c0;
 }
 
 .date .month-start{
   z-index: 1;
   position: absolute;
-  top: 24mm;
+  bottom: 141mm;
   right: -8mm;
   font-size: 16px;
   -webkit-transform: rotate(-90deg);
