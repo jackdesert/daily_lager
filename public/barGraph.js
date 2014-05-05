@@ -76,15 +76,15 @@ $(document).ready(function(){
     }
 
     var mainKey = 'dep'
-    var keys = Object.keys(dataFromController).sort()
+    var keys = Object.keys(dataFromController['series']).sort()
     var indexOfMain = keys.indexOf(mainKey)
     keys.splice(indexOfMain, 1)
 
-    displaySeries(mainKey, dataFromController[mainKey], $('#graphs'))
+    displaySeries(mainKey, dataFromController['series'][mainKey], $('#graphs'))
 
     keys.map(function(currentValue, index, array){
         thingName = currentValue
-        thingSeries = dataFromController[thingName]
+        thingSeries = dataFromController['series'][thingName]
         displaySeries(thingName, thingSeries, $('#graphs'), true, 'blue')
     })
 

@@ -1,4 +1,7 @@
-.data-point{ width: 4mm; display: inline-block; background-color: black; border-left: 1px solid white;
+.data-point{ width: 4mm;
+  display: inline-block;
+  background-color: black;
+  border-left: 1px solid white;
 }
 body{
   background-color: #999;
@@ -58,5 +61,32 @@ h1{
   float: right;
 }
 
+#date-container{
+  position: relative;
+  left: 48mm;
+}
+#dates{
+  position: absolute;
+}
 
+#container{
+  position: relative;
+}
 
+.date{
+  position: relative;
+  width: 4mm;
+  height: 100mm;
+  display: inline-block;
+  background-color: yellow;
+}
+
+.date .month-start{
+  z-index: 1;
+  position: absolute;
+  top: 24mm;
+  right: -8mm;
+  font-size: 16px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+}

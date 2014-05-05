@@ -1,4 +1,6 @@
 class HistoryPresenter
+  SECONDS_PER_HOUR = 60 * 60
+  SECONDS_PER_HALF_DAY = SECONDS_PER_HOUR * 12
 
   attr_reader :human
 
@@ -14,10 +16,12 @@ class HistoryPresenter
 
   def display_as_hash
     hash = {}
+    hash[:series] = {}
+    hash['dateOfLastOccurrenceInMilliseconds'] = (human.date_of_most_recent_occurrence.to_time.to_i + SECONDS_PER_HALF_DAY) * 1000
     aggregate_sum_by_date.each do |row|
       name = row[:name]
-      hash[name] ||= []
-      hash[name] << row[:sum_value]
+      hash[:series][name] ||= []
+      hash[:series][name] << row[:sum_value]
     end
     hash
   end
