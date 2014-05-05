@@ -30,7 +30,7 @@ $(document).ready(function(){
         }
         if (firstDate === true){
             firstDate = false
-            theBurger = "\n  <div class='month-start'>most&nbsp;recent</div>\n"
+            theBurger = "\n  <div class='month-start'>Today</div>\n"
         }
 
         return topBun + theBurger + bottomBun

@@ -7,6 +7,13 @@ $(document).ready(function(){
             return keys[index]
         }
 
+        var decrementIndex = function(){
+            index -= 1
+            if (index == -1){
+                index = keys.length - 1
+            }
+        }
+
         var incrementIndex = function(){
             index += 1
             if (index == keys.length){
@@ -24,10 +31,19 @@ $(document).ready(function(){
             $('#series_' + currentSeriesID()).show()
         }
 
-        $('#cycle').on('click', function(){
-            incrementIndex()
+        var updateVisible = function(){
             hideAll()
             showCurrent()
+        }
+
+        $('#cycle-previous').on('click', function(){
+            incrementIndex()
+            updateVisible()
+        })
+
+        $('#cycle-next').on('click', function(){
+            incrementIndex()
+            updateVisible()
         })
 
         hideAll()
@@ -67,8 +83,11 @@ $(document).ready(function(){
             })
             return divs
         }
+        var capitalize = function(input){
+            return input[0].toUpperCase() + input.slice(1)
+        }
 
-        seriesLabel = "<div class='series-label'>" + label + "</div>"
+        seriesLabel = "<div class='series-label'>" + capitalize(label) + "</div>"
         seriesWrapper = "<div class='series-wrapper' id='series_" + label + "'>" + seriesLabel + divsFromSeries(series) + "</div>"
         clear = "<div class='clear'></div>"
         parentDiv.append(seriesWrapper)

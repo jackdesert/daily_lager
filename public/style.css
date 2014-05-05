@@ -4,7 +4,7 @@
   border-left: 1px solid white;
 }
 body{
-  background-color: #999;
+  background-color: #b0b0b0;
 }
 .series-wrapper{
   float: right;
@@ -29,36 +29,26 @@ body{
   position: relative;
 }
 
-#cycle{
+#cycle-next, #cycle-previous{
   font-size: 20mm;
   position: fixed;
   bottom: 10mm;
+  color: white;
+  padding: 10mm 30mm;
+  background-color: #00d;
+  border-radius: 100mm;
+}
+#cycle-previous{
+  right: auto;
+  left: 10mm;
+}
+#cycle-next{
   right: 10mm;
-  text-decoration: underline;
-  color: blue;
+  left: auto;
 }
-#cycle:hover{
+#cycle-next:hover, #cycle-previous:hover{
   cursor: pointer;
-  color: #33f;
-}
-h1{
-  font-size: 20mm;
-  text-align: center;
-  padding-top: 13mm;
-  padding-bottom: 11mm;
-
-}
-
-.timeline-left, .timeline-right{
-  font-size: 8mm;
-  padding-top: 7mm;
-  padding-bottom: 24mm;
-}
-.timeline-left{
-  float: left;
-}
-.timeline-right{
-  float: right;
+  background-color: blue;
 }
 
 #graph-container{
@@ -72,14 +62,10 @@ h1{
   top: -35mm;
 }
 
-#container{
-  position: relative;
-}
-
 .date{
   position: relative;
   width: 4mm;
-  height: 200mm;
+  height: 65mm;
   display: inline-block;
   background-color: #bbb;
   border-left: 1px solid transparent;
@@ -91,10 +77,15 @@ h1{
 
 .date .month-start{
   z-index: 1;
+  width: 1mm;
+  height: 1mm;
   position: absolute;
-  bottom: 141mm;
-  right: -8mm;
+  top: 62mm;
+  right: 1mm;
   font-size: 16px;
   -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
+}
+#z-container{
+  padding-top: 30mm;
 }
