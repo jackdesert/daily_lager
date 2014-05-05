@@ -17,13 +17,19 @@ class HistoryPresenter
   def display_as_hash
     hash = {}
     hash[:series] = {}
-    hash['dateOfLastOccurrenceInMilliseconds'] = (human.date_of_most_recent_occurrence.to_time.to_i + SECONDS_PER_HALF_DAY) * 1000
+    hash['dateOfLastOccurrenceInMilliseconds'] = date_of_last_occurrence_in_milliseconds
     aggregate_sum_by_date.each do |row|
       name = row[:name]
       hash[:series][name] ||= []
       hash[:series][name] << row[:sum_value]
     end
     hash
+  end
+
+  private
+  def date_of_last_occurrence_in_milliseconds
+    return nil if human.date_of_most_recent_occurrence.nil?
+    (human.date_of_most_recent_occurrence.to_time.to_i + SECONDS_PER_HALF_DAY) * 1000
   end
 
 end
