@@ -14,13 +14,14 @@ describe HistoryPresenter do
   end
 
 
-  describe '#to_hash' do
+  describe '#display_as_hash' do
     before do
       one = { date: yesterday, sum_value: 4, name: 'eggplant' }
       two = { date: today, sum_value: 1, name: 'eggplant' }
       three = { date: today, sum_value: 100, name: 'sushi' }
       output = [one, two, three]
       stub(presenter).aggregate_sum_by_date { output }
+      stub(presenter).notes_array { ['array of notes'] }
     end
 
     it 'returns the values as a hash' do
@@ -29,7 +30,9 @@ describe HistoryPresenter do
           eggplant: [4,1],
           sushi: [100]
         },
-        dateOfLastOccurrenceInMilliseconds: nil
+        dateOfLastOccurrenceInMilliseconds: nil,
+        notes: ['array of notes']
+
       }
       presenter.display_as_hash.should == expected
     end
@@ -56,19 +59,46 @@ describe HistoryPresenter do
   end
 
 
+  describe '#notes_array' do
+    subject { presenter.notes_array }
+    let(:day) { Date.new(2014, 1, 13) }
+    let(:one_day_before) { day - 1 }
+    let(:five_days_before) { day - 5 }
+    before do
+      human.add_note(date: day, body: 'day--first')
+      human.add_note(date: one_day_before, body: 'one day before--first')
+      human.add_note(date: one_day_before, body: 'one day before--second')
+      human.add_note(date: five_days_before, body: 'five days before--first')
+    end
+
+    it 'returns an array with the following contents' do
+      expected = [
+        {date: '13 Jan', bodies: ['day--first']},
+        {date: '12 Jan', bodies: ['one day before--first', 'one day before--second']},
+        nil,
+        nil,
+        nil,
+        {date: '8 Jan', bodies: ['five days before--first']}
+      ]
+      pretend_now_is(day) do
+        subject.should == expected
+      end
+    end
+  end
+
   describe '#aggregate_sum_by_date' do
 
     subject { presenter.aggregate_sum_by_date }
     before do
       human.add_thing(eggplant_thing)
       human.add_thing(sushi_thing)
+
       eggplant_thing.add_occurrence(value: 1, date: today)
       eggplant_thing.add_occurrence(value: 2, date: yesterday)
       eggplant_thing.add_occurrence(value: 2, date: yesterday)
 
       sushi_thing.add_occurrence(value: 100, date: today)
     end
-
 
     it 'returns an array of length 2' do
       subject.should be_an(Array)
@@ -94,6 +124,21 @@ describe HistoryPresenter do
     end
   end
 
+  describe '#date_snippet' do
+    context 'when date is nil' do
+      it 'raises an error' do
+        expect{
+          presenter.send(:date_snippet, nil)
+        }.to raise_error(ArgumentError)
+      end
+    end
 
+    context 'when date is Jan 13' do
+      it 'returns 13 Jan' do
+        jan_13 = Date.new(1971, 1, 13)
+        presenter.send(:date_snippet, jan_13).should == '13 Jan'
+      end
+    end
+  end
 end
 
