@@ -27,7 +27,7 @@ class HistoryPresenter
       element[:bodies] << note.body
       output[offset] = element
     end
-    output
+    output.reverse!
   end
 
   def display_as_hash

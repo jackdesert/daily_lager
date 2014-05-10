@@ -3,9 +3,11 @@
   background-color: black;
   border-left: 1px solid white;
 }
+
 body{
   background-color: #b0b0b0;
 }
+
 .series-wrapper{
   float: right;
   position: relative;
@@ -62,6 +64,39 @@ body{
   top: -35mm;
 }
 
+#note-container{
+  z-index: 10;
+  position: absolute;
+  right: 31mm;
+  top: 71mm;
+}
+#note-container .note{
+  position: relative;
+  right: 1mm;
+  border-left: 1px solid transparent;
+  height: 200mm;
+  width: 4mm;
+  display: inline-block;
+  background-color: transparent;
+}
+
+#note-container .note.with-text:hover{
+  background-color: white;
+}
+
+#note-container .note .text{
+  position: relative;
+  left: 3mm;
+  width: 1px;
+  height: 1px;
+  display: inline-block;
+  font-size: 18px;
+  white-space: nowrap;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+}
+
+
 .date{
   position: relative;
   width: 4mm;
@@ -80,11 +115,11 @@ body{
   width: 1mm;
   height: 1mm;
   position: absolute;
-  top: 62mm;
+  top: 52mm;
   right: 1mm;
   font-size: 16px;
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
 }
 #z-container{
   padding-top: 30mm;
