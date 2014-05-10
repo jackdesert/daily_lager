@@ -13,7 +13,6 @@ describe HistoryPresenter do
     end
   end
 
-
   describe '#display_as_hash' do
     before do
       one = { date: yesterday, sum_value: 4, name: 'eggplant' }
@@ -58,7 +57,6 @@ describe HistoryPresenter do
 
   end
 
-
   describe '#notes_array' do
     subject { presenter.notes_array }
     let(:day) { Date.new(2014, 1, 13) }
@@ -73,12 +71,12 @@ describe HistoryPresenter do
 
     it 'returns an array with the following contents' do
       expected = [
-        {date: '13 Jan', bodies: ['day--first']},
+        {date: '8 Jan', bodies: ['five days before--first']},
+        nil,
+        nil,
+        nil,
         {date: '12 Jan', bodies: ['one day before--first', 'one day before--second']},
-        nil,
-        nil,
-        nil,
-        {date: '8 Jan', bodies: ['five days before--first']}
+        {date: '13 Jan', bodies: ['day--first']}
       ]
       pretend_now_is(day) do
         subject.should == expected
