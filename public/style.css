@@ -1,3 +1,7 @@
+.long-container{
+  white-space: nowrap;
+}
+
 .data-point{ width: 4mm;
   display: inline-block;
   background-color: black;

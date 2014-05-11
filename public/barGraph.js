@@ -79,7 +79,7 @@ $(document).ready(function(){
                     backgroundColor = colorString
                 }
                 style = "height: " + normalizedHeight + "mm; background-color: " + backgroundColor + "; bottom: " + bottomOffset + "mm;"
-                divs += "<div class='data-point' style='" + style + "' />\n"
+                divs += "<div class='data-point bar' style='" + style + "' />\n"
             })
             return divs
         }

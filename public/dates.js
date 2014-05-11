@@ -18,7 +18,7 @@ $(document).ready(function(){
             theBurger = '',
             topBun,
             bottomBun = "</div>\n",
-            cssClasses = ['date']
+            cssClasses = ['date bar']
             months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
         setOddOrEven(date)
