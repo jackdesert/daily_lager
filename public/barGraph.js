@@ -37,7 +37,7 @@ $(document).ready(function(){
         }
 
         $('#cycle-previous').on('click', function(){
-            incrementIndex()
+            decrementIndex()
             updateVisible()
         })
 
