@@ -22,6 +22,7 @@ The DSL
         TODAY
         YESTERDAY
         NOTE <body>
+        LAST <category>
         CREATE <category> [DEFAULT <integer>]
         RENAME <category_name> <new_name>
         DELETE <category>
@@ -48,6 +49,9 @@ The DSL
     NOTE <body>
       # Creates a note in the system for today's date. This is useful for noting
       # occurrences that are not necessarily numerical series
+
+    LAST <category>
+      # Show how long it has been since last occurrence of <category>
 
     UPDATE DEFAULT <category> <new_name>
       # Update the default value of somecategory you're tracking
@@ -254,13 +258,15 @@ Completed:
   * Allows backfilling data for yesterday
   * UPDATE DEFAULT functionality added
   * View history in browser
-  * Add notes to a date
+  * Notes can be added to a date
+  * LastVerb implemented
 
 Backlog:
 
   * Complete DELETE functionality
   * Beef up model validations
   * Add database validations to ensure referential integrity
+  * Intelligently say '1 run' and '2 runs'
 
 Icebox:
 

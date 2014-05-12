@@ -46,6 +46,7 @@ describe Verb  do
           'today' => TodayVerb,
           'yesterday' => YesterdayVerb,
           'note worthy' => NoteVerb,
+          'last miles' => LastVerb,
           'create miles' => CreateVerb,
           'create miles default 30' => CreateVerbWithDefault,
           'rename miles run' => RenameVerb,

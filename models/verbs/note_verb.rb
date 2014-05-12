@@ -14,7 +14,7 @@ class NoteVerb < Verb
 
   private
   def successor
-    CreateVerb
+    LastVerb
   end
 
   def appropriate?
