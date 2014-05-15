@@ -5,7 +5,7 @@ describe Occurrence do
     subject { described_class.new(value: 3) }
     it "has today's date" do
       subject.valid?
-      subject.date.should == Date.today
+      subject.date.should == Util.current_date_in_california
     end
     it 'has the passed in value' do
       subject.value.should == 3
@@ -36,7 +36,7 @@ describe Occurrence do
       let(:occurrence) { described_class.new }
       context 'at 7:59am Jan 5th on a server in London' do
         it 'returns Jan 4th' do
-          pretend_now_is(Time.utc(2014, 1, 5, 7, 59, 0)) do 
+          pretend_now_is(Time.utc(2014, 1, 5, 7, 59, 0)) do
             occurrence.valid?
             occurrence.date.should == Date.new(2014, 1, 4)
           end

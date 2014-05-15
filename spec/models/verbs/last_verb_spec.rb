@@ -64,9 +64,10 @@ describe LastVerb do
       context 'and occurrence exists for today' do
         before do
           run_thing.add_occurrence(value: 3, date: today)
+          run_thing.add_occurrence(value: 3, date: today)
         end
         it 'returns the correct message' do
-          subject.send(:process).should == "0 day(s) ago you logged 3 run(s)"
+          subject.send(:process).should == "0 day(s) ago you logged 6 run(s)"
         end
       end
 

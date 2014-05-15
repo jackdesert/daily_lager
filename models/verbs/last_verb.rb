@@ -9,7 +9,8 @@ class LastVerb < Verb
       "No #{thing.name}s recorded yet."
     else
       offset = (Util.current_date_in_california - last_occurrence.date).to_i
-      "#{offset} day(s) ago you logged #{last_occurrence.value} #{thing.name}(s)"
+      value = thing.total_value_for_date(last_occurrence.date)
+      "#{offset} day(s) ago you logged #{value} #{thing.name}(s)"
     end
   end
 

@@ -20,7 +20,7 @@ class HistoryPresenter
     notes = human.notes_dataset.order(:id)
     today = Util.current_date_in_california
     notes.each do |note|
-      offset = today - note.date
+      offset = (today - note.date).to_i
       element = output[offset] || {}
       element[:date] ||= date_snippet(note.date)
       element[:bodies] ||= []

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Thing do
+  let(:today) { Util.current_date_in_california }
   describe '#initialize' do
 
     let(:name) { 'iron' }
@@ -18,7 +19,7 @@ describe Thing do
 
     context 'when a default value is given' do
       it 'saves the default value in the new action' do
-        subject.default_value.should == default_value 
+        subject.default_value.should == default_value
       end
     end
 
@@ -81,18 +82,18 @@ describe Thing do
 
   describe '#total_value_for_date' do
     context 'when there are no occurrences' do
-      subject { Thing.create.total_value_for_date(Date.today) }
+      subject { Thing.create.total_value_for_date(today) }
       it 'returns zero' do
         should == 0
       end
     end
 
     context 'when there are occurrences' do
-      let(:yesterday_occurrence) { Occurrence.new(date: Date.today - 1, value: 13) }
+      let(:yesterday_occurrence) { Occurrence.new(date: today - 1, value: 13) }
       let(:first_occurrence) { Occurrence.new(value: 4) }
       let(:second_occurrence) { Occurrence.new(value: 1) }
       let(:thing) { Thing.create }
-      subject { thing.total_value_for_date(Date.today) }
+      subject { thing.total_value_for_date(today) }
       before do
         thing.add_occurrence(yesterday_occurrence)
         thing.add_occurrence(first_occurrence)
@@ -105,8 +106,8 @@ describe Thing do
   end
 
   describe '.totals_for_human_on_date' do
-    let(:correct_date) { Date.today - 35 }
-    let(:other_date) { Date.today - 17 }
+    let(:correct_date) { today - 35 }
+    let(:other_date) { today - 17 }
     let(:yoyo_thing) { Thing.create(name: 'yoyo') }
     let(:music_thing) { Thing.create(name: 'music') }
     let(:other_human_music_thing) { Thing.create(name: 'music') }
@@ -143,14 +144,14 @@ describe Thing do
 
     it 'gives that occurrence the correct default value' do
       thing.create_todays_default_occurrence
-      thing.occurrences.first.value.should == thing.default_value 
+      thing.occurrences.first.value.should == thing.default_value
     end
 
 
   end
 
 end
-  
+
 
 
 

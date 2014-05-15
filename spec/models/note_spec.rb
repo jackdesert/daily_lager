@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Note do
+  let(:today) { Util.current_date_in_california }
   describe '#initialize' do
 
-    let(:today) { Date.today }
     let(:body) { 'iron' }
 
     subject { described_class.new(body: body) }
@@ -39,7 +39,7 @@ describe Note do
     end
     context 'when date is a Date' do
       it 'is invalid' do
-        note.date = Date.today
+        note.date = today
         note.should_not have_error_on(:date)
       end
     end
