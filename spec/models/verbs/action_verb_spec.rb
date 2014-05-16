@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ActionVerb do
 
   before do
-    # Make sure Util.current_date_in_california is not used to initialize anything, since it 
+    # Make sure Util.current_date_in_california is not used to initialize anything, since it
     # really should be using Util.current_date_in_california
     mock(Date).today.never
   end
@@ -11,34 +11,66 @@ describe ActionVerb do
 
 
   describe '#appropriate?' do
+    shortcut_words = ['sex', 'draw']
     yesses = [
+      ['sex'],
+      ['y', 'sex'],
+      ['draw'],
+      ['y', 'draw'],
       ['2', 'miles'],
       ['273', 'smurfs'],
       ['-500', 'towns'],
       ['y', '-500', 'towns'],
     ]
     nos = [
+      ['a_word_not_in_thing_shortcut_words'],
       ['two'],
       ['2'],
-      ['2', 'miles', 'something'],
-    ]
-        
-    verify_appropriateness_of(yesses, described_class)
-    verify_inappropriateness_of(nos, described_class)
-  end 
+      ['2', 'miles', 'something']
+    ] | Verb::RESERVED_WORDS.map(&:to_s).each_slice(1).to_a
+
+    verify_appropriateness_of(yesses, described_class, shortcut_words: shortcut_words)
+    verify_inappropriateness_of(nos, described_class, shortcut_words: shortcut_words)
+  end
 
 
 
   describe '#process' do
+    let(:today) { Util.current_date_in_california }
+    let(:yesterday) { today - 1 }
     let(:existing_name) { 'run' }
     let(:value) { 3 }
     let(:thing1) { Thing.new(name: existing_name, default_value: 6) }
     let(:human) { create(:human) }
-    subject { described_class.new([value, name], human) }
+    let(:words) { [value, name] }
+    subject { described_class.new(words, human) }
 
     before do
       stub(human).backfill
       human.add_thing(thing1)
+    end
+
+    context 'when a shortcut word is used' do
+      context 'today' do
+        let(:words) { existing_name }
+        it 'adds an occurrence' do
+          expect{
+            subject.send(:process)
+          }.to change{ thing1.reload.occurrences.length }.by(1)
+          thing1.occurrences.last.date.should == today
+          thing1.occurrences.last.value.should == 1
+        end
+      end
+      context 'yesterday' do
+        let(:words) { ['y', existing_name] }
+        it 'adds an occurrence' do
+          expect{
+            subject.send(:process)
+          }.to change{ thing1.reload.occurrences.length }.by(1)
+          thing1.occurrences.last.date.should == yesterday
+          thing1.occurrences.last.value.should == 1
+        end
+      end
     end
 
     context 'when the named thing exists' do

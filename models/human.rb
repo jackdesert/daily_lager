@@ -40,6 +40,10 @@ class Human < Sequel::Model(:humans)
     end
   end
 
+  def thing_names
+    things.map(&:name)
+  end
+
   def backfill
     today = Util.current_date_in_california
     recent_date = date_of_most_recent_occurrence

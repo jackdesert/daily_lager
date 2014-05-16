@@ -10,6 +10,17 @@ describe Verb  do
     }
 
 
+  describe '#single_word_commands' do
+    subject { Verb::SINGLE_WORD_COMMANDS }
+    it { should =~ [:y, :menu, :list, :today, :yesterday, :note, :last, :create, :rename, :delete, :update] }
+  end
+
+  describe '#numbers_as_words' do
+    subject { Verb::NUMBERS_AS_WORDS }
+    it { should =~ [:one, :two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :eleven] }
+  end
+
+
   describe '#convert_to_array' do
     let(:verb) { described_class.new('anything', Human.new) }
     reusable_hash.each_pair do |string, expected_array|
@@ -39,6 +50,7 @@ describe Verb  do
   end
 
   hash = {
+          'sex' => ActionVerb,
           '3 miles' => ActionVerb,
           'y 3 miles' => ActionVerb,
           'menu' => MenuVerb,
@@ -58,7 +70,9 @@ describe Verb  do
 
   hash.each_pair do |string, verb_subclass|
     it "returns #{verb_subclass} when receives '#{string}'" do
-      responder = Verb.new(string, Human.new).responder
+      human = Human.new
+      stub(human).thing_names { ['sex'] }
+      responder = Verb.new(string, human).responder
       responder.should be_a verb_subclass
     end
   end

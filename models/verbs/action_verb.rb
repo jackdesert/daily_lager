@@ -1,6 +1,6 @@
 class ActionVerb < Verb
 
-  def process 
+  def process
     if thing = Thing.where(human_id: human.id, name: thing_name).first
       thing.add_occurrence(value: occurrence_value, date: effective_date)
       message = "#{occurrence_value} #{thing_name}(s) logged"
@@ -17,9 +17,20 @@ class ActionVerb < Verb
 
   private
   def appropriate?
+    return true if appropriate_as_shortcut?
     return false unless mod_words.first.match INTEGER
     return false unless mod_words.length == 2
     true
+  end
+
+  def appropriate_as_shortcut?
+    return false unless mod_words.length == 1
+    return false if RESERVED_WORDS.include? mod_words.first.to_sym
+    shortcut_words.include? mod_words.first
+  end
+
+  def shortcut_words
+    @shortcut_words ||= human.thing_names
   end
 
   def successor
@@ -35,7 +46,7 @@ class ActionVerb < Verb
   end
 
   def for_yesterday?
-    words.first == 'y'
+    words.first == 'y' && words.length > 1
   end
 
   def effective_date
@@ -47,12 +58,20 @@ class ActionVerb < Verb
     end
   end
 
-  
+
   def thing_name
-    mod_words.second
+    if appropriate_as_shortcut?
+      mod_words.first
+    else
+      mod_words.second
+    end
   end
 
   def occurrence_value
-    mod_words.first.to_i
+    if appropriate_as_shortcut?
+      1
+    else
+      mod_words.first.to_i
+    end
   end
 end

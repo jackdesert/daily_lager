@@ -1,31 +1,48 @@
 # Note NonsenseVerb is not in this list because it should not be tested as an inverse
 KLASSES = [ActionVerb, CreateVerb, CreateVerbWithDefault, DeleteVerb, ListVerb, RenameVerb, TodayVerb,UpdateDefaultVerb, YesterdayVerb]
 
-def verify_appropriateness_of(array_of_arrays, klass, human=Human.new, invert=false)
+def verify_appropriateness_of(array_of_arrays, klass, options={})
+
+  human = options[:human] || Human.new
+  shortcut_words = options[:shortcut_words] || []
+  invert = options[:invert] || false
+  raise ArgumentError, 'unexpected key in options' if (options.keys - [:human, :shortcut_words, :invert]).present?
+
+  raise ArgumentError, 'expected an array' unless array_of_arrays.kind_of? Array
+  raise ArgumentError, 'expected an array' unless shortcut_words.kind_of? Array
+  raise ArgumentError, 'expected a Human' unless human.kind_of? Human
   truthiness = !invert
   context "when klass is #{klass}" do
     array_of_arrays.each do |array|
       context "and @words is #{array}" do
         it "is #{'not' unless truthiness} appropriate" do
-          klass.new(array, Object.new).send(:appropriate?).should == truthiness
+          stub(human).thing_names { shortcut_words }
+          klass.new(array, human).send(:appropriate?).should == truthiness
         end
       end
     end
   end
   if truthiness
-    verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, human)
+    verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, options)
   end
 end
 
-def verify_inappropriateness_of(array_of_arrays, klass, human=Human.new)
-  verify_appropriateness_of(array_of_arrays, klass, human, true)
+def verify_inappropriateness_of(array_of_arrays, klass, options={})
+  raise ArgumentError, 'unexpected key in options' if (options.keys - [:human, :shortcut_words]).present?
+  human = options[:human] || Human.new
+  shortcut_words = options[:shortcut_words] || []
+
+  raise ArgumentError, 'expected an array' unless array_of_arrays.kind_of? Array
+  raise ArgumentError, 'expected an array' unless shortcut_words.kind_of? Array
+  raise ArgumentError, 'expected a Human' unless human.kind_of? Human
+  verify_appropriateness_of(array_of_arrays, klass, options.merge(invert: true))
 end
 
-def verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, human)
+def verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, options)
   other_klasses = KLASSES.clone
   other_klasses.delete(klass)
   other_klasses.each do |other_klass|
-    verify_inappropriateness_of(array_of_arrays, other_klass, human)
+    verify_inappropriateness_of(array_of_arrays, other_klass, options)
   end
 end
 

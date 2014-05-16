@@ -3,6 +3,9 @@ require 'active_support/core_ext/array/access'
 class Verb
   AT_LEAST_ONE_LETTER = /[a-z]/
   INTEGER = /\A-?\d+$/
+  SINGLE_WORD_COMMANDS = [:y, :menu, :list, :today, :yesterday, :note, :last, :create, :rename, :delete, :update]
+  NUMBERS_AS_WORDS = [:one, :two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :eleven]
+  RESERVED_WORDS = SINGLE_WORD_COMMANDS | NUMBERS_AS_WORDS
 
   attr_reader :words, :human
 
@@ -39,7 +42,7 @@ class Verb
     human.backfill
   end
 
-  def some_other_verb 
+  def some_other_verb
     if successor
       successor.new(words, human).responder
     else

@@ -17,15 +17,15 @@ describe RenameVerb do
       ['rename', '3', 'blather'], # second argument must have at least one letter
       ['rename', 'blather', '3'], # new name must have at least one letter
     ]
-        
-    verify_appropriateness_of(yesses, described_class, human)
-    verify_inappropriateness_of(nos, described_class, human)
-  end 
+
+    verify_appropriateness_of(yesses, described_class, human: human)
+    verify_inappropriateness_of(nos, described_class, human: human)
+  end
 
   describe '#process' do
     let(:thing1) { Thing.new(name: 'run', default_value: 6) }
     subject { described_class.new(text, human) }
-    
+
     before do
       human.add_thing(thing1)
       stub(human).backfill

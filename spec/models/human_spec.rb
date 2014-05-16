@@ -52,6 +52,23 @@ describe Human do
     end
   end
 
+  describe '#thing_names' do
+    let(:human) { create(:human) }
+    subject { human.thing_names }
+    context 'when human has no things' do
+      it { should == [] }
+    end
+
+    context 'when human has things' do
+      before do
+        human.add_thing(name: 'voila')
+        human.add_thing(name: 'abcgum')
+      end
+      it { should == ['voila', 'abcgum'] }
+    end
+  end
+
+
   describe '#date_of_most_recent_occurrence' do
     let(:human) { create(:human)  }
     context 'when there are no occurrences' do

@@ -26,7 +26,7 @@ The DSL
         CREATE <category> [DEFAULT <integer>]
         RENAME <category_name> <new_name>
         DELETE <category>
-        [Y] <integer> <category>
+        [Y] [<integer>] <category>
 
 
     MENU
@@ -60,10 +60,16 @@ The DSL
       # Change the name (and hence the DSL) of somecategory you're tracking
 
     <integer> <category_name>
-      # Logs a single piece of data for today's date
+      # Logs a single piece of data for today's date with a value of <integer>
 
     Y <integer> <category_name>
-      # Logs a single piece of data for yesterday's date
+      # Logs a single piece of data for yesterday's date with a value of <integer>
+
+    <category_name>
+      # Logs a single piece of data for today's date with a value of 1
+
+    Y <category_name>
+      # Logs a single piece of data for yesterday's date with a valueof 1
 
 
 
@@ -156,15 +162,15 @@ you take your B vitamins, and how much you sleep.
         => Logged 6 sleep(s)
 
     Log that you walked six more miles (still the same day)
-      6 walk
-        => Logged 6 walk(s), total today: 8
+      walk
+        => Logged 1 walk(s), total today: 3
 
     Ask what's been logged today:
       TODAY
         =>  Today's totals:
             6 sleep
             1 vitamin
-            8 walk
+            3 walk
 
     Note that school started today
       NOTE School started
@@ -174,7 +180,7 @@ you take your B vitamins, and how much you sleep.
 A Note About UPPERCASE
 ----------------------
 
-Uppercase letters are used to better highlight which words are keywords.
+In this documentation, Uppercase letters are used to better highlight which words are keywords.
 However, you can enter them as either upper or lower case (or a mixture of both).
 
 
@@ -205,9 +211,12 @@ vegetables you've started eating are really decreasing the
 frequency of your hiccups when you train for your marathon.
 
 Some simple queries are available through the DSL, such as
-TODAY and YESTERDAY. But Daily Lager is primariy intended to
-the the method of logging the data. You will need to use your
-SQL hackery yourself to intelligently interpret the data.
+TODAY and YESTERDAY.
+
+For a visual display of your data, open your browser and
+point it to '/'
+
+For more complex analyses, get your SQL hackery on!
 
 
 Updating this README File
@@ -259,10 +268,14 @@ Completed:
   * UPDATE DEFAULT functionality added
   * View history in browser
   * Notes can be added to a date
+  * Display dates in browser
+  * Display notes in browser
   * LastVerb implemented
+  * Shortcut words implemented (default value is 1 if no value given)
 
 Backlog:
 
+  * Show trends in R
   * Complete DELETE functionality
   * Beef up model validations
   * Add database validations to ensure referential integrity
@@ -270,8 +283,6 @@ Backlog:
 
 Icebox:
 
-  * Display dates in browser
-  * Display notes in browser
   * Add verbs for WEEK, LAST WEEK, MONTH, LAST MONTH, YEAR, and <year>
 
 
