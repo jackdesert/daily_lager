@@ -10,6 +10,17 @@ describe Verb  do
     }
 
 
+  describe '#single_word_commands' do
+    subject { Verb::SINGLE_WORD_COMMANDS }
+    it { should =~ [:y, :menu, :list, :today, :yesterday, :note, :last, :create, :rename, :delete, :update] }
+  end
+
+  describe '#numbers_as_words' do
+    subject { Verb::NUMBERS_AS_WORDS }
+    it { should =~ [:one, :two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :eleven] }
+  end
+
+
   describe '#convert_to_array' do
     let(:verb) { described_class.new('anything', Human.new) }
     reusable_hash.each_pair do |string, expected_array|
@@ -39,6 +50,7 @@ describe Verb  do
   end
 
   hash = {
+          'sex' => ActionVerb,
           '3 miles' => ActionVerb,
           'y 3 miles' => ActionVerb,
           'menu' => MenuVerb,

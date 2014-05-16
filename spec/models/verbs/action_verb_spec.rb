@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ActionVerb do
 
   before do
-    # Make sure Util.current_date_in_california is not used to initialize anything, since it 
+    # Make sure Util.current_date_in_california is not used to initialize anything, since it
     # really should be using Util.current_date_in_california
     mock(Date).today.never
   end
@@ -12,6 +12,9 @@ describe ActionVerb do
 
   describe '#appropriate?' do
     yesses = [
+      ['sex'],
+      ['draw'],
+      ['anything_else_single_word'],
       ['2', 'miles'],
       ['273', 'smurfs'],
       ['-500', 'towns'],
@@ -20,12 +23,12 @@ describe ActionVerb do
     nos = [
       ['two'],
       ['2'],
-      ['2', 'miles', 'something'],
-    ]
-        
+      ['2', 'miles', 'something']
+    ] | Verb::RESERVED_WORDS.map(&:to_s).each_slice(1).to_a
+
     verify_appropriateness_of(yesses, described_class)
     verify_inappropriateness_of(nos, described_class)
-  end 
+  end
 
 
 

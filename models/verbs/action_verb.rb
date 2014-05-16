@@ -1,6 +1,6 @@
 class ActionVerb < Verb
 
-  def process 
+  def process
     if thing = Thing.where(human_id: human.id, name: thing_name).first
       thing.add_occurrence(value: occurrence_value, date: effective_date)
       message = "#{occurrence_value} #{thing_name}(s) logged"
@@ -21,6 +21,10 @@ class ActionVerb < Verb
     return false unless mod_words.length == 2
     true
   end
+
+  def appropriate_as_single_word_action?
+    return false unless mod_words.length == 1
+    return false if RESERVED_WORDS.include? mod_words.first.to_sym
 
   def successor
     MenuVerb
@@ -47,7 +51,7 @@ class ActionVerb < Verb
     end
   end
 
-  
+
   def thing_name
     mod_words.second
   end
