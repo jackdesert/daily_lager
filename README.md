@@ -272,6 +272,7 @@ Completed:
   * Display notes in browser
   * LastVerb implemented
   * Shortcut words implemented (default value is 1 if no value given)
+  * Allow integer and category to be swapped
 
 Backlog:
 

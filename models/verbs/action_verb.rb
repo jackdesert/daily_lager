@@ -17,14 +17,34 @@ class ActionVerb < Verb
 
   private
   def appropriate?
+    return true if length_two? && integer_first?
+    return true if length_two? && integer_last?
     return true if appropriate_as_shortcut?
-    return false unless mod_words.first.match INTEGER
-    return false unless mod_words.length == 2
-    true
+    false
+  end
+
+  def integer_first?
+    mod_words.first.match INTEGER
+  end
+
+  def integer_last?
+    mod_words.last.match INTEGER
+  end
+
+  def integer_last?
+    mod_words.last.match INTEGER
+  end
+
+  def length_two?
+    mod_words.length == 2
+  end
+
+  def length_one?
+    mod_words.length == 1
   end
 
   def appropriate_as_shortcut?
-    return false unless mod_words.length == 1
+    return false unless length_one?
     return false if RESERVED_WORDS.include? mod_words.first.to_sym
     shortcut_words.include? mod_words.first
   end
@@ -62,16 +82,20 @@ class ActionVerb < Verb
   def thing_name
     if appropriate_as_shortcut?
       mod_words.first
-    else
+    elsif integer_first?
       mod_words.second
+    elsif integer_last?
+      mod_words.first
     end
   end
 
   def occurrence_value
     if appropriate_as_shortcut?
       1
-    else
+    elsif integer_first?
       mod_words.first.to_i
+    elsif integer_last?
+      mod_words.last.to_i
     end
   end
 end

@@ -18,9 +18,13 @@ describe ActionVerb do
       ['draw'],
       ['y', 'draw'],
       ['2', 'miles'],
+      ['miles', '2'],
       ['273', 'smurfs'],
+      ['smurfs', '273'],
       ['-500', 'towns'],
+      ['towns', '-500'],
       ['y', '-500', 'towns'],
+      ['y', 'towns', '-500'],
     ]
     nos = [
       ['a_word_not_in_thing_shortcut_words'],
@@ -34,6 +38,42 @@ describe ActionVerb do
   end
 
 
+  context 'private methods' do
+    let(:human) { create(:human) }
+    let(:thing_name) { 'fun' }
+    before do
+      human.add_thing(name: thing_name)
+    end
+
+    describe '#thing_name' do
+      [['y', 'fun'],
+        ['y', 'fun', '3005'],
+        ['fun'],
+        ['fun', '3005']].each do |words|
+        context "when words are #{words}" do
+          it 'returns the thing name' do
+            described_class.new(words, human).send(:thing_name).should == thing_name
+          end
+        end
+      end
+    end
+
+    describe '#occurrence_value' do
+      # Note symbols and strings as keys so they do not overwrite each other
+      {:'1' => ['y', 'fun'],
+        '1' => ['fun'],
+        :'3005' => ['y', 'fun', '3005'],
+        '3005' => ['fun', '3005']
+      }.each_pair do |value, words|
+        context "when words are #{words}" do
+          it "value is #{value}" do
+            described_class.new(words, human).send(:occurrence_value).should == value.to_s.to_i
+          end
+        end
+      end
+    end
+  end
+
 
   describe '#process' do
     let(:today) { Util.current_date_in_california }
@@ -42,7 +82,7 @@ describe ActionVerb do
     let(:value) { 3 }
     let(:thing1) { Thing.new(name: existing_name, default_value: 6) }
     let(:human) { create(:human) }
-    let(:words) { [value, name] }
+    let(:words) { [value.to_s, name] }
     subject { described_class.new(words, human) }
 
     before do
@@ -98,7 +138,7 @@ describe ActionVerb do
       end
       context 'yesterday' do
         let(:name) { existing_name }
-        subject { described_class.new(['y', value, name], human) }
+        subject { described_class.new(['y', value.to_s, name], human) }
         it 'adds an Occurrence' do
           subject.send(:process)
           occurrences = human.things.first.occurrences
