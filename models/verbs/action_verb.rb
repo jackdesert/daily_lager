@@ -1,9 +1,10 @@
 class ActionVerb < Verb
+  ENDS_WITH_X = /x\z/
 
   def process
     if thing = Thing.where(human_id: human.id, name: thing_name).first
       thing.add_occurrence(value: occurrence_value, date: effective_date)
-      message = "#{occurrence_value} #{thing_name}(s) logged"
+      message = "#{ess(thing_name, occurrence_value)} logged"
       message += ' for yesterday' if for_yesterday?
       message += '.'
       total = thing.total_value_for_date(effective_date)
@@ -97,5 +98,11 @@ class ActionVerb < Verb
     elsif integer_last?
       mod_words.last.to_i
     end
+  end
+
+  def ess(word, value)
+    return "1 #{word}" if value == 1
+    return "#{value} #{word}es" if word.match(ENDS_WITH_X)
+    "#{value} #{word}s"
   end
 end

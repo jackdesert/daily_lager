@@ -273,6 +273,7 @@ Completed:
   * LastVerb implemented
   * Shortcut words implemented (default value is 1 if no value given)
   * Allow integer and category to be swapped
+  * Intelligently say '1 run' and '2 runs'
 
 Backlog:
 
@@ -280,7 +281,6 @@ Backlog:
   * Complete DELETE functionality
   * Beef up model validations
   * Add database validations to ensure referential integrity
-  * Intelligently say '1 run' and '2 runs'
 
 Icebox:
 

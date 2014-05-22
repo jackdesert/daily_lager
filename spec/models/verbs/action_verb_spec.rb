@@ -125,14 +125,14 @@ describe ActionVerb do
           occurrences.first.date.should == Util.current_date_in_california
         end
         it 'returns a message' do
-          subject.send(:process).should == '3 run(s) logged.'
+          subject.send(:process).should == '3 runs logged.'
         end
         context 'and the Thing already has an occurrence today' do
           before do
             thing1.add_occurrence(value: -13)
           end
           it 'returns the total with the message' do
-            subject.send(:process).should == ("3 run(s) logged. Today's total: -10")
+            subject.send(:process).should == ("3 runs logged. Today's total: -10")
           end
         end
       end
@@ -147,14 +147,14 @@ describe ActionVerb do
           occurrences.first.date.should == Util.current_date_in_california - 1
         end
         it 'returns a message' do
-          subject.send(:process).should == '3 run(s) logged for yesterday.'
+          subject.send(:process).should == '3 runs logged for yesterday.'
         end
         context 'and the Thing already has an occurrence yesterday' do
           before do
             thing1.add_occurrence(value: -13, date: Util.current_date_in_california - 1)
           end
           it 'returns the total with the message' do
-            subject.send(:process).should == ("3 run(s) logged for yesterday. Yesterday's total: -10")
+            subject.send(:process).should == ("3 runs logged for yesterday. Yesterday's total: -10")
           end
         end
       end
@@ -189,5 +189,22 @@ describe ActionVerb do
     end
   end
 
+  context 'private methods' do
+    describe '#ess' do
+      examples = {  '1 sex'         => { sex: 1 },
+                    '2 sexes'       => { sex: 2 },
+                    '1 greyhound'   => { greyhound: 1 },
+                    '2 greyhounds'  => { greyhound: 2 } }
+      examples.each do |expected_output, hash|
+        word = hash.keys.first
+        value = hash.values.first
+        context "when word is #{hash.keys.first} and value is #{hash.values.first}" do
+          it 'pluralizes according to input value' do
+            described_class.new('', Human.new).send(:ess, word, value).should == expected_output
+          end
+        end
+      end
+    end
+  end
 end
 
