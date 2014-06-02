@@ -15,4 +15,4 @@ gem 'rspec'
 gem 'rr', require: false
 gem 'guard-rspec'
 gem 'time-warp'
-gem 'curses'
+gem 'curses' # `apt-get install libncurses5-dev` is required on ubuntu
