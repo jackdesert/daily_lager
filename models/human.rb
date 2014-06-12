@@ -31,7 +31,12 @@ class Human < Sequel::Model(:humans)
   def validate
     super
     validates_unique :phone_number
+    validates_unique :secret
     validates_format /\A\+1\d{10}\Z/, :phone_number, :message=>'format required: +1dddddddddd where d is a digit'
+  end
+
+  def before_create
+    self.secret = SecureRandom.hex[0..7] if secret.blank?
   end
 
   def things_in_order

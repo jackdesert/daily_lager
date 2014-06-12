@@ -12,6 +12,35 @@ describe Human do
   let(:four_days_ago)   { today - 4 }
 
   context 'validations' do
+    context 'secret' do
+      context 'before_create' do
+        context 'when secret already exists' do
+          it 'does nothing' do
+            secret = 'mine'
+            human = Human.create(phone_number: '+12223334446', secret: secret)
+            human.secret.should == secret
+            human.id.should_not be_nil
+          end
+        end
+
+        context 'when secret is blank' do
+          it 'creates a secret' do
+            human = Human.create(phone_number: '+12223334447')
+            human.secret.length.should == 8
+          end
+        end
+      end
+
+      it 'is unique' do
+        secret = 'abc'
+        fred = Human.create(phone_number: '+12223334444', secret: secret)
+        debi = Human.new(phone_number: '+12223334445', secret: secret)
+        debi.should have_error_on(:secret)
+        debi.secret = 'something_else'
+        debi.should_not have_error_on(:secret)
+      end
+    end
+
     context 'phone number' do
       context 'format' do
         context 'valid phone numbers' do
