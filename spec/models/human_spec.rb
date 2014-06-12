@@ -10,8 +10,39 @@ describe Human do
   let(:two_days_ago)    { today - 2 }
   let(:three_days_ago)  { today - 3 }
   let(:four_days_ago)   { today - 4 }
+  let(:phone_number)    { '+12223334444' }
 
   context 'validations' do
+    context 'secret' do
+      context 'before_create' do
+        context 'when secret already exists' do
+          it 'does nothing' do
+            secret = 'mine'
+            human = Human.create(phone_number: phone_number, secret: secret)
+            human.secret.should == secret
+            human.should be_saved
+          end
+        end
+
+        context 'when secret is blank' do
+          it 'creates a secret' do
+            human = Human.create(phone_number: phone_number)
+            human.secret.length.should == 8
+          end
+        end
+      end
+
+      it 'is unique' do
+        secret = 'abc'
+        fred = Human.create(phone_number: '+12223334444', secret: secret)
+        debi = Human.new(phone_number: '+12223334445', secret: secret)
+        binding.pry
+        debi.should have_error_on(:secret)
+        debi.secret = 'something_else'
+        debi.should_not have_error_on(:secret)
+      end
+    end
+
     context 'phone number' do
       context 'format' do
         context 'valid phone numbers' do
