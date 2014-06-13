@@ -47,7 +47,7 @@ def verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, option
 end
 
 def has_error_on?(attribute)
-  validate
+  valid?
   errors.has_key? attribute
 end
 

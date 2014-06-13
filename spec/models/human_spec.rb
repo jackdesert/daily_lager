@@ -10,7 +10,6 @@ describe Human do
   let(:two_days_ago)    { today - 2 }
   let(:three_days_ago)  { today - 3 }
   let(:four_days_ago)   { today - 4 }
-  let(:phone_number)    { '+12223334444' }
 
   context 'validations' do
     context 'secret' do
@@ -18,15 +17,15 @@ describe Human do
         context 'when secret already exists' do
           it 'does nothing' do
             secret = 'mine'
-            human = Human.create(phone_number: phone_number, secret: secret)
+            human = Human.create(phone_number: '+12223334446', secret: secret)
             human.secret.should == secret
-            human.should be_saved
+            human.id.should_not be_nil
           end
         end
 
         context 'when secret is blank' do
           it 'creates a secret' do
-            human = Human.create(phone_number: phone_number)
+            human = Human.create(phone_number: '+12223334447')
             human.secret.length.should == 8
           end
         end
@@ -36,7 +35,6 @@ describe Human do
         secret = 'abc'
         fred = Human.create(phone_number: '+12223334444', secret: secret)
         debi = Human.new(phone_number: '+12223334445', secret: secret)
-        binding.pry
         debi.should have_error_on(:secret)
         debi.secret = 'something_else'
         debi.should_not have_error_on(:secret)
