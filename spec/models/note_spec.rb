@@ -32,13 +32,14 @@ describe Note do
       end
     end
     context 'when date is blank' do
-      it 'is invalid' do
+      it 'sets the date' do
         note.date = nil
-        note.should have_error_on(:date)
+        note.valid?
+        note.date.should be_a(Date)
       end
     end
     context 'when date is a Date' do
-      it 'is invalid' do
+      it 'is valid' do
         note.date = today
         note.should_not have_error_on(:date)
       end

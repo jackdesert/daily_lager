@@ -10,6 +10,7 @@ require 'pry'
 require 'rspec'
 require 'rr'
 require 'time-warp'
+require 'database_cleaner'
 
 # DB must be defined before models are required
 DB = Sequel.sqlite
@@ -46,6 +47,26 @@ RSpec.configure do |config|
   # Allow running one test at a time
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
+
+
+
+
+  config.before(:suite) do
+    # set the strategy that will be used in DatabaseCleaner.cleaning
+    DatabaseCleaner.strategy = :transaction
+
+    # Clean once with truncation at the beginning of specs
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
 
 end
 

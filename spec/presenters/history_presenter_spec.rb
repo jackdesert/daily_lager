@@ -79,6 +79,11 @@ describe HistoryPresenter do
         {date: '12 Jan', bodies: ['one day before--first', 'one day before--second']},
         {date: '13 Jan', bodies: ['day--first']}
       ]
+
+      # stubbing Util.current_date_in_california to make sure that the presenter knows
+      # today is the same day we told it (gets confused somehow with the time_warp gem)
+      stub(Util).current_date_in_california.returns(day)
+
       pretend_now_is(day) do
         subject.should == expected
       end

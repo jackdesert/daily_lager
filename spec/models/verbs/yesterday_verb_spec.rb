@@ -3,13 +3,13 @@ require 'spec_helper'
 describe YesterdayVerb do
 
   before do
-    # Make sure Date.today is not used to initialize anything, since it 
+    # Make sure Date.today is not used to initialize anything, since it
     # really should be using Util.current_date_in_california
     mock(Date).today.never
   end
 
   describe '#process' do
-    let(:today) { Time.now.to_date }
+    let(:today) { Util.current_date_in_california }
     let(:yesterday) { today - 1 }
     let(:ran_today) { Occurrence.new(date: today, value: 1) }
     let(:ran_yesterday) { Occurrence.new(date: yesterday, value: 3) }
@@ -54,8 +54,8 @@ describe YesterdayVerb do
     yesses = [
       ['yesterday'],
     ]
-        
+
     verify_appropriateness_of(yesses, described_class)
-  end 
+  end
 end
 
