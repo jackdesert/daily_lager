@@ -14,6 +14,10 @@ unless env == 'test'
   DB = Sequel.connect("sqlite://#{DB_FILE}")
 end
 
+# Make sure newer version of sqlite3 is used, so that HAVE_USLEEP was configured during build
+if SQLite3.libversion.to_s < "3008002"
+  raise 'sqlite3 must be later than 3.8.0 to ensure HAVE_USLEEP was enabled during build'
+end
 
 
 require 'json'
