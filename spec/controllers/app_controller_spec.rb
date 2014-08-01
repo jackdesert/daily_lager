@@ -40,6 +40,31 @@ def browser
   Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
 end
 
+
+describe '/' do
+  context 'when no secret given' do
+    subject { browser.get '/' }
+    it 'returns 404' do
+      subject.status.should == 404
+    end
+  end
+
+  context 'when secret does not match a Human' do
+    subject { browser.get '/', secret: 'blither-blather' }
+    it 'returns 404' do
+      subject.status.should == 404
+    end
+  end
+
+  context 'when secret matches a Human' do
+    let(:human) { create(:human) }
+    subject { browser.get '/', secret: human.secret }
+    it 'returns 200' do
+      subject.status.should == 200
+    end
+  end
+end
+
 describe '/messages' do
   context 'using sample params' do
     subject { browser.post '/messages', sample_params }

@@ -44,7 +44,8 @@ require './presenters/history_presenter'
 
 get '/' do
   html = File.read(File.join('views', 'history', 'index.html'))
-  human = Human.find_or_create(phone_number: '+12083666059')
+  human = Human.find(secret: params[:secret])
+  status 404 and return unless human
   presenter = HistoryPresenter.new(human: human)
   data = presenter.display_as_hash.to_json
   html.sub('DATA_FROM_CONTROLLER', data)
