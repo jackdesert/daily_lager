@@ -8,4 +8,4 @@ todo
 db/*.db
 log
 .ruby-version
-.nohup
+nohup.out

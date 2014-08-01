@@ -26,6 +26,7 @@ The DSL
         CREATE <category> [DEFAULT <integer>]
         RENAME <category_name> <new_name>
         DELETE <category>
+        HISTORY
         [Y] [<integer>] <category>
 
 
@@ -39,6 +40,9 @@ The DSL
 
     DELETE <category>
       # Deletes a category you're tracking
+    
+    HISTORY
+      # Provides a web link to a graphical representation of your history
 
     TODAY
       # Shows all the categoriess you've logged today
@@ -274,6 +278,7 @@ Completed:
   * Shortcut words implemented (default value is 1 if no value given)
   * Allow integer and category to be swapped
   * Intelligently say '1 run' and '2 runs'
+  * Added HistoryVerb for secure access to your own history
 
 Backlog:
 

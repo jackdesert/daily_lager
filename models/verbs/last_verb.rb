@@ -16,7 +16,7 @@ class LastVerb < Verb
 
   private
   def successor
-    WebVerb
+    HistoryVerb
   end
 
   def appropriate?

@@ -12,6 +12,7 @@ gem 'tux'
 gem 'rerun'
 gem 'rake'
 gem 'rspec'
+gem 'thin'
 gem 'rr', require: false
 gem 'guard-rspec'
 gem 'time-warp'

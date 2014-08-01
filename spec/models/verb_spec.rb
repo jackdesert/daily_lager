@@ -59,7 +59,7 @@ describe Verb  do
           'yesterday' => YesterdayVerb,
           'note worthy' => NoteVerb,
           'last miles' => LastVerb,
-          'web' => WebVerb,
+          'history' => HistoryVerb,
           'create miles' => CreateVerb,
           'create miles default 30' => CreateVerbWithDefault,
           'rename miles run' => RenameVerb,

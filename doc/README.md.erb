@@ -31,6 +31,7 @@ The DSL
         CREATE <<%= Thing::DISPLAY_NAME %>> [DEFAULT <integer>]
         RENAME <<%= Thing::DISPLAY_NAME %>_name> <new_name>
         DELETE <<%= Thing::DISPLAY_NAME %>>
+        HISTORY
         [Y] [<integer>] <<%= Thing::DISPLAY_NAME %>>
 
 
@@ -44,6 +45,9 @@ The DSL
 
     DELETE <<%= Thing::DISPLAY_NAME %>>
       # Deletes a <%= Thing::DISPLAY_NAME %> you're tracking
+    
+    HISTORY
+      # Provides a web link to a graphical representation of your history
 
     TODAY
       # Shows all the <%= Thing::DISPLAY_NAME_PLURAL %>s you've logged today
@@ -279,6 +283,7 @@ Completed:
   * Shortcut words implemented (default value is 1 if no value given)
   * Allow integer and <%= Thing::DISPLAY_NAME %> to be swapped
   * Intelligently say '1 run' and '2 runs'
+  * Added HistoryVerb for secure access to your own history
 
 Backlog:
 

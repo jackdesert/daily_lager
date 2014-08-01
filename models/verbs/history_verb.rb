@@ -1,5 +1,5 @@
-class WebVerb < Verb
-  WEB_URI = 'http://lager.jackdesert.com'
+class HistoryVerb < Verb
+  WEB_URI = 'http://history.jackdesert.com/'
 
   def process
     "#{WEB_URI}?secret=#{human.secret}"
@@ -11,6 +11,6 @@ class WebVerb < Verb
   end
 
   def appropriate?
-    words == ['web']
+    words == ['history']
   end
 end
