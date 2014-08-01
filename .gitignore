@@ -1,8 +1,11 @@
 .bundle
 *.swp
 *.swo
+*.swn
+*.swm
 tmp
 todo
 db/*.db
 log
 .ruby-version
+.nohup
