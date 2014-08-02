@@ -8,8 +8,8 @@ class ::Logger
   alias_method :write, :<<
 end
 
-logger = Logger.new("log/#{settings.environment}.log")
+logger = Logger.new(DailyLager::LOG_FILE)
 
 use Rack::CommonLogger, logger
 
-run Sinatra::Application
+run DailyLager
