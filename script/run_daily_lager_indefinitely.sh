@@ -12,6 +12,7 @@ echo "REMINDER: call this with 'nohup' and a trailing '&'"
 
 while true; do
   cd /home/dev/daily_lager
+  bundle install
   RACK_ENV=production bundle exec rackup config-daily_lager.ru -p 8853
   sleep 10
   echo "daily_lager restarted `date`" >> log/daily_lager_restart.log
