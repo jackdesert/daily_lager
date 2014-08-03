@@ -37,7 +37,7 @@ def rogue_params
 end
 
 def browser
-  Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
+  Rack::Test::Session.new(Rack::MockSession.new(DailyLager))
 end
 
 
