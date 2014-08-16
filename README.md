@@ -40,7 +40,7 @@ The DSL
 
     DELETE <category>
       # Deletes a category you're tracking
-    
+
     HISTORY
       # Provides a web link to a graphical representation of your history
 
@@ -249,6 +249,16 @@ To run a specific migration against a particular environment:
     [1] pry(main)> require './daily_lager'
     [1] pry(main)> require './db/migrations/<name_of_migration>'
 
+
+Running the server in Development Mode
+--------------------------------------
+
+    bundle exec rerun 'rackup config-daily_lager.ru -p 8853' --background
+
+Running the server in Production Mode
+-------------------------------------
+
+    nohup script/run_daily_lager_indefinitely.sh &
 
 Roadmap
 --------------

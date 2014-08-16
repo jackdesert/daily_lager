@@ -81,6 +81,10 @@ class DailyLager < Sinatra::Base
     limit_160_chars(responder.response)
   end
 
+  get '/message' do
+    File.read(File.join('views', 'messages', 'index.html'))
+  end
+
   private
   def limit_160_chars(input)
     return input if (input.length < 161)
@@ -104,3 +108,4 @@ class DailyLager < Sinatra::Base
     log("params: #{hash}")
   end
 end
+
