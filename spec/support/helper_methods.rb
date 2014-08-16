@@ -46,15 +46,12 @@ def verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, option
   end
 end
 
-def has_error_on?(attribute)
-  valid?
-  errors.has_key? attribute
-end
 
-def create(model_name)
+def create(model_name, params={})
   case model_name
   when :human
     # rand.to_s generates something like '0.12847366495349'
-    Human.create(phone_number: '+1' + rand.to_s[2..11])
+    default_params = { phone_number: '+1' + rand.to_s[2..11] }
+    Human.create(default_params.merge(params))
   end
 end

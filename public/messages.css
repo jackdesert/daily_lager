@@ -1,0 +1,31 @@
+.incoming, .outgoing{
+  max-width: 20rem;
+  display: inline-block;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.7rem;
+}
+
+.incoming{
+  background-color: yellow;
+  margin-left: 7rem;
+}
+
+.outgoing{
+  background-color: orange;
+}
+
+#history-holder{
+  background-color: black;
+  width: 27rem;
+  height: 27rem;
+  position: relative;
+}
+
+#history{
+  position: absolute;
+  bottom: 0rem;
+}
+input, #history{
+  font-size: 20px;
+}
+

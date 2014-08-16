@@ -15,6 +15,7 @@ gem 'rspec'
 gem 'thin'
 gem 'rr', require: false
 gem 'guard-rspec'
+gem 'guard-livereload'
 gem 'time-warp'
 gem 'curses' # `apt-get install libncurses5-dev` is required on ubuntu
 gem 'rb-readline' # For some reason this is required on my Digital Ocean box under Ruby 2.1.2

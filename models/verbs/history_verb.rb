@@ -1,8 +1,12 @@
 class HistoryVerb < Verb
-  WEB_URI = 'http://history.jackdesert.com/'
+  HISTORY_URI = 'http://history.jackdesert.com/'
+  WEB_URI = 'http://jackdesert.com/messages/'
 
   def process
-    "#{WEB_URI}?secret=#{human.secret}"
+    <<EOF
+history: #{HISTORY_URI}?secret=#{human.secret}
+web interface: #{WEB_URI}?secret=#{human.secret}
+EOF
   end
 
   private
@@ -11,6 +15,8 @@ class HistoryVerb < Verb
   end
 
   def appropriate?
-    words == ['history']
+    return false unless words.length == 1
+    ['history', 'web'].include? words.first
   end
+
 end

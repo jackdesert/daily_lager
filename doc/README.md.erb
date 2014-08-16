@@ -31,7 +31,7 @@ The DSL
         CREATE <<%= Thing::DISPLAY_NAME %>> [DEFAULT <integer>]
         RENAME <<%= Thing::DISPLAY_NAME %>_name> <new_name>
         DELETE <<%= Thing::DISPLAY_NAME %>>
-        HISTORY
+        HISTORY | WEB
         [Y] [<integer>] <<%= Thing::DISPLAY_NAME %>>
 
 
@@ -45,9 +45,10 @@ The DSL
 
     DELETE <<%= Thing::DISPLAY_NAME %>>
       # Deletes a <%= Thing::DISPLAY_NAME %> you're tracking
-    
-    HISTORY
-      # Provides a web link to a graphical representation of your history
+
+    HISTORY | WEB
+      # Provides a link to a graphical representation of your history
+      # and a link to to a web interface for fast response time
 
     TODAY
       # Shows all the <%= Thing::DISPLAY_NAME_PLURAL %>s you've logged today
@@ -255,6 +256,16 @@ To run a specific migration against a particular environment:
     [1] pry(main)> require './db/migrations/<name_of_migration>'
 
 
+Running the server in Development Mode
+--------------------------------------
+
+    bundle exec rerun 'rackup config-daily_lager.ru -p 8853' --background
+
+Running the server in Production Mode
+-------------------------------------
+
+    nohup script/run_daily_lager_indefinitely.sh &
+
 Roadmap
 --------------
 
@@ -284,6 +295,7 @@ Completed:
   * Allow integer and <%= Thing::DISPLAY_NAME %> to be swapped
   * Intelligently say '1 run' and '2 runs'
   * Added HistoryVerb for secure access to your own history
+  * Added web interface
 
 Backlog:
 

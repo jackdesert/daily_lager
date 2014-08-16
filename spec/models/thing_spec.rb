@@ -15,8 +15,6 @@ describe Thing do
       subject.name.should == name
     end
 
-    it { should be_persisted }
-
     context 'when a default value is given' do
       it 'saves the default value in the new action' do
         subject.default_value.should == default_value

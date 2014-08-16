@@ -12,12 +12,12 @@ describe NonsenseVerb do
     # This is the one class that doesn't need that check--because it's at the bottom of the responsibility chain
     it 'accepts any string' do
       ['some nonsense string youve never heard of *&#^#%%^%&$*', ''].each do |string|
-        described_class.new(string, Human.new).send(:appropriate?).should be_true
+        described_class.new(string, Human.new).send(:appropriate?).should be_truthy
       end
     end
 
     it 'accepts any array' do
-      described_class.new(['some', 'nonsense', 'array', 'that', 'makes', 'no', '&%*#@^%!)'], Human.new).send(:appropriate?).should be_true
+      described_class.new(['some', 'nonsense', 'array', 'that', 'makes', 'no', '&%*#@^%!)'], Human.new).send(:appropriate?).should be_truthy
     end
   end 
 

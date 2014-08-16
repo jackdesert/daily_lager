@@ -26,7 +26,7 @@ The DSL
         CREATE <category> [DEFAULT <integer>]
         RENAME <category_name> <new_name>
         DELETE <category>
-        HISTORY
+        HISTORY | WEB
         [Y] [<integer>] <category>
 
 
@@ -40,9 +40,10 @@ The DSL
 
     DELETE <category>
       # Deletes a category you're tracking
-    
-    HISTORY
-      # Provides a web link to a graphical representation of your history
+
+    HISTORY | WEB
+      # Provides a link to a graphical representation of your history
+      # and a link to to a web interface for fast response time
 
     TODAY
       # Shows all the categoriess you've logged today
@@ -250,6 +251,16 @@ To run a specific migration against a particular environment:
     [1] pry(main)> require './db/migrations/<name_of_migration>'
 
 
+Running the server in Development Mode
+--------------------------------------
+
+    bundle exec rerun 'rackup config-daily_lager.ru -p 8853' --background
+
+Running the server in Production Mode
+-------------------------------------
+
+    nohup script/run_daily_lager_indefinitely.sh &
+
 Roadmap
 --------------
 
@@ -279,6 +290,7 @@ Completed:
   * Allow integer and category to be swapped
   * Intelligently say '1 run' and '2 runs'
   * Added HistoryVerb for secure access to your own history
+  * Added web interface
 
 Backlog:
 

@@ -16,7 +16,7 @@ describe HistoryVerb do
     it 'returns a link to returns a message' do
       human.secret.should_not be_blank
       verb = described_class.new('', human)
-      verb.send(:process).should == "http://history.jackdesert.com/?secret=#{human.secret}"
+      verb.send(:process).should == "history: http://history.jackdesert.com/?secret=#{human.secret}\nweb interface: http://jackdesert.com/messages/?secret=#{human.secret}\n"
     end
   end
 end

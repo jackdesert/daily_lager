@@ -4,8 +4,10 @@
 *.swn
 *.swm
 tmp
-todo
 db/*.db
 log
 .ruby-version
 nohup.out
+
+# Twilio Config
+config/twilio.yml
