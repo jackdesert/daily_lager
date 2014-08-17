@@ -1,8 +1,17 @@
-var app = angular.module('messages', [])
+var angular_app = angular.module('messages', [])
   .controller('MessageCtrl', function($scope){
+    var outgoing = 'outgoing'
+    var incoming = 'incoming'
     var log = function(something){
       console.log($scope.data)
       console.log(something)
+    }
+
+    var historyMessage = function(text, klass){
+      return  {
+                klass: klass,
+                text: text
+              }
     }
 
     var data = {
@@ -16,8 +25,10 @@ var app = angular.module('messages', [])
                   },
 
                   shoveNewMessageIntoHistory: function(){
+                    var newHistoryMessage = historyMessage(data.newMessage, outgoing)
                     log('in shoveNewMessageIntoHistory')
-                    data.savedHistory.push(data.newMessage)
+
+                    data.savedHistory.push(newHistoryMessage)
                     data.newMessage = ''
                   },
 
@@ -33,7 +44,7 @@ var app = angular.module('messages', [])
 
 // This autofocus method was given on
 // http://stackoverflow.com/questions/14833326/how-to-set-focus-on-input-field-in-angularjs
-app.directive('autoFocus', function($timeout) {
+angular_app.directive('autoFocus', function($timeout) {
   return {
     restrict: 'AC',
     link: function(_scope, _element)  {
