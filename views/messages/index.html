@@ -8,10 +8,14 @@
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body ng-controller='MessageCtrl'>
-        <div id='history'>{{ data.history() }}</div>
-        <form ng-submit='postMessage()'>
-            <input id='play-box' ng-model='data.newMessage' />
-            <input type='submit' val='hi' >
+        <div id='history' >
+            <div ng-repeat='item in data.savedHistory'>
+                <div class=''>{{ item }}</div>
+            </div>
+        </div>
+        <form ng-submit='data.postMessage()'>
+            <input id='play-box' autocomplete='off' ng-model='data.newMessage' auto-focus />
+            <input type='submit' value='Send' >
         </form>
         <p>a new message:{{ data.newMessage }}</p>
 
