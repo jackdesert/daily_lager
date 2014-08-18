@@ -55,6 +55,15 @@ class DailyLager < Sinatra::Base
     env['rack.errors'] = error_logger if settings.production?
   end
 
+  before do
+    # Angular sends data as a bonafide POST with a JSON body, so we must catch it
+    # http://stackoverflow.com/questions/12131763/sinatra-controller-params-method-coming-in-empty-on-json-post-request
+    if request.request_method == "POST"
+      body_parameters = request.body.read
+      params.merge!(JSON.parse(body_parameters))
+    end
+  end
+
   get '/' do
     html = File.read(File.join('views', 'history', 'index.html'))
     human = Human.find(secret: params[:secret])
@@ -74,6 +83,7 @@ class DailyLager < Sinatra::Base
     content_type 'text/plain'
     sms_body = params['Body']
     sms_phone_number = params['From']
+    binding.pry
     human = Human.find_or_create(phone_number: sms_phone_number)
     return error_message unless human
     return error_message if sms_body.nil?

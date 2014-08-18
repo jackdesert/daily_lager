@@ -1,9 +1,8 @@
 var angular_app = angular.module('messages', [])
-  .controller('MessageCtrl', function($scope){
+  .controller('MessageCtrl', function($scope, $http){
     var outgoing = 'outgoing'
     var incoming = 'incoming'
     var log = function(something){
-      console.log($scope.data)
       console.log(something)
     }
 
@@ -33,7 +32,11 @@ var angular_app = angular.module('messages', [])
                   },
 
                   sendMessageToServer: function(){
-                    log('in sendMessageToServer')
+                    var url = 'messages'
+                    var params = { params: { yo: 'there' } }
+                    var config = null
+                    log(params)
+                    $http.post(url, params, config)
                   }
     }
 
