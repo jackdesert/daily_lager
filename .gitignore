@@ -6,6 +6,6 @@
 tmp
 todo
 db/*.db
-log
+log/*.log
 .ruby-version
 nohup.out

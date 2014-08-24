@@ -6,8 +6,6 @@ gem 'sequel'
 gem 'sqlite3' # `apt-get install libsqlite3-dev` is required on ubuntu
 gem 'tzinfo'
 gem 'activesupport', require: false
-#gem 'pry-debugger'
-gem 'pry-byebug'
 gem 'tux'
 gem 'rerun'
 gem 'rake'
