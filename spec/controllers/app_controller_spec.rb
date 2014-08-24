@@ -4,9 +4,9 @@ require 'spec_helper'
 require 'rack/test'
 require_relative '../../daily_lager'
 
-def sample_params
+def sample_params_from_twilio
   {
-    "AccountSid"=>"ACadd1d93921579bcdadb4d3d1e9aa9af3",
+    "AccountSid"=>"test_sid",
     "MessageSid"=>"SM00799c7b44c66c116d07622cb96887a6",
     "Body"=>"Hi6",
     "ToZip"=>"83647",
@@ -27,18 +27,33 @@ def sample_params
   }
 end
 
+def sample_params_from_browser
+  {
+    "Body"=>"Hi6",
+    "secret"=>"my_secret"
+  }
+end
+
 def rogue_params
   {
     # Note that we are not guarding against the case where Twilio
     # does not provide a 'From' field
-    "From"=>"+12223334444",
+    "From" =>"+12223334444",
     'blither' => 'blather'
   }
 end
 
 def browser
-  Rack::Test::Session.new(Rack::MockSession.new(DailyLager))
+  browser_with_methods = Rack::Test::Session.new(Rack::MockSession.new(DailyLager))
+
+  def browser_with_methods.json_post(uri, params)
+    json_content_type_hash = { 'CONTENT_TYPE' => 'application/json' }
+    self.post(uri, params.to_json, json_content_type_hash)
+  end
+
+  browser_with_methods
 end
+
 
 
 describe '/' do
@@ -65,9 +80,35 @@ describe '/' do
   end
 end
 
-describe '/messages' do
-  context 'using sample params' do
-    subject { browser.post '/messages', sample_params }
+describe 'POST /messages' do
+  context 'using sample params from browser' do
+    subject { browser.json_post '/messages', sample_params_from_browser }
+    it 'returns 200' do
+      subject.status.should == 200
+    end
+
+    context 'when user exists' do
+      let!(:human) { create(:human, secret: 'my_secret') }
+
+      it 'makes a call to Verb#responder' do
+        mock.proxy.any_instance_of(NonsenseVerb).response.returns('something')
+        subject
+      end
+    end
+
+    context 'when the user does not exist' do
+      before do
+        DB[:humans].delete
+      end
+
+      it 'returns an error' do
+        subject.body.should == "Oops. We've encountered an error: 'no human'"
+      end
+    end
+  end
+
+  context 'using sample params from twilio' do
+    subject { browser.json_post '/messages', sample_params_from_twilio }
     it 'returns 200' do
       subject.status.should == 200
     end
@@ -112,14 +153,14 @@ describe '/messages' do
   end
 
   context 'using rogue params' do
-    subject { browser.post '/messages', rogue_params }
+    subject { browser.json_post '/messages', rogue_params }
 
     it 'returns 200' do
       subject.status.should == 200
     end
 
     it 'returns an error' do
-      subject.body.should == "Oops. We've encountered an error :("
+      subject.body.should == "Oops. We've encountered an error: 'invalid secret'"
     end
   end
 end

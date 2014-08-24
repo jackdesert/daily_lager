@@ -2,6 +2,7 @@ require 'sinatra'
 require 'pry'
 require 'sequel'
 require 'json'
+require 'yaml'
 
 # Note you must connect to Sequel before requiring any models that inherit from Sequel::Model
 unless settings.test?
@@ -49,6 +50,9 @@ class DailyLager < Sinatra::Base
   error_logger = File.new(LOG_FILE, 'a')
   error_logger.sync = true
 
+  TWILIO_CONFIG_FILE      = File.expand_path('config/twilio.yml', File.dirname(__FILE__))
+  TWILIO_ACCOUNT_SID_HASH = YAML.load_file(TWILIO_CONFIG_FILE)[settings.environment.to_s]['account_sid_hash']
+
   before do
     # Note this is in a different scope than the other methods in this file
     # Link: http://spin.atomicobject.com/2013/11/12/production-logging-sinatra/
@@ -81,12 +85,20 @@ class DailyLager < Sinatra::Base
   post '/messages' do
     log_params
     content_type 'text/plain'
+
+    if sms_phone_number = params['From']
+      return error_message('invalid secret') unless from_twilio?
+      human = Human.find_or_create(phone_number: sms_phone_number)
+    elsif secret = params['secret']
+      human = Human.find(secret: secret)
+    end
+
+    return error_message('no human') unless human
+
     sms_body = params['Body']
-    sms_phone_number = params['From']
-    binding.pry
-    human = Human.find_or_create(phone_number: sms_phone_number)
-    return error_message unless human
-    return error_message if sms_body.nil?
+    return error_message('no body') if sms_body.nil?
+
+
     responder = Verb.new(sms_body, human).responder
     limit_160_chars(responder.response)
   end
@@ -101,8 +113,9 @@ class DailyLager < Sinatra::Base
     input[0..153] + '[snip]'
   end
 
-  def error_message
-    "Oops. We've encountered an error :("
+  def error_message(message=nil)
+    output = "Oops. We've encountered an error: '#{message}'"
+    limit_160_chars(output)
   end
 
   def log(text)
@@ -116,6 +129,17 @@ class DailyLager < Sinatra::Base
     hash = { Body: params[:Body],
              From: params[:From]}
     log("params: #{hash}")
+  end
+
+  def from_twilio?
+    # Verify that this request came from Twilio by comparing the 'AccountSid' parameter
+    # with the hashed version in the config file
+    return true if settings.development?
+    raise ArgumentError, 'TWILIO_ACCOUNT_SID_HASH not set' if TWILIO_ACCOUNT_SID_HASH.nil?
+
+    account_sid = params['AccountSid']
+
+    Util.sha1_match?(account_sid, TWILIO_ACCOUNT_SID_HASH)
   end
 end
 
