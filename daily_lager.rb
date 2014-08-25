@@ -51,7 +51,7 @@ class DailyLager < Sinatra::Base
   error_logger.sync = true
 
   TWILIO_CONFIG_FILE      = File.expand_path('config/twilio.yml', File.dirname(__FILE__))
-  TWILIO_ACCOUNT_SID_HASH = YAML.load_file(TWILIO_CONFIG_FILE)[settings.environment.to_s]['account_sid_hash']
+  TWILIO_ACCOUNT_SID_HASH = YAML.load_file(TWILIO_CONFIG_FILE)[settings.environment.to_s].try(:[], 'account_sid_hash')
 
   before do
     # Note this is in a different scope than the other methods in this file
@@ -89,22 +89,25 @@ class DailyLager < Sinatra::Base
     if sms_phone_number = params['From']
       return error_message('invalid secret') unless from_twilio?
       human = Human.find_or_create(phone_number: sms_phone_number)
-    elsif secret = params['secret']
+    elsif secret = params[:secret]
       human = Human.find(secret: secret)
+      return error_message('please provide the correct secret') unless human
     end
-
-    return error_message('no human') unless human
 
     sms_body = params['Body']
     return error_message('no body') if sms_body.nil?
-
 
     responder = Verb.new(sms_body, human).responder
     limit_160_chars(responder.response)
   end
 
   get '/message' do
-    File.read(File.join('views', 'messages', 'index.html'))
+    secret = params[:secret]
+    human = Human.find(secret: secret)
+
+    return error_message('please provide the correct secret') unless human
+
+    erb :'messages/index', locals: { human: human }
   end
 
   private

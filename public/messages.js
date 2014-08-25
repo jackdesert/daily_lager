@@ -19,8 +19,8 @@ var angular_app = angular.module('messages', [])
 
                   postMessage: function(){
                     log('in postMessage')
-                    data.shoveNewMessageIntoHistory()
                     data.sendMessageToServer()
+                    data.shoveNewMessageIntoHistory()
                   },
 
                   shoveNewMessageIntoHistory: function(){
@@ -33,7 +33,7 @@ var angular_app = angular.module('messages', [])
 
                   sendMessageToServer: function(){
                     var url = 'messages'
-                    var params = { params: { yo: 'there' } }
+                    var params = { Body: data.newMessage, secret: data.secret }
                     var config = null
                     log(params)
                     $http.post(url, params, config)

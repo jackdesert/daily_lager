@@ -1,3 +1,8 @@
+<%
+  human = locals[:human]
+  raise ArgumentError, 'No human provided' unless human.is_a?(Human)
+%>
+
 <!DOCTYPE html>
 <html ng-app='messages'>
     <head>
@@ -7,7 +12,7 @@
         -->
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
-    <body ng-controller='MessageCtrl'>
+    <body ng-controller='MessageCtrl' ng-init="data.secret='<%=human.secret%>'">
         <div id='history' >
             <div ng-repeat='item in data.savedHistory'>
                 <div ng-class='item.klass'>{{ item.text }}</div>
