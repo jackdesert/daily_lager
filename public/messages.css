@@ -1,0 +1,15 @@
+.incoming, .outgoing{
+  display: inline;
+  border-radius: 0.5rem;
+  padding: 0.2rem 3.7rem;
+}
+
+.incoming{
+  background-color: yellow;
+  margin-left: 7rem;
+}
+
+.outgoing{
+  background-color: orange;
+}
+

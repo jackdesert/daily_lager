@@ -23,6 +23,12 @@ var angular_app = angular.module('messages', [])
                     data.shoveNewMessageIntoHistory()
                   },
 
+                  shoveServerResponseIntoHistory: function(response_text){
+                    var newHistoryMessage = historyMessage(response_text, incoming)
+                    log('in shoveServerResponseIntoHistory')
+                    data.savedHistory.push(newHistoryMessage)
+                  },
+
                   shoveNewMessageIntoHistory: function(){
                     var newHistoryMessage = historyMessage(data.newMessage, outgoing)
                     log('in shoveNewMessageIntoHistory')
@@ -36,7 +42,9 @@ var angular_app = angular.module('messages', [])
                     var params = { Body: data.newMessage, secret: data.secret }
                     var config = null
                     log(params)
-                    $http.post(url, params, config)
+                    $http.post(url, params, config).success(function(response_text){
+                      data.shoveServerResponseIntoHistory(response_text)
+                    })
                   }
     }
 

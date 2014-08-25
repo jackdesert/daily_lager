@@ -102,7 +102,7 @@ describe 'POST /messages' do
       end
 
       it 'returns an error' do
-        subject.body.should == "Oops. We've encountered an error: 'no human'"
+        subject.body.should == "Oops. We've encountered an error: 'please provide the correct secret'"
       end
     end
   end
