@@ -23,22 +23,22 @@ describe Util do
     let(:text) { 'boogie' }
     let(:sha1) { 'f4ede03457e31b690c246fae952317858735806a' }
     context 'when sha1 is the sha1 hash of text' do
-      it { should be_true }
+      it { should be_truthy }
     end
 
     context 'when text and sha1 do not match' do
       let(:text) { 'something else' }
-      it { should be_false }
+      it { should be_falsey }
     end
 
     context 'when sha1 is nil' do
       let(:sha1) { nil }
-      it { should be_false }
+      it { should be_falsey }
     end
 
     context 'when text is nil' do
       let(:text) { nil }
-      it { should be_false }
+      it { should be_falsey }
     end
   end
 
@@ -46,12 +46,12 @@ describe Util do
     subject { described_class.hash_has_nonzero_value(hash) }
     context 'when all zeros' do
       let(:hash) { {a: 0, b: 0, c: 0} }
-      it { should be_false }
+      it { should be_falsey }
     end
 
     context 'when some nonzero' do
       let(:hash) { {a: 0, b: 15, c: 0} }
-      it { should be_true }
+      it { should be_truthy }
     end
   end
 end
