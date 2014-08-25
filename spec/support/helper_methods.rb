@@ -46,10 +46,6 @@ def verify_inappropriateness_of_all_other_klasses(array_of_arrays, klass, option
   end
 end
 
-def has_error_on?(attribute)
-  valid?
-  errors.has_key? attribute
-end
 
 def create(model_name, params={})
   case model_name

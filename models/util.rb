@@ -1,3 +1,5 @@
+require 'active_support/time'
+
 module Util
 
   class << self
@@ -6,7 +8,8 @@ module Util
     end
 
     def current_date_in_california
-      DateTime.now.in_time_zone('Pacific Time (US & Canada)').to_date
+      Time.zone = 'Pacific Time (US & Canada)'
+      Time.zone.now.to_date
     end
 
     def sha1_match?(text, sha1)

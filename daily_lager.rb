@@ -3,6 +3,8 @@ require 'pry'
 require 'sequel'
 require 'json'
 require 'yaml'
+require 'active_support/core_ext/object/try'
+require 'active_support/core_ext/object/blank'
 
 # Note you must connect to Sequel before requiring any models that inherit from Sequel::Model
 unless settings.test?

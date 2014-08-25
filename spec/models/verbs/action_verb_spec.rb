@@ -180,12 +180,16 @@ describe ActionVerb do
     subject { described_class.new(words, human) }
     context "when first word is 'y'" do
       let(:words) { ['y', '3', 'blah'] }
-      its(:effective_date) { should == Util.current_date_in_california - 1}
+      it do
+        subject.effective_date.should == Util.current_date_in_california - 1
+      end
     end
 
     context "when first word is an integer" do
       let(:words) { ['3', 'blah'] }
-      its(:effective_date) { should == Util.current_date_in_california }
+      it do
+        subject.effective_date.should == Util.current_date_in_california
+      end
     end
   end
 

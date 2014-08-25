@@ -41,6 +41,7 @@ require_relative '../models/verbs/update_default_verb'
 require_relative '../models/verbs/yesterday_verb'
 require_relative '../presenters/history_presenter'
 require_relative './support/helper_methods'
+require_relative './support/sequel_model'
 
 RSpec.configure do |config|
   config.mock_with :rr
