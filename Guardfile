@@ -3,10 +3,10 @@
 
 group :views do
   guard 'livereload' do
-    watch(%r{app/views/.+\.(erb|haml|slim)$})
-    watch(%r{app/helpers/.+\.rb})
-    # Rails Assets Pipeline
-    watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
+    watch(%r{views/.+\.(erb|haml|slim)$})
+    watch(%r{helpers/.+\.rb})
+    watch(%r{public/.+css})
+    watch(%r{public/.+js})
   end
 end
 
