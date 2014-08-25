@@ -42,8 +42,13 @@ var angular_app = angular.module('messages', [])
                     var params = { Body: data.newMessage, secret: data.secret }
                     var config = null
                     log(params)
-                    $http.post(url, params, config).success(function(response_text){
+                    $http.post(url, params, config)
+                    .success(function(response_text){
                       data.shoveServerResponseIntoHistory(response_text)
+                    })
+                    .error(function(){
+                      var error_message = 'Something BAD happened. Try again'
+                      data.shoveServerResponseIntoHistory(error_message)
                     })
                   }
     }

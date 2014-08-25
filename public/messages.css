@@ -1,7 +1,8 @@
 .incoming, .outgoing{
-  display: inline;
+  max-width: 20rem;
+  display: inline-block;
   border-radius: 0.5rem;
-  padding: 0.2rem 13.7rem;
+  padding: 0.2rem 0.7rem;
 }
 
 .incoming{
