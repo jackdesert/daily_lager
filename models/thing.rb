@@ -32,7 +32,7 @@ class Thing < Sequel::Model
   def total_value_for_date(date)
     occurrences_dataset.where(date: date).select_append{sum(value).as(total_for_date)}.first.values[:total_for_date] || 0
   end
-    
+
   def create_todays_default_occurrence
     add_occurrence(value: default_value)
   end
@@ -41,11 +41,6 @@ class Thing < Sequel::Model
 
   def occurrence_exists_for_date(date)
     occurrences.any? { |f| f.date == date }
-  end
-
-  def persisted?
-    # Remove this method once durable storage is in place
-    true
   end
 
   class << self

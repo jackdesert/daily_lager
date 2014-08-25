@@ -181,14 +181,14 @@ describe ActionVerb do
     context "when first word is 'y'" do
       let(:words) { ['y', '3', 'blah'] }
       it do
-        subject.effective_date.should == Util.current_date_in_california - 1
+        subject.send(:effective_date).should == Util.current_date_in_california - 1
       end
     end
 
     context "when first word is an integer" do
       let(:words) { ['3', 'blah'] }
       it do
-        subject.effective_date.should == Util.current_date_in_california
+        subject.send(:effective_date).should == Util.current_date_in_california
       end
     end
   end
