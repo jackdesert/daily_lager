@@ -1,6 +1,6 @@
 class HistoryVerb < Verb
   HISTORY_URI = 'http://history.jackdesert.com/'
-  WEB_URI = 'http://jackdesert.com/messages'
+  WEB_URI = 'http://sms.jackdesert.com/messages'
 
   def process
     <<EOF
