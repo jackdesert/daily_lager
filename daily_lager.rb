@@ -64,7 +64,7 @@ class DailyLager < Sinatra::Base
   before do
     # Angular sends data as a bonafide POST with a JSON body, so we must catch it
     # http://stackoverflow.com/questions/12131763/sinatra-controller-params-method-coming-in-empty-on-json-post-request
-    if request.request_method == "POST"
+    if request.content_type.try(:downcase) == 'application/json'
       body_parameters = request.body.read
       params.merge!(JSON.parse(body_parameters))
     end
